@@ -4,9 +4,7 @@ Some files for the inagural fullstack course of 2024.
 
 ![Stonks banner](./fullstack.png) 
 
-## Snippets
-
-**Terminal**
+## Running Dotnet
 
 [Get started with dotnet - Microsoft](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-8.0&tabs=visual-studio-code) 
 
@@ -38,7 +36,7 @@ dotnet run
 dotnet watch
 ```
 
-**Templates**
+## Snippets
 
 - New view file (cshtml)
 
