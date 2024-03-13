@@ -1,5 +1,4 @@
 using helloworld.Models;
-using helloworld.Models.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace helloworld.Controllers
@@ -10,6 +9,7 @@ namespace helloworld.Controllers
 		public IActionResult Index()
 		{
 			var work = new WorkOrderModel();
+            work.Workers.Add(new Worker());
 			return View(work);
 		}
 	}

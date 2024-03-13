@@ -1,0 +1,44 @@
+@model workorder.Models.WorkOrderViewModel
+@{
+  ViewData["Title"] = "Work Order page";
+}
+
+<div class="text-center mb-5">
+  <h1 class="display-4">Hello from Work</h1>
+  <p>Work contact person is <strong>@Model.contactPerson</strong></p>
+  <p>@Model.workId</p>
+  <p>@Model.customer.contactPerson - @Model.customer.businessName</p>
+  <p>Work address: @Model.address</p>
+</div>
+
+<div class="text-center">
+  <h2>Workers on this project <span>(@Model.workers.Count)</span></h2>
+  <ul>
+    @foreach (var worker in Model.workers)
+    {
+      <li>@worker.name - @worker.title</li>
+    }
+  </ul>
+  <p>in total there are</p>
+  <table class="mx-auto">
+    <tr id="work_titles" style="border: 1px solid black;">
+      <th class="border-2 py-1 px-2" data-amount="@Model._directors">Directors</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._security">Security</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._escorts">Escorts</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._tmas">TMA's</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._diggers">Diggers</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._saws">Saws</th>
+      <th class="border-2 py-1 px-2" data-amount="@Model._others">Others</th>
+    </tr>
+
+    <tr>
+      <td>@Model._directors</td>
+      <td>@Model._security</td>
+      <td>@Model._escorts</td>
+      <td>@Model._tmas</td>
+      <td>@Model._diggers</td>
+      <td>@Model._saws</td>
+      <td>@Model._others</td>
+    </tr>
+  </table>
+</div>

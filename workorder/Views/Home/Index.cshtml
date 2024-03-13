@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts {
+  <script defer>
+  const amountField = document.querySelector('form > input[type="number"]');
+  const moreButton = document.querySelector('form > input[value="more"]');
+  const lessButton = document.querySelector('form > input[value="less"]');
+  const rangeField = document.querySelector('form > input[type="range"]');
+
+  moreButton.addEventListener('click', () => {
+    amountField.value = parseInt(amountField.value) + 1;
+  });
+  lessButton.addEventListener('click', () => {
+    currentAmount = parseInt(amountField.value);
+    // don't allow negative values
+    amountField.value = currentAmount > 0 ? currentAmount - 1 : 0;
+  });
+  rangeField.addEventListener('input', () => {
+    amountField.value = rangeField.value;
+  });
+  </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form action="/work">
+    <label for="amount">Amount of workers</label>
+    <br>
+    <input type="button" value="less">
+    <input type="button" value="more">
+    <input type="number" id="amount", name="amount" value="10">
+    <input type="submit" value="Submit">
+      <br>
+    <input type="range" name="range_amount" value="10" min="0" max="100">
+    </form>
+</div>
