@@ -48,20 +48,24 @@ namespace workorder.Models
             get => this.workers.Where(w => w.title == Worker.Title.other).Count();
         }
 
+        public struct Props
+        {
+            public string? startTimeEstimate;
+            public string? description;
+            public string? hiddenDescription;
+        }
+
         // constructor
-        public WorkOrderViewModel(
-                string? startTimeEstimate = null,
-                string? description = null,
-                string? hiddenDescription = null)
+        public WorkOrderViewModel(Props props = default)
         {
             var rnd = new Random();
             this.startDate = DateTimeOffset.Now.ToUnixTimeSeconds();
             this.endDate = DateTimeOffset.Now.AddDays(rnd.Next(10)).ToUnixTimeSeconds();
             this.address = $"Tietäjäntie {rnd.Next(255)}, 11{rnd.Next(999)} Riihimäki";
             // optional parameters
-            this.startTimeEstimate = startTimeEstimate;
-            this.description = description;
-            this.hiddenDescription = hiddenDescription;
+            this.startTimeEstimate = props.startTimeEstimate;
+            this.description = props.description;
+            this.hiddenDescription = props.hiddenDescription;
         }
     }
 }
