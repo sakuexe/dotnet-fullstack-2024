@@ -1,0 +1,36 @@
+﻿@model helloworld.Models.MoneyViewModel // gives type to the context's model
+@using helloworld.Models.Utils
+@using helloworld.Models
+
+@{
+    ViewData["title"] = "Moneyyyyy";
+    string test = "this is a test";
+    test += " and so is this";
+
+    var otherPeople = new List<TestPersonModel>();
+    @foreach (int value in Enumerable.Range(1, 10))
+    {
+        otherPeople.Append(Personator.CreatePerson());
+    }
+}
+
+<h1>Hello From Moneys</h1>
+<p>@test</p>
+
+<h2>@Model.PersonCount persons</h2>
+
+<table style="width:100%">
+    <tr style="border: 2px solid black">
+        <th>Nimi</th>
+        <th>Ikä</th>
+        <th>Bio</th>
+    </tr>
+    @foreach (var person in Model.Persons)
+    {
+        <tr>
+            <td>@person.name</td>
+            <td>@person.age</td>
+            <td>@person.description</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts {
+    <script defer>
+        const people_num = document.querySelector('#people_amount');
+        const search_link = document.querySelector('#search_link');
+        console.log(people_num, search_link);
+        people_num.onchange = function () {
+            let amount = people_num.value;
+            try {
+                amount = parseInt(amount);
+            } catch (error) {
+                console.error(error);
+                people_num.value = 1;
+            }
+            search_link.href = `/money?amount=${people_num.value}`;
+        }
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <input type="text" name="people_amount" id="people_amount" value="10">
+    <a id="search_link" href="/money?amount=10">See random people</a>
+</div>
