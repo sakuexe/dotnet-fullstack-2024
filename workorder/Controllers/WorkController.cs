@@ -13,7 +13,7 @@ namespace workorder.Controllers
 
             // use the props to set the nullable values
             var workProps = new WorkOrderViewModel.Props();
-            workProps.startTimeEstimate = "about... 8:00.... maybe..";
+            // workProps.startTimeEstimate = "about... 8:00.... maybe..";
             workProps.description = "This is a test work order";
             /* workProps.hiddenDescription = "This is a hidden description"; */
 

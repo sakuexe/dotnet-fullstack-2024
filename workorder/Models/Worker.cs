@@ -23,13 +23,16 @@ namespace workorder.Models
         {
             var rnd = new Random();
             var titles = Enum.GetValues(typeof(Title));
-            var randomTitle = titles.GetValue(rnd.Next(titles.Length));
-
             this.name = name ?? Personator.CreateName();
+
             if (title != null)
+            {
                 this.title = (Title)title;
-            else
-                this.title = (Title?)randomTitle ?? Title.other;
+                return;
+            }
+
+            var randomTitle = titles.GetValue(rnd.Next(titles.Length));
+            this.title = (Title?)randomTitle ?? Title.other;
         }
     }
 }

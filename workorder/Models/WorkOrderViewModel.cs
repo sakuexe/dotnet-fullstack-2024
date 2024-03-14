@@ -9,7 +9,7 @@ namespace workorder.Models
         // random work id, made the number a big one to TRY to avoid duplicates
         public int workId { get => new Random().Next(10, 999999); }
         public int referenceNumber { get => new Random().Next(1000, 99999); }
-        public string contactPerson { get; set; } = Personator.CreateName();
+        public string dpContact { get; set; } = Personator.CreateName();
         public CustomerModel customer { get => new CustomerModel(); }
         public long startDate { get; set; }
         public long endDate { get; set; }
@@ -19,33 +19,33 @@ namespace workorder.Models
         public string address { get; set; }
         public List<Worker> workers { get; set; } = new List<Worker>();
         // counts of workers on the job
-        public int _directors
+        public int directors
         {
-            get => this.workers.Where(w => w.title == Worker.Title.director).Count();
+            get => workers.Where(w => w.title == Worker.Title.director).Count();
         }
-        public int _security
+        public int security
         {
-            get => this.workers.Where(w => w.title == Worker.Title.security).Count();
+            get => workers.Where(w => w.title == Worker.Title.security).Count();
         }
-        public int _escorts
+        public int escorts
         {
-            get => this.workers.Where(w => w.title == Worker.Title.escort).Count();
+            get => workers.Where(w => w.title == Worker.Title.escort).Count();
         }
-        public int _tmas
+        public int tmas
         {
-            get => this.workers.Where(w => w.title == Worker.Title.tma).Count();
+            get => workers.Where(w => w.title == Worker.Title.tma).Count();
         }
-        public int _diggers
+        public int diggers
         {
-            get => this.workers.Where(w => w.title == Worker.Title.digger).Count();
+            get => workers.Where(w => w.title == Worker.Title.digger).Count();
         }
-        public int _saws
+        public int saws
         {
-            get => this.workers.Where(w => w.title == Worker.Title.saw).Count();
+            get => workers.Where(w => w.title == Worker.Title.saw).Count();
         }
-        public int _others
+        public int others
         {
-            get => this.workers.Where(w => w.title == Worker.Title.other).Count();
+            get => workers.Where(w => w.title == Worker.Title.other).Count();
         }
 
         public struct Props
@@ -61,9 +61,10 @@ namespace workorder.Models
             var rnd = new Random();
             this.startDate = DateTimeOffset.Now.ToUnixTimeSeconds();
             this.endDate = DateTimeOffset.Now.AddDays(rnd.Next(10)).ToUnixTimeSeconds();
+            this.startTimeEstimate = $"{rnd.Next(6, 24)}:00";
             this.address = $"Tietäjäntie {rnd.Next(255)}, 11{rnd.Next(999)} Riihimäki";
             // optional parameters
-            this.startTimeEstimate = props.startTimeEstimate;
+            this.startTimeEstimate = props.startTimeEstimate ?? this.startTimeEstimate;
             this.description = props.description;
             this.hiddenDescription = props.hiddenDescription;
         }

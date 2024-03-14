@@ -3,42 +3,55 @@
   ViewData["Title"] = "Work Order page";
 }
 
+@section Styles {
+  <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+}
+
 <div class="text-center mb-5">
-  <h1 class="display-4">Hello from Work</h1>
-  <p>Work contact person is <strong>@Model.contactPerson</strong></p>
-  <p>@Model.workId</p>
-  <p>@Model.customer.contactPerson - @Model.customer.businessName</p>
-  <p>Work address: @Model.address</p>
+  <h1 class="text-green-500 text-2xl font-bold">Hello from Work</h1>
 </div>
 
-<div class="text-center">
-  <h2>Workers on this project <span>(@Model.workers.Count)</span></h2>
-  <ul>
-    @foreach (var worker in Model.workers)
-    {
-      <li>@worker.name - @worker.title</li>
-    }
-  </ul>
-  <p>in total there are</p>
-  <table class="mx-auto">
-    <tr id="work_titles" style="border: 1px solid black;">
-      <th class="border-2 py-1 px-2" data-amount="@Model._directors">Directors</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._security">Security</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._escorts">Escorts</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._tmas">TMA's</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._diggers">Diggers</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._saws">Saws</th>
-      <th class="border-2 py-1 px-2" data-amount="@Model._others">Others</th>
-    </tr>
-
+<div>
+  <table>
     <tr>
-      <td>@Model._directors</td>
-      <td>@Model._security</td>
-      <td>@Model._escorts</td>
-      <td>@Model._tmas</td>
-      <td>@Model._diggers</td>
-      <td>@Model._saws</td>
-      <td>@Model._others</td>
+      <th>DP13 Yhteyshenkilö</th>
+      <th>Asiakasyritys</th>
+      <th>Asiakkaan yhteyshenkilö</th>
+      <th>Alkupvm</th>
+      <th>Loppupvm</th>
+      <th>Aloutusaika</th>
+      <th>Lisätiedot määräimelle</th>
+      <th>Lisätiedot ei määäimelle</th>
+      <th>Tilaajan viite</th>
+      <th>Job ID</th>
+      <th>Työmaan Osoite</th>
+      <th>Ohj</th>
+      <th>Järkkä</th>
+      <th>Saatto</th>
+      <th>TMA</th>
+      <th>Kaivot</th>
+      <th>Sahaus</th>
+      <th>Muu</th>
+    </tr>
+    <tr>
+      <td>@Model.dpContact</td>
+      <td>@Model.customer.businessName</td>
+      <td>@Model.customer.contactPerson</td>
+      <td>@Model.startDate</td>
+      <td>@Model.endDate</td>
+      <td>@(Model.startTimeEstimate ?? "No estimate")</td>
+      <td>@(Model.description ?? "Empty")</td>
+      <td>@(Model.hiddenDescription ?? "Empty")</td>
+      <td>@Model.referenceNumber</td>
+      <td>@Model.workId</td>
+      <td>@Model.address</td>
+      <td>@Model.directors</td>
+      <td>@Model.security</td>
+      <td>@Model.escorts</td>
+      <td>@Model.tmas</td>
+      <td>@Model.diggers</td>
+      <td>@Model.saws</td>
+      <td>@Model.others</td>
     </tr>
   </table>
 </div>
