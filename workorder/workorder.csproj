@@ -6,4 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <UpToDateCheckBuild Include="wwwroot/css/site.css" Set="Css" />
+    <UpToDateCheckBuild Include="tailwind.config.js" Set="Css" />
+  </ItemGroup>
+
+  <Target Name="TailwindUnix" BeforeTargets="Build" Condition="'$(OS)' != 'Windows_NT'">
+    <!-- Runs the tailwind executable pre-build, this is the Linux/Mac version -->
+    <Exec Command="./tailwindcss -i wwwroot/css/site.css -o wwwroot/css/tailwind.css" />
+  </Target>
+
+  <Target Name="TailwindWindows" BeforeTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
+    <!-- Runs the tailwind executable pre-build, this is the Windows version -->
+    <Exec Command=".\tailwindcss.exe -i wwwroot\css\site.css -o wwwroot\css\tailwind.css" />
+  </Target>
+
 </Project>
