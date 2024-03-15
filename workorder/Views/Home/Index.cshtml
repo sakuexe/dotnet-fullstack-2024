@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
 
 @section Scripts {
-  <script defer>
+<script defer>
   const amountField = document.querySelector('form > input[type="number"]');
   const moreButton = document.querySelector('form > input[value="more"]');
   const lessButton = document.querySelector('form > input[value="less"]');
@@ -20,24 +20,22 @@
   rangeField.addEventListener('input', () => {
     amountField.value = rangeField.value;
   });
-  </script>
+</script>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <form action="/work">
+<div class="flex flex-col items-center justify-center gap-6 min-h-[85vh]">
+  <div class="text-center max-w-lg mx-auto">
+    <h1 class="text-4xl font-bold text-primary-800">Tervetuloa</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint cumque quaerat obcaecati?</p>
+  </div>
+  <form action="/work">
     <label for="amount">Amount of workers</label>
     <br>
     <input type="button" value="less">
     <input type="button" value="more">
-    <input type="number" id="amount", name="amount" value="10">
+    <input type="number" id="amount" , name="amount" value="10">
     <input type="submit" value="Submit">
-      <br>
-    <input type="range" name="range_amount" value="10" min="0" max="100">
-    </form>
-</div>
-
-<div>
-  <h2 class="text-green-500 text-center w-full text-4xl">Tailwind testing</h2>
+    <br>
+    <input type="range" name="range_amount" value="10" min="0" max="100" class="w-full">
+  </form>
 </div>

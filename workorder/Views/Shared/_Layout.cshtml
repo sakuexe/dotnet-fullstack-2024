@@ -2,53 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - workorder</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/workorder.styles.css" asp-append-version="true" />
-    @await RenderSectionAsync("Styles", required: false)
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - workorder</title>
+  <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/workorder.styles.css" asp-append-version="true" />
+  @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">workorder</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<body class="bg-neutral-100 text-primary">
+  <header>
+    <nav class="flex justify-between px-5 py-2 border-primary border-b-2">
+      <div class="flex gap-x-6 items-center">
+        <a href="/" class="flex items-center gap-3">
+          <img src="~/images/jadeworks-logo.webp" alt="" width="60" height="60">
+          <p class="uppercase font-extrabold text-primary">Jadework</p>
+        </a>
+        <p>Suunittelu</p>
+        <p><a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a></p>
+        <p>Asiakkaat</p>
+        <p>Hallinta</p>
+      </div>
+      <div class="flex gap-x-6 items-center">
+        <p>Käyttäjä</p>
+        <p>Viestit</p>
+        <p>Asetukset</p>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="pb-3">
+    @RenderBody()
+  </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - workorder - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+  <footer class="border-primary border-t-2 footer">
+    <div class="container mx-auto px-5 opacity-75">
+      &copy; 2024 - Jadework - <a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a>
+    </div>
+  </footer>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
