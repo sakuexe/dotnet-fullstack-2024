@@ -1,15 +1,20 @@
-<div class="workorder space-y-2 max-w-[1720px] mx-auto">
+<div class="workorder space-y-2 max-w-[1720px] mx-auto print:text-sm print:break-inside-avoid">
   <div class="flex items-center gap-3 font-bold min-w-[800px]">
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
-    <h2 class="text-lg grow">ID: @Model.workId - @Model.customer.businessName (@Model.customer.customerId)</h2>
-    <button class="button bg-@(Model.status) text-neutral-50">Työntekijät</button>
-    <button class="button bg-@(Model.status) text-neutral-50">Muokkaa</button>
+    <h2 class="text-base grow">
+      ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
+      - @Model.customer.businessName 
+      (<span class="customer_id cursor-pointer underline print:no-underline">@Model.customer.customerId</span>)
+    </h2>
+    <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
+    <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Muokkaa</button>
   </div>
   <div>
     <div class="grid grid-cols-6 grid-rows-2 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
       [&>div>*:not(.small)]:p-2
-      [&_.header]:text-primary-50 [&_.header]:font-bold
-      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center [&_.content]:bg-stone-100">
+      [&_.header]:text-primary-50 [&_.header]:font-bold [&_.header]:print:text-white
+      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center 
+      [&_.content]:bg-stone-100 [&_.content]:print:bg-white">
       <!-- Row 1 -->
       <div>
         <div class="header">

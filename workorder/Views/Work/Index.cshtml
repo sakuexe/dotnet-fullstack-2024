@@ -5,12 +5,27 @@ ViewData["Title"] = "Work Order page";
 }
 
 @section Scripts {
-<script>
+<script defer>
   const preloadColors = ["bg-luonnos", "bg-hylatty", "bg-laskutettu", "bg-odottaa", "bg-kuitattu"];
+  const ids = document.querySelectorAll("span.work_id, span.customer_id");
+
+  for (const id of ids) {
+    id.addEventListener("click", (event) => {
+      const originalText = event.target.textContent;
+      // copy the text of the element to the clipboard
+      navigator.clipboard.writeText(originalText);
+      event.target.classList.toggle("underline");
+      event.target.textContent = "Kopioitu!";
+      setTimeout(() => {
+        event.target.textContent = originalText;
+        event.target.classList.toggle("underline");
+      }, 1000);
+    });
+  }
 </script>
 }
 
-<section class="space-y-6 py-20">
+<section class="space-y-6 py-20 print:py-6 print:space-y-2">
   @foreach (var workOrder in Model)
   {
   <partial name="_WorkOrder" model="workOrder" />

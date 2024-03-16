@@ -4,19 +4,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>@ViewData["Title"] - workorder</title>
+  <title>@ViewData["Title"] - Jadework</title>
   <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/workorder.styles.css" asp-append-version="true" />
   @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body class="bg-stone-200 text-primary">
-  <header class="bg-stone-100">
+<body class="bg-stone-200 text-primary min-w-[900px] print:bg-white print:text-black">
+  <header class="bg-stone-100 print:hidden">
     <nav class="flex justify-between px-5 py-2 border-primary border-b-4">
       <div class="flex gap-x-6 items-center">
         <a href="/" class="flex items-center gap-3">
           <img src="~/images/jadeworks-logo.webp" alt="Jadework's logo" width="60" height="60">
-          <p class="uppercase font-extrabold text-primary">Jadework</p>
+          <p class="uppercase font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-teal-600">Jadework</p>
         </a>
         <p>Suunittelu</p>
         <p><a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a></p>
@@ -24,23 +24,32 @@
         <p>Hallinta</p>
       </div>
       <div class="flex gap-x-6 items-center">
-        <p>Käyttäjä</p>
-        <p>Viestit</p>
-        <p>Asetukset</p>
+        <a href="">
+          <img src="~/images/user.svg" alt="käyttäjä kuvake" loading="lazy" decoding="async"
+          width="32" height="32">
+        </a>
+        <a href="">
+          <img src="~/images/notifications.svg" alt="käyttäjä kuvake" loading="lazy" decoding="async"
+          width="30" height="30">
+        </a>
+        <a href="">
+          <img src="~/images/settings.svg" alt="käyttäjä kuvake" loading="lazy" decoding="async"
+          width="30" height="30">
+        </a>
       </div>
     </nav>
   </header>
 
-  <main role="main" class="pb-3 overflow-x-auto px-5">
+  <main role="main" class="pb-3 overflow-x-auto px-5 print:overflow-visible">
     @RenderBody()
   </main>
 
-  <footer class="border-primary border-t-2 footer bg-stone-100">
+  <footer class="border-primary border-t-2 footer bg-stone-100 print:hidden">
     <div class="container mx-auto px-5 opacity-75">
-      &copy; 2024 - Jadework - <a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a>
+      &copy; 2024 - Saku Karttunen - <a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a>
     </div>
   </footer>
-  <script src="~/js/site.js" asp-append-version="true"></script>
+  <!-- <script src="~/js/site.js" asp-append-version="true"></script> -->
   @await RenderSectionAsync("Scripts", required: false)
 </body>
 

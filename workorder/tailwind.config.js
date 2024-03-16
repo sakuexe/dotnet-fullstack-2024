@@ -29,7 +29,11 @@ module.exports = {
         'laskutettu': '#202E05',
         'odottaa': '#1A4963',
         'kuitattu': '#52564A',
-      }
+      },
+      fontFamily: {
+        'sans': ['Inter', 'sans-serif'],
+        'serif': ['Merriweather', 'serif'],
+      },
     },
   },
   plugins: [],

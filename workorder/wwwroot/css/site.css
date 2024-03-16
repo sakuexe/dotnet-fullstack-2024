@@ -29,3 +29,9 @@ body {
 .button {
   @apply px-6 py-2 min-w-40 transition-all hover:brightness-150;
 }
+
+@media print {
+  body {
+    zoom: 50%;
+  }
+}
