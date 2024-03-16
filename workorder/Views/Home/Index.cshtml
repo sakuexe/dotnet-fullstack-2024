@@ -44,6 +44,7 @@ ViewData["Title"] = "Index";
     height: 3.5rem;
     transition: filter 0.2s;
   }
+
   input[type="range"]::-webkit-slider-thumb:hover {
     filter: brightness(2);
   }
@@ -81,7 +82,7 @@ ViewData["Title"] = "Index";
         -
       </button>
 
-      <input type="range" name="range_amount" value="10" min="0" max="100" aria-label="Työmääräimien määrä slider"
+      <input type="range" name="range_amount" value="10" min="1" max="100" aria-label="Työmääräimien määrä slider"
         class="w-full appearance-none cursor-pointer bg-stone-200">
 
       <button id="increase" type="button"
@@ -89,6 +90,7 @@ ViewData["Title"] = "Index";
         +
       </button>
     </div>
-    <button type="submit" class="border-4 border-primary p-2 transition-all bg-primary text-stone-100 hover:bg-transparent hover:text-primary">Lataa</button>
+    <button type="submit"
+      class="border-4 border-primary p-2 transition-all bg-primary text-stone-100 hover:bg-transparent hover:text-primary">Lataa</button>
   </form>
 </div>

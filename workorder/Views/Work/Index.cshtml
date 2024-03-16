@@ -8,18 +8,38 @@ ViewData["Title"] = "Work Order page";
 <script defer>
   const preloadColors = ["bg-luonnos", "bg-hylatty", "bg-laskutettu", "bg-odottaa", "bg-kuitattu"];
   const ids = document.querySelectorAll("span.work_id, span.customer_id");
+  const descriptions = document.querySelectorAll("div.description");
+
+  function copyToClipboard(target) {
+    const originalText = event.target.textContent;
+    // copy the text of the element to the clipboard
+    navigator.clipboard.writeText(originalText);
+    event.target.classList.toggle("underline");
+    event.target.textContent = "Kopioitu!";
+    setTimeout(() => {
+      event.target.textContent = originalText;
+      event.target.classList.toggle("underline");
+    }, 1000);
+  }
 
   for (const id of ids) {
-    id.addEventListener("click", (event) => {
-      const originalText = event.target.textContent;
-      // copy the text of the element to the clipboard
-      navigator.clipboard.writeText(originalText);
-      event.target.classList.toggle("underline");
-      event.target.textContent = "Kopioitu!";
-      setTimeout(() => {
-        event.target.textContent = originalText;
-        event.target.classList.toggle("underline");
-      }, 1000);
+    id.addEventListener("click", (event) => copyToClipboard(event.target));
+  }
+
+  function checkForOverflow(ptag) {
+    return ptag.scrollHeight > ptag.clientHeight;
+  }
+
+  for (const description of descriptions) {
+    const ptag = description.querySelector(".content > p");
+    if (!checkForOverflow(ptag)) {
+      continue
+    }
+    const button = description.querySelector("button");
+    button.classList.remove("hidden");
+    button.addEventListener("click", () => {
+      ptag.classList.toggle("line-clamp-2");
+      ptag.classList.toggle("line-clamp-none");
     });
   }
 </script>

@@ -3,84 +3,87 @@
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
     <h2 class="text-base grow">
       ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
-      - @Model.customer.businessName 
+      - @Model.customer.businessName
       (<span class="customer_id cursor-pointer underline print:no-underline">@Model.customer.customerId</span>)
     </h2>
     <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
     <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Muokkaa</button>
   </div>
   <div>
-    <div class="grid grid-cols-6 grid-rows-2 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
-      [&>div>*:not(.small)]:p-2
+    <div class="grid grid-cols-6 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
+      [&>div>*:not(.small)]:p-2 [&>div>.small]:flex [&>div>.small]:flex-col
       [&_.header]:text-primary-50 [&_.header]:font-bold [&_.header]:print:text-white
-      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center 
+      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center [&_.content]:grow
       [&_.content]:bg-stone-100 [&_.content]:print:bg-white">
+
       <!-- Row 1 -->
-      <div>
+      <div class="flex flex-col">
         <div class="header">
           <p>DP13 Yhteyshenkilö</p>
         </div>
-        <div class="content">
+        <div class="content grow">
           <p>@Model.dpContact</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <div class="header">
-          <p>Asiakkaan yhteyshenkilö</p>
+          <p>Asiakkaan yhteyshenkilöt</p>
         </div>
-        <div class="content">
-          <p>@Model.customer.contactPerson</p>
+        <div class="content grow">
+          <p>@Model.customer.contacts</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <div class="header">
           <p>Työpaikan osoite</p>
         </div>
-        <div class="content">
+        <div class="content grow">
           <p>@Model.address</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <div class="header">
           <p>Alkupvm</p>
         </div>
-        <div class="content">
+        <div class="content grow">
           <p>@Model.startDate</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <div class="header">
           <p>Loppupvm</p>
         </div>
-        <div class="content">
+        <div class="content grow">
           <p>@Model.endDate</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <div class="header">
           <p>Alkuaika (oletettu)</p>
         </div>
-        <div class="content">
+        <div class="content grow">
           <p>@(Model.startTimeEstimate ?? "Ei listattu")</p>
         </div>
       </div>
 
       <!-- Row 2 -->
-      <div class="col-span-2">
+      <div class="col-span-2 flex flex-col description">
         <div class="header">
           <p>Listätiedot Määräimelle</p>
         </div>
-        <div class="content">
-          <p>@(Model.description ?? "Ei lisätietoja")</p>
+        <div class="content grow">
+          <p class="line-clamp-3 print:line-clamp-none">@(Model.description ?? "Ei lisätietoja")</p>
         </div>
+        <button class="hidden readmore button bg-@(Model.status) w-full text-stone-100 print:hidden">Lue lisää</button>
       </div>
-      <div class="col-span-2">
+      <div class="col-span-2 flex flex-col description">
         <div class="header">
           <p>Listätiedot Ei Määräimelle</p>
         </div>
-        <div class="content">
-          <p>@(Model.hiddenDescription ?? "Ei listätietoja")</p>
+        <div class="content grow">
+          <p class="line-clamp-3 print:line-clamp-none">@(Model.hiddenDescription ?? "Ei listätietoja")</p>
         </div>
+        <button class="hidden readmore button bg-@(Model.status) w-full text-stone-100 print:hidden">Lue lisää</button>
       </div>
 
       <!-- Role counts -->

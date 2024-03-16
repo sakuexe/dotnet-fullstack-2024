@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using workorder.Models.Utils;
 
 namespace workorder.Models
@@ -80,8 +81,11 @@ namespace workorder.Models
             }
             // optional parameters
             this.startTimeEstimate = props.startTimeEstimate ?? this.startTimeEstimate;
-            this.description = props.description;
-            this.hiddenDescription = props.hiddenDescription;
+            // benchmarking two ways of reading files
+            var watch = Stopwatch.StartNew();
+            this.description = props.description ?? TextGenerator.GenerateRandomText(rnd.Next(5, 40));
+            watch.Stop();
+            this.hiddenDescription = $"Lisätietojen luomisessa kesti {watch.ElapsedMilliseconds}ms";
         }
     }
 }

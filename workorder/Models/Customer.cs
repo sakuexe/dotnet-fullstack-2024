@@ -8,7 +8,7 @@ namespace workorder.Models
         // random customer id, made the number a big one to TRY to avoid duplicates
         public int customerId { get => new Random().Next(10, 999999); }
         public string businessName { get; set; }
-        public string contactPerson { get; set; }
+        public string contacts { get; set; }
         // random business names, to generate a random business name
         private static List<string> _businessNames
         {
@@ -33,8 +33,12 @@ namespace workorder.Models
         // constructor
         public CustomerModel()
         {
+            var rnd = new Random();
             this.businessName = _businessNames[new Random().Next(_businessNames.Count)];
-            this.contactPerson = Personator.CreateName();
+            this.contacts = Personator.CreateName();
+            // if you want to generate multiple contact people
+            for (int i = 0; i < rnd.Next(3); i++)
+                this.contacts += ", " + Personator.CreateName();
         }
 
     }
