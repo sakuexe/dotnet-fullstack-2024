@@ -1,53 +1,18 @@
-@model workorder.Models.WorkOrderViewModel
+@model List<workorder.Models.WorkOrderViewModel>
+
 @{
-  ViewData["Title"] = "Work Order page";
+ViewData["Title"] = "Work Order page";
 }
 
-<div class="text-center mb-5">
-  <h1 class="text-green-500 text-2xl font-bold">Hello from Work</h1>
-</div>
+@section Scripts {
+<script>
+  const preloadColors = ["bg-luonnos", "bg-hylatty", "bg-laskutettu", "bg-odottaa", "bg-kuitattu"];
+</script>
+}
 
-<div>
-  <table>
-    <tr>
-      <th>DP13 Yhteyshenkilö</th>
-      <th>Asiakasyritys</th>
-      <th>Asiakkaan yhteyshenkilö</th>
-      <th>Alkupvm</th>
-      <th>Loppupvm</th>
-      <th>Aloutusaika</th>
-      <th>Lisätiedot määräimelle</th>
-      <th>Lisätiedot ei määäimelle</th>
-      <th>Tilaajan viite</th>
-      <th>Job ID</th>
-      <th>Työmaan Osoite</th>
-      <th>Ohj</th>
-      <th>Järkkä</th>
-      <th>Saatto</th>
-      <th>TMA</th>
-      <th>Kaivot</th>
-      <th>Sahaus</th>
-      <th>Muu</th>
-    </tr>
-    <tr>
-      <td>@Model.dpContact</td>
-      <td>@Model.customer.businessName</td>
-      <td>@Model.customer.contactPerson</td>
-      <td>@Model.startDate</td>
-      <td>@Model.endDate</td>
-      <td>@(Model.startTimeEstimate ?? "No estimate")</td>
-      <td>@(Model.description ?? "Empty")</td>
-      <td>@(Model.hiddenDescription ?? "Empty")</td>
-      <td>@Model.referenceNumber</td>
-      <td>@Model.workId</td>
-      <td>@Model.address</td>
-      <td>@Model.directors</td>
-      <td>@Model.security</td>
-      <td>@Model.escorts</td>
-      <td>@Model.tmas</td>
-      <td>@Model.diggers</td>
-      <td>@Model.saws</td>
-      <td>@Model.others</td>
-    </tr>
-  </table>
-</div>
+<section class="space-y-6 py-20">
+  @foreach (var workOrder in Model)
+  {
+  <partial name="_WorkOrder" model="workOrder" />
+  }
+</section>

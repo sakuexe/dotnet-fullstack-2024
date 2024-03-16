@@ -10,6 +10,7 @@ namespace workorder.Models
         public int workId { get => new Random().Next(10, 999999); }
         public int referenceNumber { get => new Random().Next(1000, 99999); }
         public string dpContact { get; set; } = Personator.CreateName();
+        public string status { get; set; } = "luonnos";
         public CustomerModel customer { get => new CustomerModel(); }
         public long startDate { get; set; }
         public long endDate { get; set; }
@@ -48,6 +49,14 @@ namespace workorder.Models
             get => workers.Where(w => w.title == Worker.Title.other).Count();
         }
 
+        private string[] _statusOptions = new string[] { 
+            "luonnos", 
+            "hylatty",
+            "laskutettu",
+            "odottaa",
+            "kuitattu",
+        };
+
         public struct Props
         {
             public string? startTimeEstimate;
@@ -59,10 +68,16 @@ namespace workorder.Models
         public WorkOrderViewModel(Props props = default)
         {
             var rnd = new Random();
+            this.status = _statusOptions[rnd.Next(_statusOptions.Length)];
             this.startDate = DateTimeOffset.Now.ToUnixTimeSeconds();
             this.endDate = DateTimeOffset.Now.AddDays(rnd.Next(10)).ToUnixTimeSeconds();
             this.startTimeEstimate = $"{rnd.Next(6, 24)}:00";
             this.address = $"Tietäjäntie {rnd.Next(255)}, 11{rnd.Next(999)} Riihimäki";
+            // add random workers to the work
+            foreach (var i in Enumerable.Range(0, rnd.Next(1, 10)))
+            {
+                this.workers.Add(new Worker());
+            }
             // optional parameters
             this.startTimeEstimate = props.startTimeEstimate ?? this.startTimeEstimate;
             this.description = props.description;

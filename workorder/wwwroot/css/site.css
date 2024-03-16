@@ -25,3 +25,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.button {
+  @apply px-6 py-2 min-w-40 transition-all hover:brightness-150;
+}

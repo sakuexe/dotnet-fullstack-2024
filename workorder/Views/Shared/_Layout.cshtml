@@ -10,12 +10,12 @@
   @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body class="bg-neutral-100 text-primary">
-  <header>
-    <nav class="flex justify-between px-5 py-2 border-primary border-b-2">
+<body class="bg-stone-200 text-primary">
+  <header class="bg-stone-100">
+    <nav class="flex justify-between px-5 py-2 border-primary border-b-4">
       <div class="flex gap-x-6 items-center">
         <a href="/" class="flex items-center gap-3">
-          <img src="~/images/jadeworks-logo.webp" alt="" width="60" height="60">
+          <img src="~/images/jadeworks-logo.webp" alt="Jadework's logo" width="60" height="60">
           <p class="uppercase font-extrabold text-primary">Jadework</p>
         </a>
         <p>Suunittelu</p>
@@ -30,11 +30,12 @@
       </div>
     </nav>
   </header>
-  <main role="main" class="pb-3">
+
+  <main role="main" class="pb-3 overflow-x-auto px-5">
     @RenderBody()
   </main>
 
-  <footer class="border-primary border-t-2 footer">
+  <footer class="border-primary border-t-2 footer bg-stone-100">
     <div class="container mx-auto px-5 opacity-75">
       &copy; 2024 - Jadework - <a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a>
     </div>

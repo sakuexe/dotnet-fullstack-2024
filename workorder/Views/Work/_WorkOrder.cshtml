@@ -1,0 +1,142 @@
+<div class="workorder space-y-2 max-w-[1720px] mx-auto">
+  <div class="flex items-center gap-3 font-bold min-w-[800px]">
+    <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
+    <h2 class="text-lg grow">ID: @Model.workId - @Model.customer.businessName (@Model.customer.customerId)</h2>
+    <button class="button bg-@(Model.status) text-neutral-50">Työntekijät</button>
+    <button class="button bg-@(Model.status) text-neutral-50">Muokkaa</button>
+  </div>
+  <div>
+    <div class="grid grid-cols-6 grid-rows-2 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
+      [&>div>*:not(.small)]:p-2
+      [&_.header]:text-primary-50 [&_.header]:font-bold
+      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center [&_.content]:bg-stone-100">
+      <!-- Row 1 -->
+      <div>
+        <div class="header">
+          <p>DP13 Yhteyshenkilö</p>
+        </div>
+        <div class="content">
+          <p>@Model.dpContact</p>
+        </div>
+      </div>
+      <div>
+        <div class="header">
+          <p>Asiakkaan yhteyshenkilö</p>
+        </div>
+        <div class="content">
+          <p>@Model.customer.contactPerson</p>
+        </div>
+      </div>
+      <div>
+        <div class="header">
+          <p>Työpaikan osoite</p>
+        </div>
+        <div class="content">
+          <p>@Model.address</p>
+        </div>
+      </div>
+      <div>
+        <div class="header">
+          <p>Alkupvm</p>
+        </div>
+        <div class="content">
+          <p>@Model.startDate</p>
+        </div>
+      </div>
+      <div>
+        <div class="header">
+          <p>Loppupvm</p>
+        </div>
+        <div class="content">
+          <p>@Model.endDate</p>
+        </div>
+      </div>
+      <div>
+        <div class="header">
+          <p>Alkuaika (oletettu)</p>
+        </div>
+        <div class="content">
+          <p>@(Model.startTimeEstimate ?? "Ei listattu")</p>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="col-span-2">
+        <div class="header">
+          <p>Listätiedot Määräimelle</p>
+        </div>
+        <div class="content">
+          <p>@(Model.description ?? "Ei lisätietoja")</p>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <div class="header">
+          <p>Listätiedot Ei Määräimelle</p>
+        </div>
+        <div class="content">
+          <p>@(Model.hiddenDescription ?? "Ei listätietoja")</p>
+        </div>
+      </div>
+
+      <!-- Role counts -->
+      <div class="col-span-2 grid grid-cols-7 gap-1 [&>_.small>*]:p-2">
+        <div class="small">
+          <div class="header">
+            <p>Ohj</p>
+          </div>
+          <div class="content">
+            <p>@Model.directors / @Model.directors</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>Järkkä</p>
+          </div>
+          <div class="content">
+            <p>@Model.security / @Model.security</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>Saatto</p>
+          </div>
+          <div class="content">
+            <p>@Model.escorts / @Model.escorts</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>TMA</p>
+          </div>
+          <div class="content">
+            <p>@Model.tmas / @Model.tmas</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>Kaivot</p>
+          </div>
+          <div class="content">
+            <p>@Model.diggers / @Model.diggers</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>Sahat</p>
+          </div>
+          <div class="content">
+            <p>@Model.saws / @Model.saws</p>
+          </div>
+        </div>
+        <div class="small">
+          <div class="header">
+            <p>Muut</p>
+          </div>
+          <div class="content">
+            <p>@Model.others / @Model.others</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
