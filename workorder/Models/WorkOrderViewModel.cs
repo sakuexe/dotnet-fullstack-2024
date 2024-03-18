@@ -23,15 +23,15 @@ namespace workorder.Models
         // counts of workers on the job
         public int directors
         {
-            get => workers.Where(w => w.title == Worker.Title.director).Count();
+            get => workers.Where(w => w.title == Worker.Title.ohjaaja).Count();
         }
         public int security
         {
-            get => workers.Where(w => w.title == Worker.Title.security).Count();
+            get => workers.Where(w => w.title == Worker.Title.järkkä).Count();
         }
         public int escorts
         {
-            get => workers.Where(w => w.title == Worker.Title.escort).Count();
+            get => workers.Where(w => w.title == Worker.Title.saatto).Count();
         }
         public int tmas
         {
@@ -39,19 +39,19 @@ namespace workorder.Models
         }
         public int diggers
         {
-            get => workers.Where(w => w.title == Worker.Title.digger).Count();
+            get => workers.Where(w => w.title == Worker.Title.kaivo).Count();
         }
         public int saws
         {
-            get => workers.Where(w => w.title == Worker.Title.saw).Count();
+            get => workers.Where(w => w.title == Worker.Title.saha).Count();
         }
         public int others
         {
-            get => workers.Where(w => w.title == Worker.Title.other).Count();
+            get => workers.Where(w => w.title == Worker.Title.muu).Count();
         }
 
-        private string[] _statusOptions = new string[] { 
-            "luonnos", 
+        private string[] _statusOptions = new string[] {
+            "luonnos",
             "hylatty",
             "laskutettu",
             "odottaa",
@@ -79,6 +79,7 @@ namespace workorder.Models
             {
                 this.workers.Add(new Worker());
             }
+            this.workers = [.. workers.OrderBy(w => w.title)];
             // optional parameters
             this.startTimeEstimate = props.startTimeEstimate ?? this.startTimeEstimate;
             // benchmarking two ways of reading files

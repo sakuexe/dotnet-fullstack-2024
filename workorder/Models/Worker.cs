@@ -6,18 +6,25 @@ namespace workorder.Models
     {
         public enum Title
         {
-            director,
-            security,
-            escort,
+            ohjaaja,
+            järkkä,
+            saatto,
             tma,
-            digger,
-            saw,
-            other,
+            kaivo,
+            saha,
+            muu,
+        }
+
+        public enum Status
+        {
+            vahvistettu,
+            odottaa,
+            hylatty,
         }
 
         public Title title { get; set; }
+        public Status status { get; set; }
         public string name { get; set; }
-
         // constructor
         public Worker(string? name = null, Title? title = null)
         {
@@ -32,7 +39,9 @@ namespace workorder.Models
             }
 
             var randomTitle = titles.GetValue(rnd.Next(titles.Length));
-            this.title = (Title?)randomTitle ?? Title.other;
+            this.title = (Title?)randomTitle ?? Title.muu;
+            // random status
+            this.status = (Status)rnd.Next(3);
         }
     }
 }

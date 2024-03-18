@@ -1,20 +1,31 @@
+@model workorder.Models.WorkOrderViewModel
+
+@{
+  var titleOrder = new List<Worker.Title> { Worker.Title.ohjaaja, Worker.Title.järkkä, Worker.Title.saatto,
+Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
+  // order workers by role, but keep the original role order
+  var workersByRole = Model.workers
+  .GroupBy(w => w.title)
+  .ToDictionary(g => g.Key, g => g.ToList());
+}
+
 <div class="workorder space-y-2 max-w-[1720px] mx-auto print:text-sm print:break-inside-avoid">
   <div class="flex items-center gap-3 font-bold min-w-[800px]">
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
     <h2 class="text-base grow">
       ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
-      - @Model.customer.businessName
+        - <span class="customer_business">@Model.customer.businessName</span>
       (<span class="customer_id cursor-pointer underline print:no-underline">@Model.customer.customerId</span>)
     </h2>
-    <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
+    <button class="workers-btn button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
     <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Muokkaa</button>
   </div>
   <div>
     <div class="grid grid-cols-6 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
       [&>div>*:not(.small)]:p-2 [&>div>.small]:flex [&>div>.small]:flex-col
       [&_.header]:text-primary-50 [&_.header]:font-bold [&_.header]:print:text-white
-      [&_.content]:min-h-20 [&_.content]:grid [&_.content]:place-items-center [&_.content]:grow
-      [&_.content]:bg-stone-100 [&_.content]:print:bg-white">
+      [&_.content:not(.workers)]:min-h-20 [&_.content:not(.workers)]:grid [&_.content:not(.workers)]:place-items-center 
+      [&_.content]:grow [&_.content]:bg-stone-100 [&_.content]:print:bg-white">
 
       <!-- Row 1 -->
       <div class="flex flex-col">
@@ -145,6 +156,26 @@
           </div>
         </div>
       </div>
+
+      <!-- Row 3, the workers. Show only in print form -->
+      <div class="col-span-full text-start hidden print:block">
+        <div class="content workers grow flex flex-wrap gap-x-4 gap-y-2">
+          @foreach (var role in workersByRole)
+          {
+            <p>
+              <span class="font-bold capitalize">@role.Key:</span>
+              @foreach (var worker in role.Value)
+              {
+                <!-- Add comma after each worker, but not after the last one -->
+                <span class="worker-name" data-status="@worker.status">@worker.name@(worker == role.Value.Last() ? "" : ",")</span>
+              }
+            </p>
+            <!-- Add pipe after each role, but not after the last one -->
+            @(role.Key != workersByRole.Keys.Last() ? "|" : "")
+          }
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
