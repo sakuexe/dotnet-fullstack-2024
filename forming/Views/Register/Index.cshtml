@@ -1,0 +1,30 @@
+@model RegisterViewModel
+@{
+	ViewData["title"] = "Register";
+}
+
+<h1>Register to Mojo 🔥</h1>
+<form asp-controller="Register" asp-action="Index" method="post">
+	<div class="form-group">
+		<label asp-for="Email" class="label-control"></label>
+		<input asp-for="Email" class="form-control" />
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Username" class="label-control"></label>
+		<input asp-for="Username" class="form-control" />
+		<span asp-validation-for="Username" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Password" class="label-control"></label>
+		<input asp-for="Password" class="form-control" />
+		<span asp-validation-for="Password" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Birthdate" class="label-control"></label>
+		<input asp-for="Birthdate" class="form-control" />
+		<span asp-validation-for="Birthdate" class="text-danger"></span>
+	</div>
+	<button type="submit">Lisää</button>
+	<button>cancel</button>
+</form>

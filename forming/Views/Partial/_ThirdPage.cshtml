@@ -1,0 +1,20 @@
+<p>@ViewData["jsonbobs"]</p>
+
+<button id="zizon">
+	send it
+</button>
+
+<script>
+	let zizon = @Html.Raw(ViewData["jsonbobs"]);
+	document.querySelector("#zizon").addEventListener("click", () => {
+		$.ajax({
+			type: "POST",
+			url: "/partial/recievedata",
+			data: "package=" + JSON.stringify(zizon),
+			success: function (data) {
+				console.log(data);
+				alert("My wife!")
+			}
+		});
+	})
+</script>

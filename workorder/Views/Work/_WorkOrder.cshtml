@@ -9,15 +9,14 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
   .ToDictionary(g => g.Key, g => g.ToList());
 }
 
-<div 
-    class="workorder relative space-y-2 max-w-[1720px] mx-auto 
+<div class="workorder relative space-y-2 max-w-[1720px] mx-auto 
     print:text-sm">
   <div class="flex items-center gap-3 font-bold min-w-[800px]
     @(Model.status == "hylatty" ? "opacity-50" : "") print:opacity-100">
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
     <h2 class="text-base grow">
       ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
-        - <span class="customer_business">@Model.customer.businessName</span>
+      - <span class="customer_business">@Model.customer.businessName</span>
       (<span class="customer_id cursor-pointer underline print:no-underline">@Model.customer.customerId</span>)
     </h2>
     <button class="workers-btn button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
@@ -170,9 +169,8 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
               @foreach (var worker in role.Value)
               {
                 <!-- Add comma after each worker, but not after the last one -->
-                <span  
-                class="worker-name @(worker.status == Worker.Status.hylatty ? "underline" : "")" 
-                data-status="@worker.status">@worker.name@(worker == role.Value.Last() ? "" : ",")</span>
+                <span class="worker-name @(worker.status == Worker.Status.hylatty ? "underline" : "")"
+                  data-status="@worker.status">@worker.name@(worker == role.Value.Last() ? "" : ",")</span>
               }
             </p>
             <!-- Add pipe after each role, but not after the last one -->
@@ -184,18 +182,14 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
     </div>
   </div>
 
-  <div 
-      class="warning absolute top-0 left-0 w-full h-full grid place-items-center z-20 
+  <div class="warning absolute top-0 left-0 w-full h-full grid place-items-center z-20 
       @(Model.status != "hylatty" ? "hidden" : "") print:hidden">
     <div class="mt-8 border-hylatty border-4 bg-secondary">
       <p class="py-8 px-4 text-2xl font-bold text-hylatty">⚠ Työntekijälista tarvitsee huomiota!</p>
       <div class="grid grid-cols-2 border-t-4 border-hylatty">
-        <button 
-            class="workers-btn bg-hylatty text-secondary py-2 px-4 font-bold 
+        <button class="workers-btn bg-hylatty text-secondary py-2 px-4 font-bold 
             transition-all hover:brightness-125">Avaa Lista</button>
-        <button 
-            onClick="event.target.closest('.warning').classList.add('hidden')"
-            class="py-2 px-4 text-hylatty font-bold transition-all 
+        <button onClick="event.target.closest('.warning').classList.add('hidden')" class="py-2 px-4 text-hylatty font-bold transition-all 
             hover:bg-hylatty hover:text-secondary">Sulje Varoitus</button>
       </div>
     </div>

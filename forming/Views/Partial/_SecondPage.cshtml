@@ -1,0 +1,10 @@
+@{
+	var rnd = new Random();
+}
+
+<h1>Hello from the SECOND page</h1>
+
+@for (int i = 0; i < 10; i++)
+{
+	<p style="background-color: rgb(@(rnd.Next(255)),@(rnd.Next(255)),@(rnd.Next(255)));">Testing</p>
+}
