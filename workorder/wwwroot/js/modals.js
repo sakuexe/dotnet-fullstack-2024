@@ -50,7 +50,7 @@ async function setWorkers(workers) {
 
 workersButtons.forEach((btn) => {
   btn.addEventListener("click", (event) => {
-    const workInfo = event.target.previousElementSibling;
+    const workInfo = event.target.closest(".workorder").querySelector("h2");
     setCustomerInfo(workInfo);
     const workerNames = event.target.closest(".workorder").querySelectorAll(".worker-name");
     setWorkers(workerNames);

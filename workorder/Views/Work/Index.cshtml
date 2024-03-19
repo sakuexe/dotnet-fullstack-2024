@@ -10,15 +10,17 @@ ViewData["Title"] = "Work Order page";
   const ids = document.querySelectorAll("span.work_id, span.customer_id");
   const descriptions = document.querySelectorAll("div.description");
 
+  // copy to clipboard
   function copyToClipboard(target) {
+    // copy the text content of the target element to clipboard
+    // so that IDs can be easily copied
     const originalText = event.target.textContent;
-    // copy the text of the element to the clipboard
     navigator.clipboard.writeText(originalText);
-    event.target.classList.toggle("underline");
-    event.target.textContent = "Kopioitu!";
+    target.classList.toggle("underline");
+    target.textContent = "Kopioitu!";
     setTimeout(() => {
-      event.target.textContent = originalText;
-      event.target.classList.toggle("underline");
+      target.textContent = originalText;
+      target.classList.toggle("underline");
     }, 1000);
   }
 
@@ -26,6 +28,7 @@ ViewData["Title"] = "Work Order page";
     id.addEventListener("click", (event) => copyToClipboard(event.target));
   }
 
+  // readme buttons
   function checkForOverflow(ptag) {
     return ptag.scrollHeight > ptag.clientHeight;
   }
@@ -42,8 +45,18 @@ ViewData["Title"] = "Work Order page";
       ptag.classList.toggle("line-clamp-none");
     });
   }
+  // warnings
+  const warnings = document.querySelectorAll("div.warning");
+  for (const warning of warnings) {
+    const closeButton = warning.querySelector("button:not(.workers-btn)");
+    closeButton.addEventListener("click", () => {
+      warning.previousElementSibling.classList.remove("opacity-50");
+      warning.previousElementSibling.previousElementSibling.classList.remove("opacity-50");
+      warning.classList.add("hidden");
+    });
+  }
 </script>
-<script src="~/js/modals.js"></script>
+<script src="~/js/modals.js" defer></script>
 }
 
 <section class="space-y-6 py-20 print:py-6 print:space-y-2">

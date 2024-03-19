@@ -52,10 +52,10 @@ namespace workorder.Models
 
         private string[] _statusOptions = new string[] {
             "luonnos",
-            "hylatty",
             "laskutettu",
             "odottaa",
             "kuitattu",
+            "hylatty",
         };
 
         public struct Props

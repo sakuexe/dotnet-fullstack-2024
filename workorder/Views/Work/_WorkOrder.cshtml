@@ -9,8 +9,11 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
   .ToDictionary(g => g.Key, g => g.ToList());
 }
 
-<div class="workorder space-y-2 max-w-[1720px] mx-auto print:text-sm print:break-inside-avoid">
-  <div class="flex items-center gap-3 font-bold min-w-[800px]">
+<div 
+    class="workorder relative space-y-2 max-w-[1720px] mx-auto 
+    print:text-sm print:break-inside-avoid">
+  <div class="flex items-center gap-3 font-bold min-w-[800px]
+    @(Model.status == "hylatty" ? "opacity-50" : "")">
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
     <h2 class="text-base grow">
       ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
@@ -20,12 +23,12 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
     <button class="workers-btn button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
     <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Muokkaa</button>
   </div>
-  <div>
+  <div class="@(Model.status == "hylatty" ? "opacity-50" : "")">
     <div class="grid grid-cols-6 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
       [&>div>*:not(.small)]:p-2 [&>div>.small]:flex [&>div>.small]:flex-col
       [&_.header]:text-primary-50 [&_.header]:font-bold [&_.header]:print:text-white
       [&_.content:not(.workers)]:min-h-20 [&_.content:not(.workers)]:grid [&_.content:not(.workers)]:place-items-center 
-      [&_.content]:grow [&_.content]:bg-stone-100 [&_.content]:print:bg-white">
+      [&_.content]:grow [&_.content]:bg-secondary [&_.content]:print:bg-white">
 
       <!-- Row 1 -->
       <div class="flex flex-col">
@@ -167,7 +170,9 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
               @foreach (var worker in role.Value)
               {
                 <!-- Add comma after each worker, but not after the last one -->
-                <span class="worker-name" data-status="@worker.status">@worker.name@(worker == role.Value.Last() ? "" : ",")</span>
+                <span  
+                class="worker-name @(worker.status == Worker.Status.hylatty ? "underline" : "")" 
+                data-status="@worker.status">@worker.name@(worker == role.Value.Last() ? "" : ",")</span>
               }
             </p>
             <!-- Add pipe after each role, but not after the last one -->
@@ -176,6 +181,23 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div 
+      class="warning absolute top-0 left-0 w-full h-full grid place-items-center z-20 
+      @(Model.status != "hylatty" ? "hidden" : "") print:hidden">
+    <div class="mt-8 border-hylatty border-4 bg-secondary">
+      <p class="py-8 px-4 text-2xl font-bold text-hylatty">⚠ Työntekijälista tarvitsee huomiota!</p>
+      <div class="grid grid-cols-2 border-t-4 border-hylatty">
+        <button 
+            class="workers-btn bg-hylatty text-secondary py-2 px-4 font-bold 
+            transition-all hover:brightness-125">Avaa Lista</button>
+        <button 
+            onClick="event.target.closest('.warning').classList.add('hidden')"
+            class="py-2 px-4 text-hylatty font-bold transition-all 
+            hover:bg-hylatty hover:text-secondary">Sulje Varoitus</button>
+      </div>
     </div>
   </div>
 </div>

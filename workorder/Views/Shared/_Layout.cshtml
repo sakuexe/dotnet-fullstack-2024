@@ -10,8 +10,8 @@
   @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body class="bg-stone-200 text-primary min-w-[900px] print:bg-white print:text-black">
-  <header class="bg-stone-100 print:hidden">
+<body class="bg-secondary-100 text-primary min-w-[900px] print:bg-white print:text-black">
+  <header class="bg-secondary print:hidden">
     <nav class="flex justify-between px-5 py-2 border-primary border-b-4">
       <div class="flex gap-x-6 items-center">
         <a href="/" class="flex items-center gap-3">
@@ -44,7 +44,7 @@
     @RenderBody()
   </main>
 
-  <footer class="border-primary border-t-2 footer bg-stone-100 print:hidden">
+  <footer class="border-primary border-t-2 footer bg-secondary print:hidden">
     <div class="container mx-auto px-5 opacity-75">
       &copy; 2024 - Saku Karttunen - <a asp-area="" asp-controller="Work" asp-action="Index">Työmääräimet</a>
     </div>
