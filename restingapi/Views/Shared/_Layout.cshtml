@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - Stonks.fi</title>
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/restingapi.styles.css" asp-append-version="true" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="bg-white box-shadow mb-3 flex justify-center items-center px-5">
+      <img src="~/images/stonks.webp" alt="" width="150" height="150">
+      <div>
+        <p class="font-bold text-4xl">Stonks.fi</p>
+        <p>Public API</p>
+      </div>
+    </nav>
+  </header>
+  <div class="container mx-auto">
+    <main role="main" class="pb-3">
+      @RenderBody()
+    </main>
+  </div>
+
+  <footer class="bg-white footer text-muted px-5 text-center">
+    <div class="container">
+      &copy; 2024 - Stonks.fi
+    </div>
+  </footer>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
