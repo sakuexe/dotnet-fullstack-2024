@@ -11,9 +11,9 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
 
 <div 
     class="workorder relative space-y-2 max-w-[1720px] mx-auto 
-    print:text-sm print:break-inside-avoid">
+    print:text-sm">
   <div class="flex items-center gap-3 font-bold min-w-[800px]
-    @(Model.status == "hylatty" ? "opacity-50" : "")">
+    @(Model.status == "hylatty" ? "opacity-50" : "") print:opacity-100">
     <img src="~/images/@(Model.status).svg" alt="@Model.status ikoni">
     <h2 class="text-base grow">
       ID: <span class="work_id cursor-pointer underline print:no-underline">@Model.workId</span>
@@ -23,7 +23,7 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
     <button class="workers-btn button bg-@(Model.status) text-neutral-50 print:hidden">Työntekijät</button>
     <button class="button bg-@(Model.status) text-neutral-50 print:hidden">Muokkaa</button>
   </div>
-  <div class="@(Model.status == "hylatty" ? "opacity-50" : "")">
+  <div class="@(Model.status == "hylatty" ? "opacity-50" : "") print:opacity-100">
     <div class="grid grid-cols-6 gap-1 bg-@(Model.status) text-center p-1 min-w-[1500px]
       [&>div>*:not(.small)]:p-2 [&>div>.small]:flex [&>div>.small]:flex-col
       [&_.header]:text-primary-50 [&_.header]:font-bold [&_.header]:print:text-white
@@ -85,7 +85,7 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
         <div class="header">
           <p>Listätiedot Määräimelle</p>
         </div>
-        <div class="content grow">
+        <div class="content grow text-start">
           <p class="line-clamp-3 print:line-clamp-none">@(Model.description ?? "Ei lisätietoja")</p>
         </div>
         <button class="hidden readmore button bg-@(Model.status) w-full text-stone-100 print:hidden">Lue lisää</button>
@@ -94,7 +94,7 @@ Worker.Title.tma, Worker.Title.kaivo, Worker.Title.saha, Worker.Title.muu };
         <div class="header">
           <p>Listätiedot Ei Määräimelle</p>
         </div>
-        <div class="content grow">
+        <div class="content grow text-start">
           <p class="line-clamp-3 print:line-clamp-none">@(Model.hiddenDescription ?? "Ei listätietoja")</p>
         </div>
         <button class="hidden readmore button bg-@(Model.status) w-full text-stone-100 print:hidden">Lue lisää</button>
