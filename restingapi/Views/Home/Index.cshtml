@@ -1,8 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Scripts {
+<script src="~/js/stonks.js" defer></script>
+}
+
+<div class="grid gap-4 lg:grid-cols-4">
+  <section class="hidden col-span-full">
+    <h2 class="text-3xl font-bold">My Stonks</h2>
+    <div class="flex gap-4 p-8 rounded-xl shadow-lg">
+
+      <div class="w-60">
+
+        <div class="header flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="~/images/apple.png" alt="Apple logo" width="40" height="40">
+            <h3 class="text-lg font-bold">Apple</h3>
+          </div>
+          <div class="border-2 border-black rounded-xl w-20 aspect-[3/2]"></div>
+        </div>
+
+        <div class="total-stonks flex justify-between">
+          <p>Total Stonks:</p>
+          <span class="font-bold">200.28</span>
+        </div>
+
+        <div class="total-return flex justify-between">
+          <p>Total Return:</p>
+          <span class="font-bold">+ 128.11</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <partial name="_Stonks"></partial>
+
+  <section id="business_container"></section>
 </div>
+
+<script>
+  async function getBusinesses() {
+    const businessContainer = document.querySelector("#business_container");
+    const url = "/stonks/_businesses";
+    const response = await fetch(url);
+    if (!response.ok) {
+      businessContainer.innerText = "Failed to fetch data";
+    }
+    // the response contains html content
+    businessContainer.innerHTML = await response.text();
+  }
+  getBusinesses();
+</script>

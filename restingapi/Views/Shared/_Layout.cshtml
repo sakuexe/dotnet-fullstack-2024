@@ -7,27 +7,29 @@
   <title>@ViewData["Title"] - Stonks.fi</title>
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/restingapi.styles.css" asp-append-version="true" />
+  <!-- Tailwindcss -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body class="bg-neutral-100 min-h-screen flex flex-col justify-between">
   <header>
-    <nav class="bg-white box-shadow mb-3 flex justify-center items-center px-5">
-      <img src="~/images/stonks.webp" alt="" width="150" height="150">
-      <div>
-        <p class="font-bold text-4xl">Stonks.fi</p>
-        <p>Public API</p>
+    <nav class="bg-neutral-50 shadow-md flex justify-center items-center py-4 px-5">
+      <div class="w-full text-center">
+        <p class="font-bold text-4xl text-neutral-950">Stonks.fi</p>
+        <p class="opacity-50">Your one stop shop for all things Stonky</p>
       </div>
     </nav>
   </header>
-  <div class="container mx-auto">
-    <main role="main" class="pb-3">
+    <div class="py-10 min-h-[82svh]">
+    <main role="main" class="pb-3 container mx-auto">
       @RenderBody()
     </main>
   </div>
 
-  <footer class="bg-white footer text-muted px-5 text-center">
-    <div class="container">
+  <footer class="bg-neutral-50 p-5 text-center shadow-xl">
+    <div class="container mx-auto">
       &copy; 2024 - Stonks.fi
     </div>
   </footer>

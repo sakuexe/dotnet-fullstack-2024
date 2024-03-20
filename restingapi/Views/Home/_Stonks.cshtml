@@ -1,0 +1,72 @@
+<section class="shadow-md rounded-2xl p-8 bg-neutral-50 relative overflow-clip lg:col-span-3">
+  <div class="header py-8 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <img id="company_logo" src="~/images/apple.png" alt="" class="w-12 h-12">
+      <div id="company_names">
+        <h3 class="font-bold text-2xl">Company name</h3>
+        <p>Company Shortname</p>
+      </div>
+    </div>
+    <div id="stonk_values" class="text-endr">
+      <div class="flex items-center justify-end gap-2">
+        <span class="bg-red-500 rounded-full text-white px-2 py-1 text-sm">100%</span>
+        <h4 class="text-2xl font-semibold">$150.74</h4>
+      </div>
+      <p class="opacity-50 text-sm">lastupdate</p>
+    </div>
+  </div>
+  <hr>
+  <div class="flex gap-2 px-4 items-center text-sm justify-center my-6">
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">1
+      Day</button>
+    <button class="py-2 px-4 bg-black rounded-full text-neutral-50">1 Week</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">1
+      Month</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">3
+      Months</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">6
+      Months</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">1
+      Year</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">5
+      Years</button>
+    <button
+      class="py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">All
+      Time</button>
+  </div>
+  <canvas id="main_chart" class="w-full h-full"></canvas>
+  <button id="toggle_advisor"
+    class="mr-4 ml-auto block py-2 px-4 rounded-full border-[1px] border-neutral-400 mt-6 transition-all hover:bg-neutral-950 hover:text-neutral-50">Toggle
+    Advisor</button>
+  <div id="advisor" class="-translate-x-full transition-transform duration-1000">
+    <img src="~/images/stonks.webp" alt="stonks man himself" class="absolute bottom-0 left-0 w-1/2 drop-shadow-black drop-shadow-xl">
+    <div class="hidden absolute top-1/2 left-1/3 p-8 rounded-2xl bg-neutral-50 drop-shadow-lg">LGTM!</div>
+  </div>
+</section>
+
+<script defer>
+const advisorButton = document.querySelector("#toggle_advisor");
+const advisor = document.querySelector("#advisor");
+const advisorMessage = advisor.querySelector("div");
+const stonkDelta = document.querySelector("#stonk_values span");
+const canvas = document.querySelector("#main_chart");
+
+canvas.addEventListener("click", () => {
+  advisorMessage.innerText = stonkDelta.innerText.includes("-") ? "Mamma Mia!" : "LGTM!";
+});
+
+advisorButton.addEventListener("click", () => {
+  advisor.classList.toggle("-translate-x-full");
+  advisorMessage.innerText = stonkDelta.innerText.includes("-") ? "Mamma Mia!" : "LGTM!";
+  // wait a second before showing message
+  setTimeout(() => {
+    advisorMessage.classList.toggle("hidden");
+  }, 1000);
+});
+</script>
