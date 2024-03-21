@@ -7,8 +7,8 @@ namespace restingapi.Controllers;
 public class StonksController : Controller
 {
     // for less fun, use the static version
-    // private static readonly BusinessContainer _businessContainer = new();
-    private readonly BusinessContainer _businessContainer = new();
+    private static readonly BusinessContainer _businessContainer = new();
+    /* private readonly BusinessContainer _businessContainer = new(); */
 	private readonly ILogger<HomeController> _logger;
 
 	public StonksController(ILogger<HomeController> logger)
@@ -24,7 +24,9 @@ public class StonksController : Controller
     [HttpPost]
     public IActionResult _Stonks(string? businessName)
     {
-        businessName ??= "Apple";
+        // Get the stonks and information for a single business
+        // returns a json object for the business
+        businessName ??= "Apple"; // default business name
         var business = _businessContainer.GetBusiness(businessName);
         var businessJson = JsonSerializer.Serialize(business);
         return Content(businessJson, "application/json");
@@ -33,7 +35,9 @@ public class StonksController : Controller
     [HttpGet]
 	public IActionResult _Businesses()
 	{
-        _businessContainer.UpdateStocks();
+        // get the list of businesses and all their information
+        // returns a partial view, ready for use in the main page
+        /* _businessContainer.UpdateStocks(); */
 		return PartialView(_businessContainer.Businesses);
 	}
 }
