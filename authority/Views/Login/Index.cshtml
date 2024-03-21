@@ -1,0 +1,26 @@
+@{
+	ViewData["Title"] = "Kirjaudu sisään!";
+}
+
+<div class="text-center">
+	@if (User.Identity.IsAuthenticated)
+	{
+		<h1>Hello @User.Identity.Name, long time no see!</h1>
+		@if (User.IsInRole("Admin"))
+		{
+			<p>You are an admin!</p>
+			<button>Send Missle</button>
+		}
+
+		<form asp-controller="Login" asp-action="Logout">
+			<input type="submit" value="Logout">
+		</form>
+	}
+	else
+	{
+		<form asp-controller="Login" asp-action="Index">
+			<input type="text" name="name" placeholder="Käyttäjätunnus" />
+			<input type="submit" value="Log in">
+		</form>
+	}
+</div>
