@@ -16,6 +16,13 @@ public class StonksController : Controller
         _logger = logger;
     }
 
+    public IActionResult UpdateStocks()
+    {
+        _businessContainer.UpdateStocks();
+        // redirect to Home/index
+        return RedirectToAction("Index", "Home");
+    }
+
 	public IActionResult Index()
 	{
 		return View();
@@ -37,7 +44,7 @@ public class StonksController : Controller
 	{
         // get the list of businesses and all their information
         // returns a partial view, ready for use in the main page
-        /* _businessContainer.UpdateStocks(); */
+        _businessContainer.UpdateStocks();
 		return PartialView(_businessContainer.Businesses);
 	}
 }

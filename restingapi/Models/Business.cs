@@ -20,11 +20,9 @@ namespace restingapi.Models
             var newDate = newestDate.AddDays(1).ToString("yyyy-MM-dd");
             var value = random.Next(100, 1000);
             StockValues.Add(newDate, value);
-            if (StockValues.Count > 10)
-                StockValues.Remove(StockValues.First().Key);
         }
 
-        public Business(string name, int stockAmount = 10)
+        public Business(string name, int stockAmount = 7)
         {
             Name = name;
             StockValues = new Dictionary<string, int>();
