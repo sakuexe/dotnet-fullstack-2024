@@ -13,22 +13,26 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-neutral-100 min-h-screen flex flex-col justify-between">
-  <header>
-    <nav class="bg-neutral-50 shadow-md flex justify-center items-center py-4 px-5">
-      <div class="w-full text-center">
-        <p class="font-bold text-4xl text-neutral-950">Stonks.fi</p>
+<body class="bg-neutral-900 text-neutral-50 min-h-screen flex flex-col justify-between">
+  <header class="container mx-auto [&>nav>ul>li>a]:text-neutral-50">
+    <nav class="flex justify-between items-center py-4">
+      <div>
+        <p class="font-bold text-3xl">Stonks.fi</p>
         <p class="opacity-50">Your one stop shop for all things Stonky</p>
       </div>
+      <ul class="flex items-center gap-4">
+        <li><a href="">Browse</a></li>
+        <li><a href="">Login</a></li>
+      </ul>
     </nav>
   </header>
-    <div class="py-10 min-h-[82svh]">
+  <div class="py-2 min-h-[82svh]">
     <main role="main" class="pb-3 container mx-auto">
       @RenderBody()
     </main>
   </div>
 
-  <footer class="bg-neutral-50 p-5 text-center shadow-xl">
+  <footer class="p-5 text-center shadow-xl">
     <div class="container mx-auto">
       &copy; 2024 - Stonks.fi
     </div>

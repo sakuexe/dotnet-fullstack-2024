@@ -34,11 +34,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   const filters = document.querySelectorAll("button.filter");
+  const activeFilterStyles = ["active", "bg-neutral-700", "text-neutral-50"];
   filters.forEach((filter) => {
     filter.addEventListener("click", async () => {
-      filters.forEach((filter) => filter.classList.remove("active", "bg-neutral-950", "text-neutral-50"));
-      filter.classList.add("active");
-      filter.classList.add("bg-neutral-950", "text-neutral-50");
+      filters.forEach((filter) => filter.classList.remove(...activeFilterStyles));
+      filter.classList.add(...activeFilterStyles);
       drawStonks(stonks.StockValues);
     });
   })
