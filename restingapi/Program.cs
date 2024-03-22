@@ -1,7 +1,19 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+        options.LogoutPath = "/";
+        /* options.AccessDeniedPath = "/AccessDenied"; */
+        options.Cookie.Name = "AuthCookie";
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    });
 
 var app = builder.Build();
 
@@ -18,6 +30,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// the order of these two is important
+// if the order is incorrect, [Authorize] will not work
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

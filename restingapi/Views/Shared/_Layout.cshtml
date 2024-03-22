@@ -21,8 +21,15 @@
         <p class="opacity-50">Your one stop shop for all things Stonky</p>
       </div>
       <ul class="flex items-center gap-4">
-        <li><a href="">Browse</a></li>
-        <li><a href="">Login</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Browse</a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+          <li><a asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
+        }
+        else
+        {
+          <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+        }
       </ul>
     </nav>
   </header>

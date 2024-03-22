@@ -1,0 +1,24 @@
+@model restingapi.Models.UserHoldings
+
+@{
+  var total = Model.Stonks.Sum(x => x.PurchasePriceCents * x.Quantity);
+}
+
+<div class="flex gap-4 items-stretch p-8 rounded-2xl shadow-lg bg-neutral-800 border-[1px] border-neutral-700">
+  <div class="border-[1px] border-neutral-500 rounded-lg grid place-items-center w-20 aspect-square
+    bg-gradient-to-tr from-violet-600 to-cyan-500 uppercase font-semibold font-mono text-lg">
+    @(Model.Username.First())@(Model.Username.Last())
+  </div>
+
+  <div class="flex flex-col justify-center border-[1px] border-neutral-500 rounded-lg pl-3 pr-4">
+    <h4 class="opacity-75">Total</h4>
+    <p class="font-bold">$ @(((decimal)total / 100).ToString("N2"))</p>
+  </div>
+  @foreach (var stonk in Model.Stonks)
+  {
+  <div class="flex flex-col justify-center border-[1px] border-neutral-500 rounded-lg pl-3 pr-4">
+    <h4 class="opacity-75">@stonk.BusinessName</h4>
+    <p class="font-bold">$ @((((decimal)stonk.PurchasePriceCents * 100) / 100).ToString("N2"))</p>
+  </div>
+  }
+</div>

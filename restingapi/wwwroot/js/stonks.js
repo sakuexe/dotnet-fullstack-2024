@@ -14,7 +14,10 @@ async function getStonks(businessName = "Apple") {
   if (!response.ok) {
     return;
   }
-  return await response.json();
+  const stonks = await response.json();
+  // change stonks values to euros from cents before returning
+  stonks.StockValues = Object.values(stonks.StockValues).map((value) => value / 100);
+  return stonks;
 }
 
 // on load of the page

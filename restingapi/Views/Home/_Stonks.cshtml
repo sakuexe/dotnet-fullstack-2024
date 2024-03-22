@@ -1,4 +1,5 @@
-<section class="shadow-md rounded-xl p-8 bg-neutral-800 border-[1px] border-neutral-700 relative overflow-clip lg:col-span-3">
+<section
+  class="shadow-md rounded-xl p-8 bg-neutral-800 border-[1px] border-neutral-700 relative overflow-clip lg:col-span-3">
   <div class="header py-8 flex justify-between items-center">
     <div class="flex items-center gap-4">
       <img id="company_logo" src="~/images/apple.png" alt="" class="w-12 h-12">
@@ -39,10 +40,21 @@
       class="filter py-2 px-4 rounded-full border-[1px] border-neutral-500 transition-all hover:bg-neutral-700 ">All
       Time</button>
   </div>
+
   <canvas id="main_chart" class="w-full h-full"></canvas>
-  <button id="toggle_advisor"
-    class="mr-4 ml-auto block py-2 px-4 rounded-full border-[1px] border-neutral-400 mt-6 transition-all hover:bg-neutral-950 hover:text-neutral-50">Toggle
-    Advisor</button>
+
+  <div class="flex items-center justify-end gap-4">
+    <button id="toggle_advisor"
+      class="block py-2 px-4 rounded-full border-[1px] border-neutral-400 transition-all hover:bg-neutral-950 hover:text-neutral-50">Toggle
+      Advisor</button>
+
+    <form asp-controller="Holdings" asp-action="BuyStonk" method="post">
+      <input id="business_name" type="hidden" name="business" value="">
+      <input id="business_value" type="hidden" name="value" value="">
+      <button type="submit" class="py-2 px-4 rounded-full bg-neutral-700 border-[1px] border-neutral-400">Buy Stonk</button>
+    </form>
+
+  </div>
   <div id="advisor" class="-translate-x-full transition-transform duration-1000">
     <img src="~/images/mr-stonk.webp" alt="stonks man himself"
       class="absolute bottom-0 left-0 w-1/2 drop-shadow-black drop-shadow-xl">

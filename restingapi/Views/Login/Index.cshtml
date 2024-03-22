@@ -1,0 +1,19 @@
+@model Credentials
+<section class="space-y-4">
+  <h2>Login to your account</h2>
+  <form asp-controller="Login" asp-action="Index" method="post">
+    <div>
+      <label asp-for="Username">Username</label>
+      <input asp-for="Username"
+        class="bg-neutral-800 border-[1px] border-700 rounded-md py-2 px-4" />
+      <span asp-validation-for="Username"></span>
+    </div>
+    <div>
+      <label asp-for="Password">Password</label>
+      <input asp-for="Password"
+        class="bg-neutral-800 border-[1px] border-700 rounded-md py-2 px-4" />
+      <span asp-validation-for="Password"></span>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</section>

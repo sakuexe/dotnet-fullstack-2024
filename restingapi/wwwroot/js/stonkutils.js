@@ -54,18 +54,23 @@ function checkStonkDelta(stonkValues) {
 // add the stonk data related to the company
 export function addStonkData(stonks) {
   const [name, shortName] = document.querySelectorAll('#company_names > *');
+  const businessNameField = document.querySelector('input[type="hidden"]#business_name');
   const logo = document.querySelector('#company_logo');
   const [percentage, value] = document.querySelectorAll('#stonk_values > div > *');
+  const businessValueField = document.querySelector('input[type="hidden"]#business_value');
   const lastUpdated = document.querySelector('#stonk_values > p');
   // set the names
   name.textContent = stonks.Name;
   shortName.textContent = stonks.ShortName;
+  businessNameField.value = stonks.Name;
   // set the logo
   logo.src = `/images/${stonks.Name.toLowerCase()}.png`;
   logo.alt = `${stonks.Name} logo`;
   // set the current value
   const length = Object.keys(stonks.StockValues).length;
-  value.textContent = `\$${Object.values(stonks.StockValues)[length - 1]}`;
+  const currentValue = parseFloat(Object.values(stonks.StockValues)[length - 1]);
+  value.textContent = `\$${currentValue.toFixed(2)}`;
+  businessValueField.value = currentValue;
   // set the percentage
   const delta = checkStonkDelta(stonks.StockValues);
   percentage.textContent = `${delta.toFixed(2)}%`;

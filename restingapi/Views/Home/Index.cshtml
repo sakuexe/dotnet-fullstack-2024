@@ -7,32 +7,8 @@ ViewData["Title"] = "Home Page";
 }
 
 <div class="grid gap-4 lg:grid-cols-4">
-  <section class="col-span-full hidden">
-    <h2 class="text-3xl font-bold">My Stonks</h2>
-    <div class="flex gap-4 p-8 rounded-2xl shadow-lg bg-neutral-800">
-
-      <div class="w-60">
-
-        <div class="header flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <img src="~/images/apple.png" alt="Apple logo" width="40" height="40">
-            <h3 class="text-lg font-bold">Apple</h3>
-          </div>
-          <div class="border-2 border-black rounded-xl w-20 aspect-[3/2]"></div>
-        </div>
-
-        <div class="total-stonks flex justify-between">
-          <p>Total Stonks:</p>
-          <span class="font-bold">200.28</span>
-        </div>
-
-        <div class="total-return flex justify-between">
-          <p>Total Return:</p>
-          <span class="font-bold">+ 128.11</span>
-        </div>
-      </div>
-
-    </div>
+  <section class="col-span-full">
+    <div id="my_stonks"></div>
   </section>
 
   <partial name="_Stonks"></partial>
@@ -51,5 +27,26 @@ ViewData["Title"] = "Home Page";
     // the response contains html content
     businessContainer.innerHTML = await response.text();
   }
+
+  async function getMyStonks() {
+    const myStonks = document.getElementById('my_stonks');
+    const url = '/holdings/';
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch data');
+        return;
+      }
+      myStonks.innerHTML = await response.text();
+    } catch (error) {
+      console.error('Failed to fetch data', error);
+      return;
+    }
+  }
+
   getBusinesses();
+  getMyStonks();
 </script>

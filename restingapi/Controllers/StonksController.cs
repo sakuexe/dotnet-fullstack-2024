@@ -6,9 +6,7 @@ namespace restingapi.Controllers;
 
 public class StonksController : Controller
 {
-    // for less fun, use the static version
     private static readonly BusinessContainer _businessContainer = new();
-    /* private readonly BusinessContainer _businessContainer = new(); */
 	private readonly ILogger<HomeController> _logger;
 
 	public StonksController(ILogger<HomeController> logger)
