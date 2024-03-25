@@ -13,27 +13,33 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-neutral-900 text-neutral-50 min-h-screen flex flex-col justify-between">
+<body class="bg-neutral-900 text-neutral-50 min-h-screen flex flex-col justify-between selection:bg-violet-700">
   <header class="container mx-auto [&>nav>ul>li>a]:text-neutral-50">
-    <nav class="flex justify-between items-center py-4">
+    <nav class="flex justify-between items-center pt-8 py-4">
       <div>
         <p class="font-bold text-3xl">Stonks.fi</p>
         <p class="opacity-50">Your one stop shop for all things Stonky</p>
       </div>
       <ul class="flex items-center gap-4">
-        <li><a asp-area="" asp-controller="Home" asp-action="Index">Browse</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a></li>
         @if (User.Identity.IsAuthenticated)
         {
-          <li><a asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
+        <li class="flex gap-4 items-center">
+          <a asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+          <div class="border-[1px] border-neutral-500 bg-gradient-to-tr from-violet-600 to-cyan-500 
+              uppercase font-mono aspect-square p-4 text-sm rounded-md">
+            @User.Identity.Name.First()@User.Identity.Name.Last()
+          </div>
+        </li>
         }
         else
         {
-          <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+        <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
         }
       </ul>
     </nav>
   </header>
-  <div class="py-2 min-h-[82svh]">
+  <div class="min-h-[82svh]">
     <main role="main" class="pb-3 container mx-auto">
       @RenderBody()
     </main>

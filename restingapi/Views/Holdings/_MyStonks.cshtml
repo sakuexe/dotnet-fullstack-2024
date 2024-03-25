@@ -1,25 +1,37 @@
 @model restingapi.Models.MyStonksViewModel
 
-@{
-  var total = Model.UserHoldings.Stonks.Sum(x => x.PurchasePriceCents * x.Quantity);
-}
-
-<div class="flex gap-4 items-stretch p-8 rounded-2xl shadow-lg bg-neutral-800 border-[1px] border-neutral-700">
-  <div class="border-[1px] border-neutral-500 rounded-lg grid place-items-center w-20 aspect-square
+<div class="space-y-4 p-8 rounded-2xl shadow-lg bg-neutral-800 border-[1px] border-neutral-700">
+  <div class="row-1 flex gap-4 items-stretch">
+    <div class="border-[1px] border-neutral-500 rounded-lg grid place-items-center w-20 aspect-square
     bg-gradient-to-tr from-violet-600 to-cyan-500 uppercase font-semibold font-mono text-lg">
-    @(Model.UserHoldings.Username.First())@(Model.UserHoldings.Username.Last())
+      @(Model.UserHoldings.Username.First())@(Model.UserHoldings.Username.Last())
+    </div>
+
+    @foreach (var stonk in Model.UserHoldings.Stonks)
+    {
+    <div class="flex flex-col justify-center rounded-lg pl-3 pr-4">
+      <h4 class="opacity-75">@stonk.BusinessName - @stonk.Quantity</h4>
+      <p class="font-bold">$ @Model.GetCurrentHoldingValue(stonk.BusinessName)
+        <span class="font-normal opacity-75">(@Model.GetPurchaseValue(stonk.BusinessName))</span></p>
+      <p class="@(Model.GetStockDelta(stonk.BusinessName).First() == '-' ? " text-red-400" : "text-green-400" )">
+        @(Model.GetStockDelta(stonk.BusinessName))</p>
+    </div>
+    }
   </div>
 
-  <div class="flex flex-col justify-center border-[1px] border-neutral-500 rounded-lg pl-3 pr-4">
-    <h4 class="opacity-75">Total</h4>
-    <p class="font-bold">$ @(((decimal)total / 100).ToString("N2"))</p>
-  </div>
-  @foreach (var stonk in Model.UserHoldings.Stonks)
-  {
-    <div class="flex flex-col justify-center border-[1px] border-neutral-500 rounded-lg pl-3 pr-4">
-      <h4 class="opacity-75">@stonk.BusinessName</h4>
-      <p class="font-bold">$ @(Model.GetHoldingsValue(stonk.BusinessName))</p>
-      <p>$ @(Model.GetStockValue(stonk.BusinessName))</p>
+  <div class="row-2 grid grid-cols-4 gap-4 [&>div]:py-4 [&>div]:px-6 [&>div]:pl-5">
+    <div class="flex flex-col justify-center border-[1px] border-neutral-600 rounded-lg">
+      <h4 class="opacity-75">Total</h4>
+      <p class="text-xl font-bold">$ @(Model.GetTotal())</p>
     </div>
-  }
+    <div class="flex flex-col justify-center border-[1px] border-neutral-600 rounded-lg">
+      <h4 class="opacity-75">Total Change</h4>
+      <p class="text-xl font-bold @(Model.GetTotalDelta().First() == '-' ? " text-red-400" : "text-green-400" )">
+        @(Model.GetTotalDelta())</p>
+    </div>
+    <div class="flex flex-col justify-center border-[1px] border-neutral-600 rounded-lg">
+      <h4 class="opacity-75">Most Stonks</h4>
+      <p class="text-xl font-bold">@(Model.GetMostStocks())</p>
+    </div>
+  </div>
 </div>
