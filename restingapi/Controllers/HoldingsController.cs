@@ -7,7 +7,7 @@ namespace restingapi.Controllers;
 public class HoldingsController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private static readonly List<UserHoldings> _users = new();
+    private static readonly List<UserHoldings> _users = new List<UserHoldings>();
 
     public HoldingsController(ILogger<HomeController> logger)
     {
@@ -19,16 +19,20 @@ public class HoldingsController : Controller
     {
         if (!User.Identity!.IsAuthenticated)
         {
+            // if user is not logged in, return a partial view with a message
             return PartialView("_NotLoggedIn");
         }
         var identity = HttpContext.User.Identity;
         var username = identity!.Name!;
-        /* Console.WriteLine(_users.Count); */
+
+        var viewModel = new MyStonksViewModel(username);
         var usersHoldings = _users.Find(u => u.Username == username);
         // if user is not already in the list, create a new UserHoldings object
         // do not save it to the list yet, only after the first purchase is made
         usersHoldings ??= new UserHoldings(username);
-        return PartialView("_MyStonks", usersHoldings);
+        // add the user's holdings to the view model
+        viewModel.UserHoldings = usersHoldings;
+        return PartialView("_MyStonks", viewModel);
     }
 
     [HttpPost]
@@ -55,7 +59,9 @@ public class HoldingsController : Controller
         var valueInCents = (int)(value * 100);
         usersHoldings.AddStonk(business, valueInCents);
 
+        _users.Remove(usersHoldings);
         _users.Add(usersHoldings);
+        Console.WriteLine($"User {username} bought {business} for {valueInCents} cents");
 
         return RedirectToAction("Index", "Home");
     }

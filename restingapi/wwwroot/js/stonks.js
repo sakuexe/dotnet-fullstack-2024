@@ -16,7 +16,9 @@ async function getStonks(businessName = "Apple") {
   }
   const stonks = await response.json();
   // change stonks values to euros from cents before returning
-  stonks.StockValues = Object.values(stonks.StockValues).map((value) => value / 100);
+  stonks.StockValues.forEach((stock) => {
+    return stock.Value = stock.Value / 100;
+  });
   return stonks;
 }
 

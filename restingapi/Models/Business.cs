@@ -4,8 +4,14 @@ namespace restingapi.Models
     {
         public string Name { get; set; }
         public string ShortName => Name.Substring(0, 4).ToUpper();
-        public Dictionary<string, int> StockValues { get; set; }
-        private int createStockValue() {
+        public struct StockValue
+        {
+            public string Date { get; set; }
+            public int Value { get; set; }
+        }
+        public List<StockValue> StockValues { get; set; }
+        private int createStockValue()
+        {
             // creates a new random stock value based on the previous value
             // so that the stock value changes feel more realistic
 
@@ -31,22 +37,24 @@ namespace restingapi.Models
         }
         public void UpdateStock()
         {
-            var newestDate = DateTime.Parse(StockValues.Last().Key);
+            var newestDate = DateTime.Parse(StockValues.Last().Date);
             var newDate = newestDate.AddDays(1).ToString("yyyy-MM-dd");
             var value = createStockValue();
-            StockValues.Add(newDate, value);
+            StockValues.Add(new StockValue { Date = newDate, Value = value });
         }
 
         public Business(string name, int stockAmount = 7)
         {
             Name = name;
-            StockValues = new Dictionary<string, int>();
+            StockValues = new List<StockValue>();
             for (int i = 0; i < stockAmount; i++)
             {
                 var date = DateTime.Now.AddDays(-stockAmount + i);
                 var valueCents = createStockValue();
-                StockValues.Add(date.ToString("yyyy-MM-dd"), valueCents);
+                StockValues.Add(new StockValue { Date = date.ToString("yyyy-MM-dd"), Value = valueCents });
             }
         }
+        // parameterless constructor for json deserialization
+        public Business() { }
     }
 }

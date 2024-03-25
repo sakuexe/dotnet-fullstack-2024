@@ -47,6 +47,13 @@ ViewData["Title"] = "Home Page";
     }
   }
 
-  getBusinesses();
-  getMyStonks();
+  async function fetchData() {
+    // we have to wait for getBusinesses to finish before calling getMyStonks
+    // this is becaus getBusinesses also updates the stonk value at every fetch
+    // so we need to make sure that the values are updated before we fetch the user's stonks
+    await getBusinesses();
+    getMyStonks();
+  }
+  
+  fetchData();
 </script>

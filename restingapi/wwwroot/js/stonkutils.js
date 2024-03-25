@@ -9,7 +9,7 @@ export async function drawStonks(stockValues) {
   const color = checkStonkDelta(stockValues) > 0 ? '#22c55e' : '#ef4444';
   // get the ten latest stonks
   const duration = getStonkSpan();
-  const latestStonks = Object.entries(stockValues).slice(-duration);
+  const latestStonks = stockValues.slice(-duration);
 
   // if the chart already exists, destroy it
   let chartStatus = Chart.getChart('main_chart');
@@ -20,9 +20,10 @@ export async function drawStonks(stockValues) {
   new Chart(ctx, {
     type: 'line',
     data: {
+      labels: latestStonks.map((stonk) => stonk.Date),
       datasets: [{
         label: 'Stock Value',
-        data: latestStonks,
+        data: latestStonks.map((stonk) => stonk.Value),
         backgroundColor: `${color}55`,
         borderColor: color,
         borderWidth: 1,
@@ -45,9 +46,8 @@ export async function drawStonks(stockValues) {
 
 // check the delta of the stonks
 function checkStonkDelta(stonkValues) {
-  const length = Object.keys(stonkValues).length;
-  const lastValue = Object.values(stonkValues)[length - 1]
-  const secondLastValue = Object.values(stonkValues)[length - 2]
+  const lastValue = stonkValues[stonkValues.length - 1].Value;
+  const secondLastValue = stonkValues[stonkValues.length - 2].Value;
   return (lastValue - secondLastValue) / secondLastValue * 100;
 }
 
@@ -67,8 +67,8 @@ export function addStonkData(stonks) {
   logo.src = `/images/${stonks.Name.toLowerCase()}.png`;
   logo.alt = `${stonks.Name} logo`;
   // set the current value
-  const length = Object.keys(stonks.StockValues).length;
-  const currentValue = parseFloat(Object.values(stonks.StockValues)[length - 1]);
+  const length = stonks.StockValues.length;
+  const currentValue = parseFloat(stonks.StockValues[length - 1].Value);
   value.textContent = `\$${currentValue.toFixed(2)}`;
   businessValueField.value = currentValue;
   // set the percentage
