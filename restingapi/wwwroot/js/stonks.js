@@ -24,7 +24,7 @@ async function getStonks(businessName = 'Apple') {
 
 // on load of the page
 document.addEventListener('DOMContentLoaded', async () => {
-	// get business from the get query parametet
+	// get business from the get query parameters
 	const businessParam = new URLSearchParams(window.location.search).get(
 		'business'
 	)
