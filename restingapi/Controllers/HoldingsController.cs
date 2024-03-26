@@ -30,6 +30,11 @@ public class HoldingsController : Controller
         // if user is not already in the list, create a new UserHoldings object
         // do not save it to the list yet, only after the first purchase is made
         usersHoldings ??= new UserHoldings(username);
+
+        // if the user has no holdings, return a partial view with a message
+        if (usersHoldings.Stonks.Count == 0)
+            return PartialView("_NoStonks");
+
         // add the user's holdings to the view model
         viewModel.UserHoldings = usersHoldings;
         return PartialView("_MyStonks", viewModel);
@@ -38,7 +43,7 @@ public class HoldingsController : Controller
     [HttpPost]
     [Authorize]
     [ValidateAntiForgeryToken]
-    public IActionResult BuyStonk(string business, double value)
+    public IActionResult BuyStonk(string business, int value)
     {
         var identity = HttpContext.User.Identity;
         var username = identity?.Name;
@@ -48,7 +53,7 @@ public class HoldingsController : Controller
         if (string.IsNullOrWhiteSpace(business))
             return BadRequest("No business name provided");
         if (value <= 0)
-            return BadRequest("Invalid purchase price");
+            return BadRequest($"Invalid purchase price: {value}. Expected Int reprecenting cents");
 
         // search for the user in the list
         var usersHoldings = _users.Find(u => u.Username == username);
@@ -56,13 +61,12 @@ public class HoldingsController : Controller
         usersHoldings ??= new UserHoldings(username);
 
         // add a purchase to the user's holdings
-        var valueInCents = (int)(value * 100);
-        usersHoldings.AddStonk(business, valueInCents);
+        usersHoldings.AddStonk(business, value);
 
         _users.Remove(usersHoldings);
         _users.Add(usersHoldings);
-        Console.WriteLine($"User {username} bought {business} for {valueInCents} cents");
 
+        // add query string to redirect to the index page
         return RedirectToAction("Index", "Home");
     }
 }
