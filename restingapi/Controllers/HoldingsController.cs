@@ -17,11 +17,10 @@ public class HoldingsController : Controller
     [HttpPost]
     public IActionResult Index()
     {
+        // if user is not logged in, return a partial view with a message
         if (!User.Identity!.IsAuthenticated)
-        {
-            // if user is not logged in, return a partial view with a message
             return PartialView("_NotLoggedIn");
-        }
+
         var identity = HttpContext.User.Identity;
         var username = identity!.Name!;
 
@@ -67,6 +66,6 @@ public class HoldingsController : Controller
         _users.Add(usersHoldings);
 
         // add query string to redirect to the index page
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Index", "Home", new { business });
     }
 }
