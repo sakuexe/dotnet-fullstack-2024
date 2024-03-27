@@ -1,0 +1,13 @@
+@model databased_vs.Models.User
+
+@{
+  ViewData["title"] = "UserDetails";
+}
+
+<h1>UserDetails</h1>
+
+<ul>
+  <li>Name @Model.Name</li>
+  <li>Email @Model.Email</li>
+  <li>Password @Model.Password</li>
+</ul>

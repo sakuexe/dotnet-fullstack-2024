@@ -1,0 +1,16 @@
+@model List<databased_vs.Models.User>;
+
+  @{
+  ViewData["title"] = "Users";
+  }
+
+  <h1>Filtered users</h1>
+
+  @foreach (var user in Model)
+  {
+  <ul>
+    <li>Name @user.Name</li>
+    <li>Email @user.Email</li>
+    <li>Password @user.Password</li>
+  </ul>
+  }
