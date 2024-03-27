@@ -5,10 +5,11 @@ namespace databased_vs.Models
 {
     public class DatabaseManipulator
     {
+        // connection settings
         private static string? DATABASE_NAME;
         private static string? HOST;
+        // the configuration objects
         private static IConfiguration? config;
-        // needed for connection
         private static MongoServerAddress? address;
         private static MongoClientSettings? clientSettings;
         private static MongoClient? client;
@@ -31,11 +32,10 @@ namespace databased_vs.Models
             database = client.GetDatabase(DATABASE_NAME);
         }
 
-        // The Smort Mongo Save Function
+        // --- The Smort Mongo Save Function ---
         // It requires the passed value to have an _id property
-        // This is made so that the function will give error already
-        // when writing the code. So the programmer won't pass 
-        // "non-mongofied" classes 
+        // This is made so that the function will give an error already
+        // when writing the code. So the programmer won't pass classes without an ObjectId
         // (the classes need to inherit IHasId from the interfaces.cs file)
         public static T Save<T>(T record) where T : IHasId
         {
@@ -58,37 +58,46 @@ namespace databased_vs.Models
             return record;
         }
 
+        // The single search function
+        // I honestly forgot what that part of the assignment meant, but I hope this is enough
         public static T? FindOne<T>(string property, string value)
         {
             var table = typeof(T).Name;
             T? result = default;
-            try {
+            try
+            {
                 var collection = database?.GetCollection<T>(table);
                 var filter = Builders<T>.Filter.Eq(property, value);
                 result = collection.Find(filter).FirstOrDefault();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("Skill Issue");
                 Console.WriteLine(e.Message);
             }
             return result;
         }
 
+        // find many version of the search function above
         public static List<T>? FindMany<T>(string property, string value)
         {
             var table = typeof(T).Name;
             List<T>? result = default;
-            try {
+            try
+            {
                 var collection = database?.GetCollection<T>(table);
                 var filter = Builders<T>.Filter.Eq(property, value);
                 result = collection.Find(filter).ToList();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("Skill Issue");
                 Console.WriteLine(e.Message);
             }
             return result;
         }
 
-        // done during the lesson. Ignore these. They are for my own reference
+        //! done during the lesson. Ignore these. They are for my own reference
         public static T GetByObjectId<T>(string table, ObjectId id)
         {
             var collection = database?.GetCollection<T>(table);
