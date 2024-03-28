@@ -3,14 +3,14 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace databased_vs.Models
 {
-	public class User : IHasId
-	{
-		[BsonId] // this is the main id of the collection item
-		[BsonRepresentation(BsonType.String)] // uses the id as a string, instead of a complex class
-		public ObjectId _id { get; set; }
-		public string Name { get; set; }
-		public string Email { get; set; }
-		public string Password { get; set; }
+    public class User : IHasId
+    {
+        [BsonId] // this is the main id of the collection item
+        [BsonRepresentation(BsonType.String)] // uses the id as a string, instead of a complex class
+        public ObjectId _id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         private readonly Random _random = new Random();
         private readonly List<string> _names = new List<string>(){
@@ -25,5 +25,5 @@ namespace databased_vs.Models
             Email = email ?? $"{Name.ToLower()}{_random.Next(100)}@example.com";
             Password = password ?? $"not-safe-{_random.Next(1000, 9999)}";
         }
-	}
+    }
 }
