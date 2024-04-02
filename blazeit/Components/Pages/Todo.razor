@@ -1,0 +1,63 @@
+@page "/todo"
+@rendermode InteractiveServer
+@using blazeit.Models
+@using blazeit.Services
+
+<PageTitle>Todo</PageTitle>
+
+<h1 class="text-xl font-bold mb-4">Todo List</h1>
+
+@if (todos == null)
+{
+	<p>Loading...</p>
+}
+else
+{
+	<ul>
+		@foreach (var todo in todos)
+		{
+			<li class="flex gap-2">
+				<input id="@(todo.Title)-check" name="@(todo.Title)-check" type="checkbox" checked="@(todo.IsCompleted)"
+					@onchange="() => SaveItem(todo)">
+				<label for="@(todo.Title)-check">@todo.Title</label>
+			</li>
+		}
+		<li>
+			<form @onsubmit="AddNewItem">
+				<input type="text" @bind="newTitle" class="border" />
+				<button class="py-2">Add to list</button>
+				<input type="submit" hidden>
+			</form>
+		</li>
+	</ul>
+}
+
+@code {
+	private List<TodoItem>? todos;
+	private string newTitle = string.Empty;
+
+	private void AddNewItem()
+	{
+		var newItem = new TodoItem(newTitle);
+		DatabaseManipulator.Save<TodoItem>(newItem);
+		todos = DatabaseManipulator.FindAll<TodoItem>();
+		newTitle = string.Empty;
+	}
+
+	private void SaveItem(TodoItem todo)
+	{
+		todo.IsCompleted = !todo.IsCompleted;
+		DatabaseManipulator.Save<TodoItem>(todo);
+	}
+
+	protected override void OnInitialized()
+	{
+		todos = DatabaseManipulator.FindAll<TodoItem>();
+		if (todos?.Count < 1)
+		{
+			var baseTodo = new TodoItem("Initialize Todo List");
+			DatabaseManipulator.Save<TodoItem>(baseTodo);
+			todos = DatabaseManipulator.FindAll<TodoItem>();
+		}
+	}
+}
