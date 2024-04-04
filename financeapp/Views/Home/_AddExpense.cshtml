@@ -1,0 +1,22 @@
+@using financeapp.Models.ViewModels
+@model NewExpenseViewModel
+
+<form asp-controller="Home" asp-action="Add" method="post" id="add_expense"
+  class="absolute inset-0 m-auto bg-stone-50 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
+  flex-col justify-center items-center gap-4 hidden
+  [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:w-full">
+  <input type="text" asp-for="Title" placeholder="Title">
+  <span asp-validation-for="Title"></span>
+  <input type="text" asp-for="Description" placeholder="Description">
+  <span asp-validation-for="Description"></span>
+  <input type="text" asp-for="Category" placeholder="Category">
+  <span asp-validation-for="Category"></span>
+  <input type="text" asp-for="Icon" placeholder="Icon">
+  <span asp-validation-for="Icon"></span>
+  <input type="number" asp-for="AmountCents" name="AmountCents" value="200">
+  <span asp-validation-for="AmountCents"></span>
+  <button type="submit" class="w-full bg-violet-400 py-2 px-4">Add a new expense</button>
+  <div class="error"></div>
+</form>
+
+<script src="~/js/addNewExpence.js" defer></script>

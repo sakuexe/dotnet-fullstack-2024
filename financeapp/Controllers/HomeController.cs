@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using financeapp.Models;
 using financeapp.Data;
+using financeapp.Models.ViewModels;
+using System.Text.Json;
 
 namespace financeapp.Controllers;
 
