@@ -16,4 +16,6 @@ public class User
     public string Password { get; set; }
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; }
+    // Navigation Property - used for easy access to related data
+    public List<Finance>? Finances { get; set; }
 }

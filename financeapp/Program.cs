@@ -1,13 +1,35 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using financeapp.Data;
 using financeapp.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// add db to services using sqlite as the database
-builder.Services.AddDbContext<UserContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("UserContext") ?? throw new InvalidOperationException("Connection string 'UserContext' not found.")));
+var connectionString = builder.Configuration.GetConnectionString("FinancesContext") ??
+    throw new InvalidOperationException("Connection string 'FinancesContext' not found.");
+
+builder.Services.AddDbContext<FinancesContext>(options =>
+    options.UseSqlite(connectionString));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.Cookie.Name = "FinanceLoginCookie";
+        options.AccessDeniedPath = "/Login/Logout";
+        options.LogoutPath = "/";
+    });
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("NoAdminAccess", policy =>
+    {
+        policy.RequireAssertion(context =>
+            !(context.User.Identity.IsAuthenticated && context.User.IsInRole("Admin")));
+    });
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -35,6 +57,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // Authentication middleware must be added before Authorization middleware
 app.UseAuthorization();
 
 app.MapControllerRoute(

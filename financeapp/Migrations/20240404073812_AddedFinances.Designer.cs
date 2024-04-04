@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using financeapp.Data;
 
@@ -10,9 +11,11 @@ using financeapp.Data;
 namespace financeapp.Migrations
 {
     [DbContext(typeof(FinancesContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20240404073812_AddedFinances")]
+    partial class AddedFinances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -56,7 +59,7 @@ namespace financeapp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Finances");
+                    b.ToTable("Finance");
                 });
 
             modelBuilder.Entity("financeapp.Models.User", b =>
@@ -79,7 +82,7 @@ namespace financeapp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("financeapp.Models.Finance", b =>

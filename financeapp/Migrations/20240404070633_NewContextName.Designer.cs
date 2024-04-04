@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using financeapp.Data;
 
@@ -10,9 +11,11 @@ using financeapp.Data;
 namespace financeapp.Migrations
 {
     [DbContext(typeof(FinancesContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20240404070633_NewContextName")]
+    partial class NewContextName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -39,9 +42,7 @@ namespace financeapp.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasMaxLength(1)
+                    b.Property<char>("Icon")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -56,7 +57,7 @@ namespace financeapp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Finances");
+                    b.ToTable("Finance");
                 });
 
             modelBuilder.Entity("financeapp.Models.User", b =>
@@ -79,7 +80,7 @@ namespace financeapp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("financeapp.Models.Finance", b =>

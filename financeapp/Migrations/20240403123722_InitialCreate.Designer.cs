@@ -9,7 +9,7 @@ using financeapp.Data;
 
 namespace financeapp.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(FinancesContext))]
     [Migration("20240403123722_InitialCreate")]
     partial class InitialCreate
     {

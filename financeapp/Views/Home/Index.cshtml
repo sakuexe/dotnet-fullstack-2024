@@ -1,8 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<financeapp.Models.Finance>;
+  @{
+  ViewData["Title"] = "Home Page";
+  }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+  <div class="text-center">
+    <h1 class="display-4">Welcome @User.Identity.Name</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+  </div>
+
+  @foreach (var item in Model)
+  {
+  <ul>
+    <li>@item.Category</li>
+    <li>@item.Icon</li>
+    <li>@item.Title</li>
+    <li>@item.Description</li>
+    <li>@item.AmountCents</li>
+    <li>@item.CreatedAt</li>
+  </ul>
+  }
