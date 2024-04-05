@@ -3,28 +3,32 @@ const errorElement = addForm.querySelector(".error");
 
 async function addData() {
   const url = "/Finance/Add";
-  let data;
+  let response;
   try {
     const formData = new FormData(addForm);
-    const response = await fetch(url, {
+    response = await fetch(url, {
       method: "POST",
       body: formData,
     });
-    // check if bad request, then show error messages
-    if (response.status === 400) {
-      data = await response.json();
-      showErrorMessages(data);
-      return;
-    }
-    // unknown error
-    if (!response.ok) {
-      throw new Error(`Unknown error occurred: ${response.status} \n ${response.statusText}`);
-    }
-    data = await response.json();
   } catch (error) {
     console.error(error);
     errorElement.textContent = error.message;
   }
+  // check if bad request, then show error messages
+  if (response.status === 400) {
+    const data = await response.json();
+    showErrorMessages(data);
+    return;
+  }
+  // unknown error
+  if (!response.ok) {
+    errorElement.textContent = `Unknown error occurred: ${response.status} \n ${response.statusText}`;
+    return
+  }
+  // success
+  addForm.reset();
+  addForm.classList.add("hidden");
+  addForm.classList.remove("flex");
 }
 
 async function showErrorMessages(errors) {

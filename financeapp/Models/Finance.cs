@@ -9,12 +9,12 @@ public class Finance
     [MaxLength(128)]
     public string Title { get; set; }
     [MaxLength(512)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     [Required]
     [MaxLength(48)]
     public string Category { get; set; }
     [MaxLength(1)]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
     [Required]
     public int AmountCents { get; set; }
     [DataType(DataType.Date)]

@@ -1,23 +1,20 @@
 @model financeapp.Models.ViewModels.LoginViewModel
 
-<h1>Hello from the login View</h1>
+<h1>Login</h1>
 
-<form asp-controller="Login" asp-action="Index" method="post" 
-  class="bg-neutral-800 border-[1px] border-neutral-600 rounded-xl shadow-md px-8 py-12 
-  max-w-lg mx-auto space-y-6">
-
+<form asp-controller="Login" asp-action="Index" method="post" >
   <div class="flex flex-col gap-2">
     <label asp-for="Username" class="font-bold">Username</label>
     <input asp-for="Username" placeholder="coolguy123"
-      class="bg-neutral-800 border-[1px] border-neutral-500 rounded-md py-2 px-4" />
-    <span asp-validation-for="Username" class="bg-violet-600 rounded-sm py-1 px-4"></span>
+      class="border-[1px] rounded-md py-2 px-4" />
+    <span asp-validation-for="Username" class="px-4"></span>
   </div>
 
   <div class="flex flex-col gap-2">
     <label asp-for="Password" class="font-bold">Password</label>
     <input asp-for="Password" placeholder="********"
-      class="bg-neutral-800 border-[1px] border-neutral-500 rounded-md py-2 px-4" />
-    <span asp-validation-for="Password" class="bg-violet-600 rounded-sm py-1 px-4"></span>
+      class="border-[1px] rounded-md py-2 px-4" />
+    <span asp-validation-for="Password" class="px-4"></span>
   </div>
 
   <span>@Html.ValidationMessage("validation")</span>
