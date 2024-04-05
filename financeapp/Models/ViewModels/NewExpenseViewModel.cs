@@ -36,6 +36,7 @@ public class NewExpenseViewModel
             Category = Category,
             Icon = Icon,
             AmountCents = amountInCents,
+            User = user
         };
         try {
             using var transaction = context;

@@ -9,24 +9,37 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
   </div>
 
-  @foreach (var item in Model)
-  {
-  <ul>
-    <li>@item.Category</li>
-    <li>@item.Icon</li>
-    <li>@item.Title</li>
-    <li>@item.Description</li>
-    <li>@item.AmountCents</li>
-    <li>@item.CreatedAt</li>
-  </ul>
-  }
+  <section id="finances" class="py-20">
+  </section>
 
   @await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())
 
   <button id="add_expense" class="w-full bg-violet-400 py-2 px-4">Add a new expense</button>
 
+  @section Functions {
+  <script>
+    async function fetchExpenses() {
+      const financesElement = document.querySelector('section#finances');
+      const url = '/finances';
+      let data;
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+        });
+        // because the endpoint is returning HTML
+        // we need to use the text() method to get the data
+        data = await response.text();
+      } catch (error) {
+        console.error(error);
+      }
+      financesElement.innerHTML = data;
+    }
+  </script>
+  }
+
   @section Scripts {
   <script defer>
+    fetchExpenses();
     const addButton = document.querySelector('button#add_expense');
     addButton.addEventListener('click', () => {
       const form = document.querySelector('form#add_expense');

@@ -8,10 +8,21 @@
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/financeapp.styles.css" asp-append-version="true" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          gridTemplateColumns: {
+            fluid: "repeat(auto-fit, minmax(20rem, 1fr))",
+          },
+        }
+      }
+    }
+  </script>
 </head>
 
-<body class="bg-stone-100 text-stone-950">
-  <header>
+<body class="bg-stone-200 text-stone-950">
+  <header class="bg-stone-100">
     <nav class="flex gap-4 items-center p-4">
       <a class="font-bold uppercase" asp-area="" asp-controller="Home" asp-action="Index">financeapp</a>
       <ul class="flex gap-2">
@@ -36,17 +47,16 @@
       </ul>
     </nav>
   </header>
-  <div class="container">
-    <main role="main" class="pb-3">
-      @RenderBody()
-    </main>
-  </div>
+  <main role="main" class="container mx-auto">
+    @RenderBody()
+  </main>
 
   <footer class="border-top footer text-muted">
     <div class="container">
       &copy; 2024 - financeapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
   </footer>
+  @await RenderSectionAsync("Functions", required: false)
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>

@@ -2,7 +2,7 @@ const addForm = document.getElementById("add_expense");
 const errorElement = addForm.querySelector(".error");
 
 async function addData() {
-  const url = "/Finance/Add";
+  const url = "/Finances/Add";
   let response;
   try {
     const formData = new FormData(addForm);
@@ -29,6 +29,9 @@ async function addData() {
   addForm.reset();
   addForm.classList.add("hidden");
   addForm.classList.remove("flex");
+  // we added fetchExpenses to the global scope in home/index.cshtml
+  // so that we can refresh the data after adding a new expense
+  fetchExpenses();
 }
 
 async function showErrorMessages(errors) {

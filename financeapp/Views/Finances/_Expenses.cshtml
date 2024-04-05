@@ -1,0 +1,27 @@
+@using financeapp.Models
+@model List<Finance>
+
+  <div class="grid grid-cols-fluid gap-4">
+    @foreach (var item in Model)
+    {
+    <div>
+      <div class="header flex gap-4 bg-violet-900 text-white">
+        <div class="aspect-square w-10 grid place-items-center bg-stone-100 border-2 border-violet-900">
+          <span class="drop-shadow-md text-violet-900 font-bold text-sm">@item.Icon</span>
+        </div>
+        <div class="flex items-center justify-start">
+          <span>@item.Category</span>
+        </div>
+      </div>
+      <div class="body px-4 py-2">
+        <div>@item.Title</div>
+        <div>@item.Description</div>
+        <div>@item.AmountCents</div>
+        <div>@item.CreatedAt</div>
+      </div>
+      <div class="footer px-4 py-2 bg-violet-900 text-white">
+        <div>@item.CreatedAt</div>
+      </div>
+    </div>
+    }
+  </div>

@@ -1,28 +1,35 @@
 using System.Text.Json;
 using financeapp.Data;
-using financeapp.Models;
 using financeapp.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace financeapp.Controllers;
 
-public class FinanceController : Controller
+[Authorize]
+public class FinancesController : Controller
 {
     private readonly FinancesContext _context;
-    public FinanceController(FinancesContext context)
+    public FinancesController(FinancesContext context)
     {
         _context = context;
     }
 
-    [HttpGet]
+    [HttpPost]
     public IActionResult Index()
     {
-        return View();
+        // TODO: send a partial view with the expenses of the user
+        var username = User.Identity?.Name;
+        using var context = _context;
+        var expenses = context.Finances.Where(f => f.User.Username == username).ToList();
+        if (expenses.Count < 1)
+        {
+            return PartialView("_NoExpenses");
+        }
+        return PartialView("_Expenses", expenses);
     }
 
     [HttpPost]
-    [Authorize]
     [ValidateAntiForgeryToken]
     public IActionResult Add(NewExpenseViewModel model)
     {

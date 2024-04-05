@@ -3,7 +3,7 @@
 
 <form asp-controller="Home" asp-action="Add" method="post" id="add_expense"
   class="absolute inset-0 m-auto bg-stone-50 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
-  flex-col justify-center items-center gap-4 hidden
+  flex-col justify-center items-center gap-2 hidden
   [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:w-full">
   <input type="text" asp-for="Title" placeholder="Title">
   <span asp-validation-for="Title"></span>
