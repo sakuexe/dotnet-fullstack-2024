@@ -23,6 +23,7 @@ public class LoginController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
+        ViewData["Title"] = "Login";
         return View();
     }
 
@@ -43,30 +44,7 @@ public class LoginController : Controller
             return View(login);
         }
 
-        var claims = new List<Claim> {
-            new Claim(ClaimTypes.Name, login.Username),
-			/* new Claim(ClaimTypes.UserData, "I am a user!"), */
-		};
-
-        if (login.Username == "admin")
-            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
-
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-        var authProperties = new AuthenticationProperties
-        {
-            // if user is still on site, the cookie will be refreshed
-            AllowRefresh = true,
-            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30), // cookie expires in 30 minutes
-                                                               // does persist even after the browser is closed
-            IsPersistent = true,
-        };
-
-        HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity),
-            authProperties
-        );
+        AuthenticateUser(login.Username);
 
         return RedirectToAction("Index", "Home");
     }
@@ -77,4 +55,63 @@ public class LoginController : Controller
         HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Home");
     }
+
+    [HttpGet]
+    public IActionResult Register()
+    {
+        // if the user is already logged in, redirect to the home page
+        if (User.Identity!.IsAuthenticated)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        ViewData["Title"] = "Register";
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken] // prevents CSRF attacks
+    public IActionResult Register(RegisterViewModel newAccount)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(newAccount);
+        }
+
+        var error = newAccount.SaveToDatabase(_context); // golang-esque error handling
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            ModelState.AddModelError("validation", error);
+            return View(newAccount);
+        }
+
+        AuthenticateUser(newAccount.Username, newAccount.Email);
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    private void AuthenticateUser(string username, string? email = null, int expiresMinutes = 30)
+    {
+        var claims = new List<Claim> {
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Email, email ?? string.Empty),
+		};
+
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var authProperties = new AuthenticationProperties
+        {
+            // if user is still on site, the cookie will be refreshed
+            AllowRefresh = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(expiresMinutes), 
+            IsPersistent = true,
+        };
+
+        HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties
+        );
+    }
+
 }

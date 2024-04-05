@@ -1,21 +1,32 @@
 @using financeapp.Models.ViewModels
-@model LoginViewModel
+@model RegisterViewModel
 
-<h1>Login</h1>
-<form asp-controller="Login" asp-action="Index" method="post" >
+<h2>Make a new user account</h2>
+<form asp-controller="Login" asp-action="Register" method="post" class="[&_span]:text-red-500">
   <div class="flex flex-col gap-2">
     <label asp-for="Username" class="font-bold">Username</label>
-    <input asp-for="Username" placeholder="coolguy123"
-      class="border-[1px] rounded-md py-2 px-4" />
+    <input asp-for="Username" placeholder="coolguy123" class="border-[1px] rounded-md py-2 px-4" />
     <span asp-validation-for="Username" class="px-4"></span>
   </div>
 
   <div class="flex flex-col gap-2">
+    <label asp-for="Email" class="font-bold">Email</label>
+    <input asp-for="Email" placeholder="coolguy123" class="border-[1px] rounded-md py-2 px-4" />
+    <span asp-validation-for="Email" class="px-4"></span>
+  </div>
+
+  <div class="flex flex-col gap-2">
     <label asp-for="Password" class="font-bold">Password</label>
-    <input asp-for="Password" placeholder="********"
-      class="border-[1px] rounded-md py-2 px-4" />
+    <input asp-for="Password" placeholder="********" class="border-[1px] rounded-md py-2 px-4" />
     <button type="button" class="show-password w-max">Show Password</button>
     <span asp-validation-for="Password" class="px-4"></span>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label asp-for="ConfirmPassword" class="font-bold">Confirm Password</label>
+    <input asp-for="ConfirmPassword" placeholder="********" class="border-[1px] rounded-md py-2 px-4" />
+    <button type="button" class="show-password w-max">Show Password</button>
+    <span asp-validation-for="ConfirmPassword" class="px-4"></span>
   </div>
 
   <span>@Html.ValidationMessage("validation")</span>
@@ -23,14 +34,11 @@
 
   <div class="grid grid-rows-2 gap-2">
     <button type="submit" class="py-2 px-4 bg-gradient-to-tr from-violet-600 to-purple-600 rounded-sm
-        transition-all hover:brightness-125">Login</button>
+        transition-all hover:brightness-125">Register</button>
     <button type="reset" class="py-2 px-4 border-violet-600 border rounded-sm
         transition-all hover:bg-violet-600">Clear</button>
   </div>
 </form>
-
-<p>No account?</p>
-<a asp-controller="Login" asp-action="Register" class="text-violet-600">Create an account</a>
 
 @section Scripts {
 <script defer>
