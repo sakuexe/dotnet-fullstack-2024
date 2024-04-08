@@ -2,7 +2,7 @@ const addForm = document.getElementById("add_expense");
 const errorElement = addForm.querySelector(".error");
 
 async function addData() {
-  const url = "/Finances/AddExpense";
+  const url = "/Finances/Add";
   let response;
   try {
     const formData = new FormData(addForm);
@@ -15,8 +15,9 @@ async function addData() {
     errorElement.textContent = error.message;
   }
   // check if bad request, then show error messages
-  if (response.status === 400) {
+  if (response.status === 400 || response.status === 500) {
     const data = await response.json();
+    console.log(data);
     showErrorMessages(data);
     return;
   }

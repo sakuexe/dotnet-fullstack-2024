@@ -18,6 +18,9 @@ public class NewExpenseViewModel
     [Required]
     [Range(0.05, double.MaxValue, ErrorMessage = "Amount must be greater than 5 cents.")]
     public double Amount { get; set; }
+    // this helps the UX, so that the user does not have to select the type of expense
+    // we also don't need another form, since we can just check this property
+    public bool IsExpense { get; set; } = true;
 
     // return true if the expense was saved to the database
     // return false otherwise

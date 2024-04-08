@@ -1,7 +1,7 @@
 @using financeapp.Models.ViewModels
 @model NewExpenseViewModel
 
-<form id="add_expense" asp-controller="Finances" asp-action="AddExpense" method="post"
+<form id="add_expense" asp-controller="Finances" asp-action="Add" method="post"
   class="absolute inset-0 m-auto bg-stone-800 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
   flex-col justify-center items-center gap-2 hidden text-stone-100
   [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:border-stone-700 [&>input]:w-full [&>input]:bg-transparent [&>input]:rounded-md">
@@ -10,6 +10,7 @@
   <input type="text" asp-for="Category" placeholder="Category">
   <input type="text" asp-for="Icon" placeholder="Icon">
   <input type="text" asp-for="Amount" name="Amount">
+  <input type="checkbox" asp-for="IsExpense" name="IsExpense" hidden checked>
   <button type="submit" class="w-full bg-primary py-2 px-4">Add a new expense</button>
   <div class="error"></div>
 </form>
