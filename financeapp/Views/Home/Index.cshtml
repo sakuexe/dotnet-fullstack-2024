@@ -11,10 +11,10 @@
 
   <section class="grid py-20 lg:grid-cols-3">
     <div class="col-span-2">
+      <div class="pie-chart">Loading piechart...</div>
     </div>
     <div class="bg-stone-800 outline outline-2 outline-stone-700 rounded-xl overflow-clip">
-      <div id="finances">
-      </div>
+      <div id="finances"></div>
       <button id="add_expense_btn" class="w-full bg-primary py-2 px-4">Add a new expense</button>
       <button id="add_income_btn" class="w-full py-2 px-4">Add a new income</button>
     </div>
@@ -22,78 +22,6 @@
 
   @await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())
 
-  @section Functions {
-  <script>
-    async function fetchExpenses() {
-      const financesElement = document.querySelector('div#finances');
-      const url = '/finances';
-      let data;
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-        });
-        // because the endpoint is returning HTML
-        // we need to use the text() method to get the data
-        data = await response.text();
-      } catch (error) {
-        console.error(error);
-      }
-      financesElement.innerHTML = data;
-      initializeDeleteButtons();
-    }
-
-    async function initializeDeleteButtons() {
-      // allow the user to delete an expense
-      const deleteButtons = document.querySelectorAll('#all_finances button[type="button"]');
-      deleteButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-          const form = button.parentElement;
-          const response = await fetch('Finances/Delete', {
-            method: form.method,
-            body: new FormData(form),
-          });
-          if (response.ok) {
-            form.parentElement.parentElement.remove();
-            return;
-          }
-          // if the expense could not be deleted, show an alert
-          const message = await response.text();
-          const alert = document.createElement('div');
-          alert.classList.add('text-red-400', 'px-4');
-          alert.textContent = message;
-          form.parentElement.parentElement.appendChild(alert);
-        });
-      });
-    }
-  </script>
-
   @section Scripts {
-  <script defer>
-    fetchExpenses();
-    const addButtons = document.querySelectorAll('#add_expense_btn, #add_income_btn');
-    function toggleForm(button) {
-      const form = document.querySelector('form#add_expense');
-      form.classList.toggle('hidden');
-      form.classList.toggle('flex');
-      // toggle between expense and income, so we dont need to add a new form
-      if (button.id === 'add_income_btn') {
-        form.querySelector('input[type=checkbox]').checked = false;
-      } else {
-        form.querySelector('input[type=checkbox]').checked = true;
-      }
-      document.addEventListener('click', (e) => {
-        if (e.target === button) return;
-        if (e.target !== form && !form.contains(e.target)) {
-          form.classList.add('hidden');
-          form.classList.remove('flex');
-        }
-      });
-    }
-    addButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        toggleForm(button);
-      });
-    });
-
-  </script>
+  <script src="~/js/dashboard.js" type="module" defer></script>
   }

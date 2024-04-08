@@ -32,6 +32,12 @@ public class FinancesController : Controller
     }
 
     [HttpPost]
+    public IActionResult PieChart()
+    {
+        return PartialView("_PieChart");
+    }
+
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Add(NewExpenseViewModel model)
     {
