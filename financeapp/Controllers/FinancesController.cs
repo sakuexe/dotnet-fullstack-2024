@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using financeapp.Data;
 using financeapp.Models.ViewModels;
@@ -64,6 +65,29 @@ public class FinancesController : Controller
         };
         // if saving to the database was not successful, return status code 500
         return StatusCode(500, JsonSerializer.Serialize(dbErrors));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        using var context = _context;
+        var expense = context.Finances.FirstOrDefault(f => f.Id == id);
+        if (expense == null)
+        {
+            return StatusCode(404, "Expense not found");
+        }
+        try
+        {
+            context.Finances.Remove(expense);
+            context.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e.Message);
+            return StatusCode(500, "Internal Server Error: Could not delete expense");
+        }
+        return Ok();
     }
 }
 

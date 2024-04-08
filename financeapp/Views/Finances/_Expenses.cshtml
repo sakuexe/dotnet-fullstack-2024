@@ -1,7 +1,7 @@
 @using financeapp.Models
 @model List<Finance>
 
-  <div class="grid gap-4 max-h-[80vh] overflow-y-auto">
+  <div id="all_finances" class="grid gap-4 max-h-[80vh] overflow-y-auto">
     @foreach (var item in Model)
     {
     <div>
@@ -13,6 +13,10 @@
           <span>@item.Category</span>
           <span>@((decimal)item.AmountCents / 100) &euro;</span>
         </div>
+        <form method="POST">
+          <input type="hidden" name="Id" value="@item.Id">
+          <button type="button" class="aspect-square w-10 bg-primary-950">x</button>
+        </form>
       </div>
       <div class="body px-4 py-2 flex justify-between">
         <div>
@@ -24,3 +28,6 @@
     </div>
     }
   </div>
+
+<script>
+</script>
