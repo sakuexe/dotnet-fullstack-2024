@@ -1,0 +1,25 @@
+@using financeapp.Models.ViewModels;
+@model DashboardViewModel
+
+
+<div class="grid gap-4 h-full">
+  <h2 class="font-bold text-2xl">Top Categories</h2>
+  @foreach (var category in Model.GetTopCategories())
+  {
+  <div class="flex gap-2 items-center bg-stone-800 outline outline-1 outline-stone-700 rounded-xl overflow-clip">
+    <div class="grid place-items-center font-bold text-xl aspect-square h-full text-primary-400">@category.Icon</div>
+    <div class="w-full pr-8">
+      <div class="flex justify-between items-center pb-2">
+        <p class="capitalize font-bold">@category.Category</p>
+        <div class="flex gap-2">
+          <p class="opacity-75">@Model.PercentageOfTotal(category.Category) &percnt;</p>
+          <p class="font-bold">@category.Total &euro;</p>
+        </div>
+      </div>
+      <div class="w-full h-4 bg-stone-700 rounded-md">
+        <div class="h-full bg-primary rounded-md" style="width: @Model.PercentageOfTotal(category.Category)%;"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

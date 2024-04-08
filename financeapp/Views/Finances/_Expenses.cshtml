@@ -5,17 +5,17 @@
     @foreach (var item in Model)
     {
     <div>
-      <div class="header flex text-stone-100">
-        <div class="aspect-square w-10 grid place-items-center">
+      <div class="header flex text-stone-100 outline outline-stone-700">
+        <div class="p-4 grid place-items-center">
           <span class="text-violet-400 font-bold text-sm">@item.Icon</span>
         </div>
-        <div class="flex items-center justify-between w-full bg-primary-900 px-4 capitalize">
+        <div class="flex items-center justify-between w-full px-4 outline outline-stone-700 capitalize">
           <span>@item.Category</span>
           <span>@((decimal)item.AmountCents / 100) &euro;</span>
         </div>
-        <form method="POST">
+        <form method="POST" class="grid place-items-center">
           <input type="hidden" name="Id" value="@item.Id">
-          <button type="button" class="aspect-square w-10 bg-primary-950">x</button>
+          <button type="button" class="aspect-square w-10 ">x</button>
         </form>
       </div>
       <div class="body px-4 py-2 flex justify-between">

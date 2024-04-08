@@ -1,32 +1,33 @@
-﻿@using financeapp.Models;
-@model List<Finance>;
-  @{
-  ViewData["Title"] = "Home Page";
-  }
+﻿@using financeapp.Models.ViewModels;
+@model DashboardViewModel
 
-  <div class="text-center">
-    <h1 class="display-4">Welcome @User.Identity.Name</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-  </div>
+<div class="text-center">
+  <h1 class="display-4">Welcome @User.Identity.Name</h1>
+  <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
 
-  <section class="grid py-20 px-5 sm:px-10 lg:grid-cols-3">
-    <div class="col-span-2 relative">
-      <canvas id="pie-chart"></canvas>
-      <div id="pie-text" class="absolute inset-0 m-auto w-max h-max">
-        Text in a pie
+<section class="grid py-20 px-5 gap-8 sm:px-10 lg:grid-cols-3">
+  <div class="grid grid-rows-3 lg:col-span-2">
+    <div class="flex flex-col relative row-span-2">
+      <canvas id="pie-chart" class="w-full"></canvas>
+      <div class="inset-0 m-auto absolute h-max w-max text-center">
+        <p>Total Expenses:</p>
+        <p id="total_expenses" class="font-bold text-4xl">Loading total</p>
       </div>
     </div>
-    <div class="bg-stone-800 outline outline-2 outline-stone-700 rounded-xl overflow-clip">
-      <div id="finances"></div>
-      <button id="add_expense_btn" class="w-full bg-primary py-2 px-4">Add a new expense</button>
-      <button id="add_income_btn" class="w-full py-2 px-4">Add a new income</button>
-    </div>
-  </section>
+    <partial name="_TopCategories" model="@Model"></partial>
+  </div>
+  <div class="bg-stone-800 outline outline-2 outline-stone-700 rounded-xl overflow-clip w-full">
+    <div id="finances"></div>
+    <button id="add_expense_btn" class="w-full bg-primary py-2 px-4">Add a new expense</button>
+    <button id="add_income_btn" class="w-full py-2 px-4">Add a new income</button>
+  </div>
+</section>
 
-  @await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())
+@await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())
 
-  @section Scripts {
-  <script src="~/js/dashboard.js" type="module" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="~/js/piechart.js" type="module" defer></script>
-  }
+@section Scripts {
+<script src="~/js/dashboard.js" type="module" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/piechart.js" type="module" defer></script>
+}

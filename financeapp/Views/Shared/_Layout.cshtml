@@ -39,37 +39,39 @@
 
 <body class="bg-stone-900 text-stone-100">
   <header>
-    <nav class="flex gap-4 items-center p-4">
+    <nav class="flex gap-4 items-center py-4 px-5 sm:px-10">
       <a class="font-bold uppercase" asp-area="" asp-controller="Home" asp-action="Index">financeapp</a>
-      <ul class="flex gap-2">
-        <li class="nav-item">
-          <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
+      <ul class="flex gap-4 justify-between w-full">
+        <div class="flex gap-2">
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+          </li>
+        </div>
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-        <li class="nav-item" style="margin-left:auto;">
+        <li class="nav-item">
           <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
         </li>
         }
         else
         {
-        <li class="nav-item" style="margin-left:auto;">
+        <li class="nav-item">
           <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
         </li>
         }
       </ul>
     </nav>
   </header>
-  <main role="main" class="container mx-auto">
+  <main role="main" class="container mx-auto py-20">
     @RenderBody()
   </main>
 
-  <footer class="border-top footer text-muted">
-    <div class="container">
-      &copy; 2024 - financeapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+  <footer class="footer text-muted">
+    <div class="container mx-auto">
+      &copy; 2024 - financeapp - <a asp-area="" asp-controller="User" asp-action="Index">Users</a>
     </div>
   </footer>
   @await RenderSectionAsync("Functions", required: false)

@@ -20,18 +20,14 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (!User.Identity.IsAuthenticated)
+        ViewData["Title"] = "Dashboard";
+        if (!User.Identity?.IsAuthenticated ?? User.Identity?.Name == null)
         {
             // show the not logged in page from Home folder instead
             return View("NotLoggedIn");
         }
-        var finances = new List<Finance>();
-        using (var context = _context)
-        {
-            finances = context.Finances
-                .Where(f => f.User.Username == User.Identity.Name).ToList();
-        }
-        return View(finances);
+        var dashboard = new DashboardViewModel(_context, User.Identity!.Name!);
+        return View(dashboard);
     }
 
     public IActionResult Privacy()

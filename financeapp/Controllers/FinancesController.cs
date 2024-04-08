@@ -23,7 +23,10 @@ public class FinancesController : Controller
         // TODO: send a partial view with the expenses of the user
         var username = User.Identity?.Name;
         using var context = _context;
-        var expenses = context.Finances.Where(f => f.User.Username == username).ToList();
+        var expenses = context.Finances.
+            Where(f => f.User.Username == username)
+            .OrderByDescending(f => f.CreatedAt)
+            .ToList();
         if (expenses.Count < 1)
         {
             return PartialView("_NoExpenses");
