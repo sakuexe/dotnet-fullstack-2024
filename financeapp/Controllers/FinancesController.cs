@@ -32,9 +32,22 @@ public class FinancesController : Controller
     }
 
     [HttpPost]
-    public IActionResult PieChart()
+    public IActionResult PieChartData()
     {
-        return PartialView("_PieChart");
+        var username = User.Identity?.Name;
+        using var context = _context;
+        var expenses = context.Finances.Where(f => f.User.Username == username).ToList();
+        if (expenses.Count < 1)
+        {
+            return BadRequest("No expenses found");
+        }
+        // dont include incomes in the pie chart
+        expenses = expenses.Where(f => f.AmountCents < 0).ToList();
+        // get the categories and the total amount spent on each category
+        var categories = expenses.GroupBy(f => f.Category)
+            .Select(g => new { Category = g.Key, Amount = g.Sum(f => f.AmountCents) })
+            .ToList();
+        return Content(JsonSerializer.Serialize(categories));
     }
 
     [HttpPost]

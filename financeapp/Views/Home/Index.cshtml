@@ -9,9 +9,12 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
   </div>
 
-  <section class="grid py-20 lg:grid-cols-3">
-    <div class="col-span-2">
-      <div class="pie-chart">Loading piechart...</div>
+  <section class="grid py-20 px-5 sm:px-10 lg:grid-cols-3">
+    <div class="col-span-2 relative">
+      <canvas id="pie-chart"></canvas>
+      <div id="pie-text" class="absolute inset-0 m-auto w-max h-max">
+        Text in a pie
+      </div>
     </div>
     <div class="bg-stone-800 outline outline-2 outline-stone-700 rounded-xl overflow-clip">
       <div id="finances"></div>
@@ -24,4 +27,6 @@
 
   @section Scripts {
   <script src="~/js/dashboard.js" type="module" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="~/js/piechart.js" type="module" defer></script>
   }

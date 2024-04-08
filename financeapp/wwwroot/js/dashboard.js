@@ -1,16 +1,27 @@
-import { fetchExpenses, initializeDeleteButtons, fetchPieChart } from './fetchUtils.js';
+import { fetchExpenses, initializeDeleteButtons, } from './fetchUtils.js';
+import { addNewExpense } from './addnewexpense.js';
 
 // Dashboard.js is like the main file for the dashboard page
-// only it is directly linked to the HTML file and is using
-// type="module" in the script tag.
+// it is used to fetch expenses and handle their modifications
 
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchExpenses();
   initializeDeleteButtons();
-  fetchPieChart();
+});
+
+const addForm = document.getElementById("add_expense");
+const errorElement = addForm.querySelector(".error");
+
+addForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  // clear error message
+  errorElement.textContent = "";
+  await addNewExpense();
+  fetchExpenses();
 });
 
 const addButtons = document.querySelectorAll('#add_expense_btn, #add_income_btn');
+
 function toggleForm(button) {
   const form = document.querySelector('form#add_expense');
   form.classList.toggle('hidden');

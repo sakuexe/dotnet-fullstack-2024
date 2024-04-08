@@ -16,20 +16,15 @@ export async function fetchExpenses() {
 }
 
 export async function fetchPieChart() {
-  const pieChartElement = document.querySelector('.pie-chart');
-  const url = '/finances/piechart';
-  let data;
+  const url = '/finances/piechartdata';
   try {
     const response = await fetch(url, {
       method: 'POST',
     });
-    // because the endpoint is returning HTML
-    // we need to use the text() method to get the data
-    data = await response.text();
+    return await response.json();
   } catch (error) {
     console.error(error);
   }
-  pieChartElement.innerHTML = data;
 }
 
 export async function initializeDeleteButtons() {

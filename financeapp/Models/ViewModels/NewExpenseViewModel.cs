@@ -28,8 +28,10 @@ public class NewExpenseViewModel
     {
         // get the user from the username, the usernames are unique
         var user = context.Users.FirstOrDefault(u => u.Username == username);
-        if (user == null)
+        if (user == null){
+            Console.WriteLine("User not found");
             return false;
+        }
         // convert the amount to cents
         var amountInCents = (int)(Math.Round(Amount, 2) * 100);
         var expense = new Finance
@@ -51,6 +53,6 @@ public class NewExpenseViewModel
             Console.WriteLine(e);
             return false;
         }
-        return false;
+        return true;
     }
 }
