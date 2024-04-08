@@ -4,6 +4,7 @@ using financeapp.Data;
 using financeapp.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace financeapp.Controllers;
 
@@ -32,7 +33,7 @@ public class FinancesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Add(NewExpenseViewModel model)
+    public async Task<IActionResult> Add(NewExpenseViewModel model)
     {
         // The NewExpenseViewModel is has the amount as a double
         // The Finance model has the amount in cents as an integer
@@ -52,7 +53,7 @@ public class FinancesController : Controller
             model.Amount = Math.Abs(model.Amount);
 
         Console.WriteLine($"{model.Title}, {model.Description}, {model.Category}, {model.Icon}, {model.Amount}");
-        bool success = model.SaveToDatabase(_context, User.Identity?.Name);
+        bool success = await model.SaveToDatabase(_context, User.Identity?.Name);
         if (success)
             return Ok();
 
@@ -69,10 +70,10 @@ public class FinancesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         using var context = _context;
-        var expense = context.Finances.FirstOrDefault(f => f.Id == id);
+        var expense = await context.Finances.FirstOrDefaultAsync(f => f.Id == id);
         if (expense == null)
         {
             return StatusCode(404, "Expense not found");
@@ -80,7 +81,7 @@ public class FinancesController : Controller
         try
         {
             context.Finances.Remove(expense);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         catch (Exception e)
         {

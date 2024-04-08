@@ -24,7 +24,7 @@ public class NewExpenseViewModel
 
     // return true if the expense was saved to the database
     // return false otherwise
-    public bool SaveToDatabase(FinancesContext context, string? username)
+    public async Task<bool> SaveToDatabase(FinancesContext context, string? username)
     {
         // get the user from the username, the usernames are unique
         var user = context.Users.FirstOrDefault(u => u.Username == username);
@@ -43,14 +43,14 @@ public class NewExpenseViewModel
         };
         try {
             using var transaction = context;
-            transaction.Finances.Add(expense);
-            transaction.SaveChanges();
+            await transaction.Finances.AddAsync(expense);
+            await transaction.SaveChangesAsync();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             return false;
         }
-        return true;
+        return false;
     }
 }
