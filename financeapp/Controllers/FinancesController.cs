@@ -31,11 +31,12 @@ public class FinancesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Add(NewExpenseViewModel model)
+    public IActionResult AddExpense(NewExpenseViewModel model)
     {
         // The NewExpenseViewModel is has the amount as a double
         // The Finance model has the amount in cents as an integer
         // So the amount needs to be converted to cents before saving to the database
+        Console.WriteLine("hello from controller");
         if (!ModelState.IsValid)
         {
             // TODO: return error with view
@@ -43,6 +44,8 @@ public class FinancesController : Controller
             // send json response with errors, use status code 400
             return BadRequest(JsonSerializer.Serialize(errors));
         }
+        // we are adding expenses, so the amount must be negative
+        model.Amount = Math.Abs(model.Amount) * -1;
         Console.WriteLine($"{model.Title}, {model.Description}, {model.Category}, {model.Icon}, {model.Amount}");
         bool success = model.SaveToDatabase(_context, User.Identity?.Name);
         // TODO: if not success

@@ -1,21 +1,16 @@
 @using financeapp.Models.ViewModels
 @model NewExpenseViewModel
 
-<form asp-controller="Home" asp-action="Add" method="post" id="add_expense"
-  class="absolute inset-0 m-auto bg-stone-50 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
-  flex-col justify-center items-center gap-2 hidden
-  [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:w-full">
+<form id="add_expense" asp-controller="Finances" asp-action="AddExpense" method="post"
+  class="absolute inset-0 m-auto bg-stone-800 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
+  flex-col justify-center items-center gap-2 hidden text-stone-100
+  [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:border-stone-700 [&>input]:w-full [&>input]:bg-transparent [&>input]:rounded-md">
   <input type="text" asp-for="Title" placeholder="Title">
-  <span asp-validation-for="Title"></span>
   <input type="text" asp-for="Description" placeholder="Description">
-  <span asp-validation-for="Description"></span>
   <input type="text" asp-for="Category" placeholder="Category">
-  <span asp-validation-for="Category"></span>
   <input type="text" asp-for="Icon" placeholder="Icon">
-  <span asp-validation-for="Icon"></span>
   <input type="text" asp-for="Amount" name="Amount">
-  <span asp-validation-for="Amount"></span>
-  <button type="submit" class="w-full bg-violet-400 py-2 px-4">Add a new expense</button>
+  <button type="submit" class="w-full bg-primary py-2 px-4">Add a new expense</button>
   <div class="error"></div>
 </form>
 

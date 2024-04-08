@@ -15,14 +15,30 @@
           gridTemplateColumns: {
             fluid: "repeat(auto-fit, minmax(20rem, 1fr))",
           },
+          colors: {
+            'primary': {
+              '50': '#f5f3ff',
+              '100': '#eeeafd',
+              '200': '#dfd7fd',
+              '300': '#c7b7fb',
+              '400': '#ac8ff6',
+              '500': '#9261f1',
+              '600': '#7d37e6',
+              '700': '#732ed3',
+              '800': '#6026b1',
+              '900': '#512191',
+              '950': '#311362',
+              DEFAULT: '#732ed3',
+            },
+          }
         }
       }
     }
   </script>
 </head>
 
-<body class="bg-stone-200 text-stone-950">
-  <header class="bg-stone-100">
+<body class="bg-stone-900 text-stone-100">
+  <header>
     <nav class="flex gap-4 items-center p-4">
       <a class="font-bold uppercase" asp-area="" asp-controller="Home" asp-action="Index">financeapp</a>
       <ul class="flex gap-2">

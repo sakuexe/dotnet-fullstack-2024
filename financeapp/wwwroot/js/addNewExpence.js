@@ -2,7 +2,7 @@ const addForm = document.getElementById("add_expense");
 const errorElement = addForm.querySelector(".error");
 
 async function addData() {
-  const url = "/Finances/Add";
+  const url = "/Finances/AddExpense";
   let response;
   try {
     const formData = new FormData(addForm);
