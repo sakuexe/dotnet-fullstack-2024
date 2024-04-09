@@ -1,23 +1,30 @@
 @using financeapp.Models.ViewModels;
 @model DashboardViewModel
 
+@{
+// initialize an index, so that I can use it in the foreach iterator
+int index = -1;
+}
+
 
 <div class="grid gap-4 h-full">
   <h2 class="font-bold text-2xl">Top Categories</h2>
   @foreach (var category in Model.GetTopCategories())
   {
-  <div class="flex gap-2 items-center bg-stone-800 outline outline-1 outline-stone-700 rounded-xl overflow-clip">
-    <div class="grid place-items-center font-bold text-xl aspect-square h-full text-primary-400">@category.Icon</div>
+  <div class="flex gap-2 items-center bg-stone-800 outline outline-1 outline-stone-700 rounded-xl overflow-clip p-4">
+    <div class="grid place-items-center font-bold text-3xl aspect-square h-full text-primary-400 drop-shadow-xl"
+      style="color: @Model.Colors[(index += 1)];">@category.Icon</div>
     <div class="w-full pr-8">
       <div class="flex justify-between items-center pb-2">
         <p class="capitalize font-bold">@category.Category</p>
         <div class="flex gap-2">
           <p class="opacity-75">@Model.PercentageOfTotal(category.Category) &percnt;</p>
-          <p class="font-bold">@category.Total &euro;</p>
+          <p class="font-bold">@category.Total.ToString("0.00") &euro;</p>
         </div>
       </div>
       <div class="w-full h-4 bg-stone-700 rounded-md">
-        <div class="h-full bg-primary rounded-md" style="width: @Model.PercentageOfTotal(category.Category)%;"></div>
+        <div class="h-full rounded-md"
+          style="width: @Model.PercentageOfTotal(category.Category)%; background-color: @Model.Colors[(index)];"></div>
       </div>
     </div>
   </div>

@@ -2,30 +2,33 @@ import { fetchPieChart } from './fetchUtils.js';
 
 const pieChartElement = document.querySelector('canvas#pie-chart');
 const totalElement = document.querySelector('p#total_expenses');
+let chart;
 
-document.addEventListener('DOMContentLoaded', async () => {
+export async function updatePieChart() {
+  console.log("updating piechart");
   const pieChartData = await fetchPieChart();
-  createPieChart(pieChartData);
+  // get the colors for the pie chart
+  // they are stored in a json file, so that I can use the same
+  // colors in the pie chart and the top categories
+  const colors = await fetch('/colors.json').then(res => res.json());
+  createPieChart(pieChartData, colors);
   // show the total amount of expenses
   const total = pieChartData.reduce((acc, d) => acc + d.Amount, 0);
   totalElement.textContent = `${total / 100} €`;
-});
+}
+
+document.addEventListener('DOMContentLoaded', async () => updatePieChart());
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function createPieChart(data) {
+function createPieChart(data, colors) {
   const piedata = {
     labels: data.map(d => capitalizeFirstLetter(d.Category)),
     datasets: [{
       data: data.map(d => d.Amount / -100 ),
-      backgroundColor: [
-        '#9333ea',
-        '#e11d48',
-        '#4f46e5',
-        '#0891b2',
-      ],
+      backgroundColor: colors,
       borderWidth: 0,
       hoverOffset: 4
     }],
@@ -44,5 +47,6 @@ function createPieChart(data) {
   };
 
   const ctx = pieChartElement.getContext('2d');
-  new Chart(ctx, config);
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, config);
 }

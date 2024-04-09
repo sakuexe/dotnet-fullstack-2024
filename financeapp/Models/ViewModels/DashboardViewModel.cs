@@ -1,3 +1,4 @@
+using System.Text.Json;
 using financeapp.Data;
 
 namespace financeapp.Models.ViewModels;
@@ -5,6 +6,7 @@ namespace financeapp.Models.ViewModels;
 public class DashboardViewModel
 {
     public List<Finance> Finances { get; set; }
+    public List<string> Colors { get; set; }
 
     public struct CategoryTotal
     {
@@ -20,7 +22,7 @@ public class DashboardViewModel
             .Select(g => new CategoryTotal
             {
                 Category = g.Key,
-                Total = g.Sum(f => f.AmountCents / 100),
+                Total = g.Sum(f => (decimal)f.AmountCents / 100),
                 Icon = g.First().Icon ?? string.Empty
             })
             .Where(g => g.Total < 0)
@@ -46,6 +48,10 @@ public class DashboardViewModel
 
     public DashboardViewModel(FinancesContext _context, string username)
     {
+        // get colors from a json file in the wwwroot/colors.json
+        var colorsJson = File.ReadAllText("wwwroot/colors.json");
+        Colors = JsonSerializer.Deserialize<List<string>>(colorsJson) 
+            ?? throw new Exception("No colors.json found in wwwroot");
         using var context = _context;
         var user = context.Users.Where(u => u.Username == username).FirstOrDefault();
         if (user == null)

@@ -39,7 +39,7 @@ public class NewExpenseViewModel
             Title = Title,
             Description = Description,
             Category = Category,
-            Icon = Icon,
+            Icon = Icon ?? Category.Substring(0, 2),
             AmountCents = amountInCents,
             User = user
         };

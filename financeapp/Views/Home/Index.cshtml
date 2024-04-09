@@ -1,15 +1,10 @@
 ﻿@using financeapp.Models.ViewModels;
 @model DashboardViewModel
 
-<div class="text-center">
-  <h1 class="display-4">Welcome @User.Identity.Name</h1>
-  <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<section class="grid py-20 px-5 gap-8 sm:px-10 lg:grid-cols-3">
+<section class="grid px-5 gap-8 sm:px-10 lg:grid-cols-3">
   <div class="grid grid-rows-3 lg:col-span-2">
     <div class="flex flex-col relative row-span-2">
-      <canvas id="pie-chart" class="w-full"></canvas>
+      <canvas id="pie-chart" class="w-full my-auto"></canvas>
       <div class="inset-0 m-auto absolute h-max w-max text-center">
         <p>Total Expenses:</p>
         <p id="total_expenses" class="font-bold text-4xl">Loading total</p>
@@ -17,10 +12,12 @@
     </div>
     <partial name="_TopCategories" model="@Model"></partial>
   </div>
-  <div class="bg-stone-800 outline outline-2 outline-stone-700 rounded-xl overflow-clip w-full">
+  <div class="w-full space-y-4">
+    <div>
+      <button id="add_expense_btn" class="w-full bg-primary py-2 px-4 rounded-xl">Add a new expense</button>
+      <button id="add_income_btn" class="w-full py-2 px-4 rounded-xl">Add a new income</button>
+    </div>
     <div id="finances"></div>
-    <button id="add_expense_btn" class="w-full bg-primary py-2 px-4">Add a new expense</button>
-    <button id="add_income_btn" class="w-full py-2 px-4">Add a new income</button>
   </div>
 </section>
 
@@ -31,3 +28,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/piechart.js" type="module" defer></script>
 }
+
+<style>
+  #finances>div {
+    scrollbar-color: currentColor transparent;
+    scrollbar-width: thin;
+  }
+</style>

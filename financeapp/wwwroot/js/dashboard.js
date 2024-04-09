@@ -1,5 +1,6 @@
 import { fetchExpenses, initializeDeleteButtons, } from './fetchUtils.js';
 import { addNewExpense } from './addnewexpense.js';
+import { updatePieChart } from './piechart.js';
 
 // Dashboard.js is like the main file for the dashboard page
 // it is used to fetch expenses and handle their modifications
@@ -18,6 +19,7 @@ addForm.addEventListener("submit", async (event) => {
   errorElement.textContent = "";
   await addNewExpense();
   fetchExpenses();
+  updatePieChart();
 });
 
 const addButtons = document.querySelectorAll('#add_expense_btn, #add_income_btn');

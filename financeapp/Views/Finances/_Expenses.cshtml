@@ -1,10 +1,10 @@
 @using financeapp.Models
 @model List<Finance>
 
-  <div id="all_finances" class="grid gap-4 max-h-[80vh] overflow-y-auto">
+  <div id="all_finances" class="grid gap-4 max-h-[80vh] text-primary overflow-y-auto overscroll-y-contain bg-stone-800 outline outline-2 outline-stone-700 rounded-xl">
     @foreach (var item in Model)
     {
-    <div>
+    <div class="text-stone-100">
       <div class="header flex text-stone-100 outline outline-stone-700">
         <div class="p-4 grid place-items-center">
           <span class="text-violet-400 font-bold text-sm">@item.Icon</span>
@@ -28,6 +28,3 @@
     </div>
     }
   </div>
-
-<script>
-</script>

@@ -47,8 +47,10 @@ public class FinancesController : Controller
         // dont include incomes in the pie chart
         expenses = expenses.Where(f => f.AmountCents < 0).ToList();
         // get the categories and the total amount spent on each category
-        var categories = expenses.GroupBy(f => f.Category)
+        var categories = expenses
+            .GroupBy(f => f.Category)
             .Select(g => new { Category = g.Key, Amount = g.Sum(f => f.AmountCents) })
+            .OrderBy(c => c.Amount)
             .ToList();
         return Content(JsonSerializer.Serialize(categories));
     }

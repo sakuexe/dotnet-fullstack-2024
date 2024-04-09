@@ -1,3 +1,5 @@
+import { updatePieChart } from "./piechart.js";
+
 export async function fetchExpenses() {
   const financesElement = document.querySelector('div#finances');
   const url = '/finances';
@@ -39,6 +41,7 @@ export async function initializeDeleteButtons() {
       });
       if (response.ok) {
         form.parentElement.parentElement.remove();
+        updatePieChart()
         return;
       }
       // if the expense could not be deleted, show an alert
