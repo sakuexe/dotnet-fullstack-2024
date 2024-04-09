@@ -19,26 +19,28 @@ addForm.addEventListener("submit", async (event) => {
   errorElement.textContent = "";
   await addNewExpense();
   fetchExpenses();
+  initializeDeleteButtons();
   updatePieChart();
 });
 
 const addButtons = document.querySelectorAll('#add_expense_btn, #add_income_btn');
 
 function toggleForm(button) {
-  const form = document.querySelector('form#add_expense');
+  const form = document.querySelector('#add_expense');
   form.classList.toggle('hidden');
-  form.classList.toggle('flex');
+  form.classList.toggle('block');
   // toggle between expense and income, so we dont need to add a new form
   if (button.id === 'add_income_btn') {
     form.querySelector('input[type=checkbox]').checked = false;
+    form.querySelector('button[type=submit]').innerText = 'Add Income';
   } else {
     form.querySelector('input[type=checkbox]').checked = true;
+    form.querySelector('button[type=submit]').innerText = 'Add Expense';
   }
   document.addEventListener('click', (e) => {
-    if (e.target === button) return;
-    if (e.target !== form && !form.contains(e.target)) {
+    if (e.target === form) {
       form.classList.add('hidden');
-      form.classList.remove('flex');
+      form.classList.remove('block');
     }
   });
 }

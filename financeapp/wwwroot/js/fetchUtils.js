@@ -17,8 +17,7 @@ export async function fetchExpenses() {
   financesElement.innerHTML = data;
 }
 
-export async function fetchPieChart() {
-  const url = '/finances/piechartdata';
+export async function fetchPieChart(url) {
   try {
     const response = await fetch(url, {
       method: 'POST',

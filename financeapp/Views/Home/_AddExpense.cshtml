@@ -1,16 +1,25 @@
 @using financeapp.Models.ViewModels
 @model NewExpenseViewModel
 
-<form id="add_expense" asp-controller="Finances" asp-action="Add" method="post"
-  class="absolute inset-0 m-auto bg-stone-800 p-4 rounded-lg shadow-lg w-full max-w-sm h-max
-  flex-col justify-center items-center gap-2 hidden text-stone-100
-  [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:border-stone-700 [&>input]:w-full [&>input]:bg-transparent [&>input]:rounded-md">
-  <input type="text" asp-for="Title" placeholder="Title">
-  <input type="text" asp-for="Description" placeholder="Description">
-  <input type="text" asp-for="Category" placeholder="Category">
-  <input type="text" asp-for="Icon" placeholder="Icon">
-  <input type="text" asp-for="Amount" name="Amount">
-  <input type="checkbox" asp-for="IsExpense" name="IsExpense" hidden checked>
-  <button type="submit" class="w-full bg-primary py-2 px-4">Add a new expense</button>
-  <div class="error"></div>
-</form>
+<div id="add_expense" class="fixed w-screen h-screen top-0 left-0 hidden
+  backdrop-brightness-50">
+  <form asp-controller="Finances" asp-action="Add" method="post"
+    class="fixed inset-0 m-auto bg-stone-800 px-4 py-8 rounded-xl shadow-lg w-full max-w-lg h-max
+    flex-col justify-center items-center gap-2 flex text-stone-100 z-50 outline outline-1 outline-stone-700
+    [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:border-stone-700 [&>input]:w-full [&>input]:bg-transparent [&>input]:rounded-md">
+    <input type="text" asp-for="Title" placeholder="Title">
+    <input type="text" asp-for="Description" placeholder="Description">
+    <input type="text" asp-for="Category" placeholder="Category">
+    <input type="text" asp-for="Icon" placeholder="Icon">
+    <input type="text" asp-for="Amount" name="Amount">
+    <input type="checkbox" asp-for="IsExpense" name="IsExpense" hidden checked>
+
+    <hr class="my-2 w-full border-current opacity-25"/>
+
+    <button type="submit" class="w-full py-2 px-4 rounded-md bg-gradient-to-r from-primary to-purple-800
+      motion-safe:transition-all hover:brightness-125">Add a new expense</button>
+    <button type="reset" class="w-full border border-stone-700 py-2 px-4 rounded-md 
+      motion-safe:transition-all hover:bg-stone-700">Clear</button>
+    <div class="error"></div>
+  </form>
+</div>

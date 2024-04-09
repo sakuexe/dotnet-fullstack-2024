@@ -1,4 +1,4 @@
-const addForm = document.getElementById("add_expense");
+const addForm = document.querySelector("#add_expense > form");
 const errorElement = addForm.querySelector(".error");
 
 export async function addNewExpense() {
@@ -28,8 +28,7 @@ export async function addNewExpense() {
   }
   // success
   addForm.reset();
-  addForm.classList.add("hidden");
-  addForm.classList.remove("flex");
+  addForm.parentElement.classList.add("hidden");
 }
 
 async function showErrorMessages(errors) {

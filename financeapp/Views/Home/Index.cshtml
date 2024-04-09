@@ -2,23 +2,48 @@
 @model DashboardViewModel
 
 <section class="grid px-5 gap-8 sm:px-10 lg:grid-cols-3">
-  <div class="grid grid-rows-3 lg:col-span-2">
-    <div class="flex flex-col relative row-span-2">
-      <canvas id="pie-chart" class="w-full my-auto"></canvas>
-      <div class="inset-0 m-auto absolute h-max w-max text-center">
-        <p>Total Expenses:</p>
-        <p id="total_expenses" class="font-bold text-4xl">Loading total</p>
+  <div class=" space-y-8 lg:col-span-2">
+
+    <div class="grid grid-cols-2 grid-flow-col gap-4">
+      <div class="flex flex-col relative">
+        <canvas id="incomes" class="pie-chart max-w-xl m-auto"></canvas>
+        <div class="inset-0 m-auto absolute h-max w-max text-center">
+          <p>Total Income:</p>
+          <p class="font-bold text-4xl chart-text">Loading income</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col relative">
+        <canvas id="expences" class="pie-chart max-w-xl m-auto"></canvas>
+        <div class="inset-0 m-auto absolute h-max w-max text-center">
+          <p>Total Expenses:</p>
+          <p id="total_expenses" class="font-bold text-4xl chart-text">Loading expenses</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col relative row-span-2">
+        <canvas id="total" class="pie-chart max-w-xl w-full m-auto"></canvas>
+        <div class="inset-0 m-auto absolute h-max w-max text-center">
+          <p>Total:</p>
+          <p id="total_expenses" class="font-bold text-4xl chart-text">Loading total</p>
+        </div>
       </div>
     </div>
+
     <partial name="_TopCategories" model="@Model"></partial>
+
   </div>
+
   <div class="w-full space-y-4">
-    <div>
-      <button id="add_expense_btn" class="w-full bg-primary py-2 px-4 rounded-xl">Add a new expense</button>
-      <button id="add_income_btn" class="w-full py-2 px-4 rounded-xl">Add a new income</button>
+    <div class="space-y-2">
+      <button id="add_expense_btn" class="w-full bg-gradient-to-r from-primary to-purple-800 py-2 px-4 rounded-xl
+        motion-safe:transition-all hover:brightness-125">Add a new expense</button>
+      <button id="add_income_btn" class="w-full py-2 px-4 rounded-xl outline outline-1 outline-stone-700
+        motion-safe:transition-all hover:bg-stone-700">Add a new income</button>
     </div>
     <div id="finances"></div>
   </div>
+
 </section>
 
 @await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())

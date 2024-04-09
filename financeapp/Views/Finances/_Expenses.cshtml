@@ -1,7 +1,9 @@
 @using financeapp.Models
 @model List<Finance>
 
-  <div id="all_finances" class="grid gap-4 max-h-[80vh] text-primary overflow-y-auto overscroll-y-contain bg-stone-800 outline outline-2 outline-stone-700 rounded-xl">
+  <div id="all_finances" 
+    class="grid gap-4 text-primary overflow-y-auto overscroll-y-contain bg-stone-800 
+    outline outline-2 outline-stone-700 rounded-xl h-full max-h-screen">
     @foreach (var item in Model)
     {
     <div class="text-stone-100">

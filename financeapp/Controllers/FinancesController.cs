@@ -44,8 +44,6 @@ public class FinancesController : Controller
         {
             return BadRequest("No expenses found");
         }
-        // dont include incomes in the pie chart
-        expenses = expenses.Where(f => f.AmountCents < 0).ToList();
         // get the categories and the total amount spent on each category
         var categories = expenses
             .GroupBy(f => f.Category)
