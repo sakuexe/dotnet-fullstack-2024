@@ -7,6 +7,7 @@ public class DashboardViewModel
 {
     public List<Finance> Finances { get; set; }
     public List<string> Colors { get; set; }
+    public FinancesContext Context { get; set; }
 
     public struct CategoryTotal
     {
@@ -48,17 +49,18 @@ public class DashboardViewModel
 
     public DashboardViewModel(FinancesContext _context, string username)
     {
+        // get the context for the database
+        Context = _context;
         // get colors from a json file in the wwwroot/colors.json
         var colorsJson = File.ReadAllText("wwwroot/colors.json");
         Colors = JsonSerializer.Deserialize<List<string>>(colorsJson) 
             ?? throw new Exception("No colors.json found in wwwroot");
-        using var context = _context;
-        var user = context.Users.Where(u => u.Username == username).FirstOrDefault();
+        var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
         if (user == null)
         {
             Finances = new List<Finance>();
             return;
         }
-        Finances = context.Finances.Where(f => f.UserId == user.Id).ToList();
+        Finances = _context.Finances.Where(f => f.UserId == user.Id).ToList();
     }
 }

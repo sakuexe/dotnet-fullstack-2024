@@ -21,6 +21,25 @@ public class NewExpenseViewModel
     // this helps the UX, so that the user does not have to select the type of expense
     // we also don't need another form, since we can just check this property
     public bool IsExpense { get; set; } = true;
+    private readonly FinancesContext _context;
+
+    public NewExpenseViewModel(FinancesContext context)
+    {
+        _context = context;
+    }
+    
+
+    public Dictionary<string, string> GetCategories(string username)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        // get the categories and icons for the categories
+        var categories = _context.Finances
+            .Where(f => f.User == user)
+            .Select(f => new { f.Category, f.Icon })
+            .Distinct()
+            .ToDictionary(f => f.Category, f => f.Icon!);
+        return categories;
+    }
 
     // return true if the expense was saved to the database
     // return false otherwise

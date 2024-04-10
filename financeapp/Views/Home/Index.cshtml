@@ -46,7 +46,7 @@
 
 </section>
 
-@await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel())
+@await Html.PartialAsync("_AddExpense", new financeapp.Models.ViewModels.NewExpenseViewModel(Model.Context))
 
 @section Scripts {
 <script src="~/js/dashboard.js" type="module" defer></script>
