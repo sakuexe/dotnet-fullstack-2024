@@ -133,5 +133,43 @@ public class FinancesController : Controller
         _context.SaveChanges();
         return Ok();
     }
+
+    private struct DayTotal
+    {
+        public DateTime Date { get; set; }
+        public decimal Total { get; set; }
+    }
+
+    private struct SavingsDelta
+    {
+        public List<DayTotal> totalByDays { get; set; }
+        public int savingsGoal { get; set; }
+    }
+
+    [HttpPost]
+    public IActionResult GetSavings()
+    {
+        var username = User.Identity?.Name;
+        var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
+        if (user == null)
+            return BadRequest("User not found");
+
+        var savingsDelta = new SavingsDelta();
+
+        savingsDelta.totalByDays = _context.Finances
+            .Where(f => f.User.Username == username)
+            .GroupBy(f => f.CreatedAt.Date)
+            .Select(g => new DayTotal
+            {
+                Date = g.Key,
+                Total = (decimal)g.Sum(f => f.AmountCents) / 100
+            })
+            .OrderBy(g => g.Date)
+            .ToList();
+        savingsDelta.savingsGoal = user.SavingsGoal ?? 0;
+        var JSON = JsonSerializer.Serialize(savingsDelta);
+
+        return Content(JSON, "application/json");
+    }
 }
 

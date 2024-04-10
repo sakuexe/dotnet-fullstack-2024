@@ -1,6 +1,12 @@
-import { fetchExpenses, initializeDeleteButtons, updateUsersSavings, } from './fetchUtils.js';
+import { 
+  fetchExpenses, 
+  initializeDeleteButtons, 
+  updateUsersSavings, 
+  getTotalSavings 
+} from './fetchUtils.js';
 import { addNewExpense } from './addnewexpense.js';
 import { updatePieChart } from './piechart.js';
+import { updateSavingsChart } from './savings.js';
 
 // Dashboard.js is like the main file for the dashboard page
 // it is used to fetch expenses and handle their modifications
@@ -8,6 +14,7 @@ import { updatePieChart } from './piechart.js';
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchExpenses();
   initializeDeleteButtons();
+  updateSavingsChart();
 });
 
 const addForm = document.getElementById("add_expense");
@@ -16,7 +23,7 @@ const userSavings = document.querySelector("form#update_savings");
 
 userSavings.addEventListener("submit", async (event) => {
   event.preventDefault();
-  await updateUsersSavings(userSavings);
+  await updateUsersSavings();
 });
 
 addForm.addEventListener("submit", async (event) => {

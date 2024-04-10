@@ -1,11 +1,15 @@
 @using financeapp.Models.ViewModels;
 @model UserSavingsViewModel
 
-<form id="update_savings" asp-controller="Finances" asp-action="UpdateSavings" method="POST">
-  <h3>Monthly Savings Goals</h3>
-  <input 
-    type="text" asp-for="SavingsGoal" value="@Model.GetSavingsGoal(User.Identity!.Name)"
-    class="py-2 px-4 bg-transparent border border-stone-700">
+<div>
+  <form id="update_savings" asp-controller="Finances" asp-action="UpdateSavings" method="POST">
+    <h3>Monthly Savings Goals</h3>
+    <div class="flex">
+      <input type="text" asp-for="SavingsGoal" value="@Model.GetSavingsGoal(User.Identity!.Name)"
+        class="py-2 px-4 bg-transparent border border-stone-700 grow">
 
-  <button type="submit" class="py-2 px-4 bg-primary">Update Saving Goals</button>
-</form>
+      <button type="submit" class="py-2 px-4 bg-primary w-max">Update Saving Goals</button>
+    </div>
+  </form>
+  <canvas id="savings"></canvas>
+</div>

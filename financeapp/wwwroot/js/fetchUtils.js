@@ -28,7 +28,8 @@ export async function fetchPieChart(url) {
   }
 }
 
-export async function updateUsersSavings(form) {
+export async function updateUsersSavings() {
+  const form = document.querySelector("form#update_savings");
   const url = '/finances/updatesavings';
   const data = new FormData(form);
   console.log(data);
@@ -37,7 +38,18 @@ export async function updateUsersSavings(form) {
       method: 'POST',
       body: new FormData(form),
     });
-    console.log(response.status);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getTotalSavings() {
+  const url = '/finances/getsavings';
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+    });
+    return await response.json();
   } catch (error) {
     console.error(error);
   }
