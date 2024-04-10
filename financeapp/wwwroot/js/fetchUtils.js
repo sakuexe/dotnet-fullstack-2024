@@ -1,4 +1,5 @@
 import { updatePieChart } from "./piechart.js";
+import { updateSavingsChart } from "./savings.js";
 
 export async function fetchExpenses() {
   const financesElement = document.querySelector('div#finances');
@@ -30,14 +31,26 @@ export async function fetchPieChart(url) {
 
 export async function updateUsersSavings() {
   const form = document.querySelector("form#update_savings");
+  const errorElement = form.querySelector('.error');
   const url = '/finances/updatesavings';
   const data = new FormData(form);
-  console.log(data);
+  // make sure that the given value is a float with 2 decimal places
+  data.set('SavingsGoal', parseFloat(data.get('SavingsGoal')).toFixed(2));
+
   try {
     const response = await fetch(url, {
       method: 'POST',
-      body: new FormData(form),
+      body: data
     });
+    if (response.ok) {
+      errorElement.textContent = '';
+      return;
+    }
+    const errors = await response.json();
+    console.log(errors);
+    for (const error in errors) {
+      errorElement.textContent += `${errors[error].ErrorMessage}\n`;
+    }
   } catch (error) {
     console.error(error);
   }
@@ -68,6 +81,7 @@ export async function initializeDeleteButtons() {
       if (response.ok) {
         form.parentElement.parentElement.remove();
         updatePieChart()
+        updateSavingsChart();
         return;
       }
       // if the expense could not be deleted, show an alert

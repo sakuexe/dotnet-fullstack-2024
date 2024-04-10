@@ -2,7 +2,6 @@ import {
   fetchExpenses, 
   initializeDeleteButtons, 
   updateUsersSavings, 
-  getTotalSavings 
 } from './fetchUtils.js';
 import { addNewExpense } from './addnewexpense.js';
 import { updatePieChart } from './piechart.js';
@@ -24,6 +23,7 @@ const userSavings = document.querySelector("form#update_savings");
 userSavings.addEventListener("submit", async (event) => {
   event.preventDefault();
   await updateUsersSavings();
+  updateSavingsChart();
 });
 
 addForm.addEventListener("submit", async (event) => {
@@ -31,9 +31,10 @@ addForm.addEventListener("submit", async (event) => {
   // clear error message
   errorElement.textContent = "";
   await addNewExpense();
-  fetchExpenses();
-  initializeDeleteButtons();
-  updatePieChart();
+  await fetchExpenses(); // re-fetch expenses
+  initializeDeleteButtons(); // reinitialize delete buttons
+  updatePieChart(); // update the pie chart
+  updateSavingsChart(); // update the savings goals chart
 });
 
 const addButtons = document.querySelectorAll('#add_expense_btn, #add_income_btn');

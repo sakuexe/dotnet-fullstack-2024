@@ -128,7 +128,6 @@ public class FinancesController : Controller
         if (user == null)
             return BadRequest("User not found");
 
-        Console.WriteLine($"{model.SavingsGoal} is being saved to {username}'s account.");
         user.SavingsGoal = model.SavingsGoal;
         _context.SaveChanges();
         return Ok();
@@ -143,7 +142,7 @@ public class FinancesController : Controller
     private struct SavingsDelta
     {
         public List<DayTotal> totalByDays { get; set; }
-        public int savingsGoal { get; set; }
+        public decimal savingsGoal { get; set; }
     }
 
     [HttpPost]

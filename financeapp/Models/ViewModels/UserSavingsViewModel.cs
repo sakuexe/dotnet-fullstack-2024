@@ -6,7 +6,7 @@ namespace financeapp.Models.ViewModels;
 public class UserSavingsViewModel
 {
     [Required]
-    public int SavingsGoal { get; set; }
+    public decimal SavingsGoal { get; set; }
     private FinancesContext Context { get; set; }
 
     public UserSavingsViewModel() { }
@@ -16,7 +16,7 @@ public class UserSavingsViewModel
         Context = context;
     }
 
-    public int GetSavingsGoal(string username)
+    public decimal GetSavingsGoal(string username)
     {
         var user = Context.Users.Where(u => u.Username == username).FirstOrDefault();
         return user?.SavingsGoal ?? 0;
