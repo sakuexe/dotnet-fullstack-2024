@@ -9,14 +9,16 @@
     [&>input]:py-2 [&>input]:px-4 [&>input]:border [&>input]:border-stone-700 [&>input]:w-full [&>input]:bg-transparent [&>input]:rounded-md">
     <input type="text" asp-for="Title" placeholder="Title">
     <input type="text" asp-for="Description" placeholder="Description">
+
     <select onchange="this.nextElementSibling.value = this.value"
       class="py-2 px-4 border border-stone-700 w-full bg-transparent rounded-md text-stone-300">
       <option value="0">Select a category</option>
       @foreach (var category in Model.GetCategories(User.Identity!.Name))
       {
-        <option value="@category.Key" data-icon="@category.Value">@category.Key</option>
+        <option value="@category.Key" data-icon="@category.Value">@category.Value | @category.Key</option>
       }
     </select>
+
     <input type="text" asp-for="Category" placeholder="... Or write a new category">
     <input type="text" asp-for="Icon" placeholder="Icon">
     <input type="text" asp-for="Amount" name="Amount">
@@ -31,3 +33,13 @@
     <div class="error"></div>
   </form>
 </div>
+
+<script>
+const categorySelection = document.querySelector('#add_expense select');
+categorySelection.addEventListener('change', (e) => {
+  const categoryInput = categorySelection.nextElementSibling;
+  const iconInput = categoryInput.nextElementSibling;
+  categoryInput.value = e.target.value;
+  iconInput.value = e.target.selectedOptions[0].dataset.icon;
+});
+</script>

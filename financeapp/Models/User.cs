@@ -18,4 +18,5 @@ public class User
     public string Email { get; set; }
     // Navigation Property - used for easy access to related data
     public List<Finance>? Finances { get; set; }
+    public int? SavingsGoal { get; set; }
 }

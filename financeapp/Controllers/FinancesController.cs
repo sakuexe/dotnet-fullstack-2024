@@ -112,5 +112,26 @@ public class FinancesController : Controller
         }
         return Ok();
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult UpdateSavings(UserSavingsViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            return BadRequest(JsonSerializer.Serialize(errors));
+        }
+
+        var username = User.Identity?.Name;
+        var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
+        if (user == null)
+            return BadRequest("User not found");
+
+        Console.WriteLine($"{model.SavingsGoal} is being saved to {username}'s account.");
+        user.SavingsGoal = model.SavingsGoal;
+        _context.SaveChanges();
+        return Ok();
+    }
 }
 

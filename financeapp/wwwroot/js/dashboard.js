@@ -1,4 +1,4 @@
-import { fetchExpenses, initializeDeleteButtons, } from './fetchUtils.js';
+import { fetchExpenses, initializeDeleteButtons, updateUsersSavings, } from './fetchUtils.js';
 import { addNewExpense } from './addnewexpense.js';
 import { updatePieChart } from './piechart.js';
 
@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 const addForm = document.getElementById("add_expense");
 const errorElement = addForm.querySelector(".error");
+const userSavings = document.querySelector("form#update_savings");
+
+userSavings.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  await updateUsersSavings(userSavings);
+});
 
 addForm.addEventListener("submit", async (event) => {
   event.preventDefault();

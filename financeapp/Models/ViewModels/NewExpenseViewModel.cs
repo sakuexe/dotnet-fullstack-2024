@@ -35,8 +35,8 @@ public class NewExpenseViewModel
         // get the categories and icons for the categories
         var categories = _context.Finances
             .Where(f => f.User == user)
-            .Select(f => new { f.Category, f.Icon })
-            .Distinct()
+            .GroupBy(f => f.Category)
+            .Select(g => new { Category = g.Key, Icon = g.First().Icon })
             .ToDictionary(f => f.Category, f => f.Icon!);
         return categories;
     }

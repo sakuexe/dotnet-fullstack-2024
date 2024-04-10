@@ -8,6 +8,7 @@ public class DashboardViewModel
     public List<Finance> Finances { get; set; }
     public List<string> Colors { get; set; }
     public FinancesContext Context { get; set; }
+    public UserSavingsViewModel Savings { get; set; }
 
     public struct CategoryTotal
     {
@@ -51,6 +52,7 @@ public class DashboardViewModel
     {
         // get the context for the database
         Context = _context;
+        Savings = new UserSavingsViewModel(_context);
         // get colors from a json file in the wwwroot/colors.json
         var colorsJson = File.ReadAllText("wwwroot/colors.json");
         Colors = JsonSerializer.Deserialize<List<string>>(colorsJson) 

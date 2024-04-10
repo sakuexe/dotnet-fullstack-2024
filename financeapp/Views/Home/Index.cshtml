@@ -30,7 +30,10 @@
       </div>
     </div>
 
-    <partial name="_TopCategories" model="@Model"></partial>
+    <div class="grid grid-cols-2">
+      <partial name="_TopCategories" model="@Model"></partial>
+      <partial name="_Savings" model="@Model.Savings"></partial>
+    </div>
 
   </div>
 

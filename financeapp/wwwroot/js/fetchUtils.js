@@ -28,6 +28,21 @@ export async function fetchPieChart(url) {
   }
 }
 
+export async function updateUsersSavings(form) {
+  const url = '/finances/updatesavings';
+  const data = new FormData(form);
+  console.log(data);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: new FormData(form),
+    });
+    console.log(response.status);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function initializeDeleteButtons() {
   // allow the user to delete an expense
   const deleteButtons = document.querySelectorAll('#all_finances button[type="button"]');
