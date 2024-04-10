@@ -136,7 +136,7 @@ public class FinancesController : Controller
 
     private struct DayTotal
     {
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
         public decimal Total { get; set; }
     }
 
@@ -150,25 +150,35 @@ public class FinancesController : Controller
     public IActionResult GetSavings()
     {
         var username = User.Identity?.Name;
+
+        var savingsDelta = new SavingsDelta();
+        var finances = _context.Finances.Where(f => f.User.Username == username)
+            .OrderBy(f => f.CreatedAt.Date)
+            .ToList();
+        int balance = 0;
+
+        // calculate the balance for each day
+        foreach (var day in finances.GroupBy(f => f.CreatedAt.Date))
+        {
+            balance += day.Sum(f => f.AmountCents);
+            var dayTotal = new DayTotal
+            {
+                Date = DateOnly.FromDateTime(day.Key),
+                Total = balance
+            };
+
+            if (savingsDelta.totalByDays == null)
+                savingsDelta.totalByDays = new List<DayTotal>();
+            else
+                savingsDelta.totalByDays.Add(dayTotal);
+        }
+
         var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
         if (user == null)
             return BadRequest("User not found");
-
-        var savingsDelta = new SavingsDelta();
-
-        savingsDelta.totalByDays = _context.Finances
-            .Where(f => f.User.Username == username)
-            .GroupBy(f => f.CreatedAt.Date)
-            .Select(g => new DayTotal
-            {
-                Date = g.Key,
-                Total = (decimal)g.Sum(f => f.AmountCents) / 100
-            })
-            .OrderBy(g => g.Date)
-            .ToList();
         savingsDelta.savingsGoal = user.SavingsGoal ?? 0;
-        var JSON = JsonSerializer.Serialize(savingsDelta);
 
+        var JSON = JsonSerializer.Serialize(savingsDelta);
         return Content(JSON, "application/json");
     }
 }

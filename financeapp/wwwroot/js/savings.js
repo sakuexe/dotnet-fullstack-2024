@@ -7,7 +7,7 @@ let chart;
 export async function updateSavingsChart() {
   const data = await getTotalSavings();
   const labels = data.totalByDays.map((day) => day.Date);
-  const values = data.totalByDays.map((day) => day.Total);
+  const values = data.totalByDays.map((day) => (day.Total / 100).toFixed(2));
   const savingsGoal = data.savingsGoal;
   // make a values length list of just savings goals
   const savingsGoalList = Array(values.length).fill(savingsGoal);

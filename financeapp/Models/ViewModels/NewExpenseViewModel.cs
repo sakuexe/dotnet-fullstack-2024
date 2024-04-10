@@ -27,6 +27,8 @@ public class NewExpenseViewModel
     {
         _context = context;
     }
+
+    public NewExpenseViewModel() { }
     
 
     public Dictionary<string, string> GetCategories(string username)
