@@ -1,0 +1,25 @@
+<div class="grid gap-4 sm:grid-cols-2 md:grid-flow-col">
+  <div class="relative">
+    <canvas id="incomes" class="pie-chart m-auto max-w-[200px] md:max-w-xl"></canvas>
+    <div class="inset-0 m-auto absolute h-max w-max text-center">
+      <p>Total Income:</p>
+      <p class="font-bold text-4xl chart-text">Loading income</p>
+    </div>
+  </div>
+
+  <div class="relative">
+    <canvas id="expences" class="pie-chart m-auto max-w-[200px] md:max-w-xl"></canvas>
+    <div class="inset-0 m-auto absolute h-max w-max text-center">
+      <p>Total Expenses:</p>
+      <p id="total_expenses" class="font-bold text-4xl chart-text">Loading expenses</p>
+    </div>
+  </div>
+
+  <div class="flex flex-col relative sm:col-span-2 md:row-span-2">
+    <canvas id="total" class="pie-chart w-full m-auto max-w-sm md:max-w-xl"></canvas>
+    <div class="inset-0 m-auto absolute h-max w-max text-center">
+      <p>Total:</p>
+      <p id="total_expenses" class="font-bold text-4xl chart-text">Loading total</p>
+    </div>
+  </div>
+</div>

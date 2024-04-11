@@ -4,13 +4,29 @@
 <div class="space-y-4">
   <form id="update_savings" asp-controller="Finances" asp-action="UpdateSavings" method="POST">
     <h3 class="font-bold text-2xl pb-4">Monthly Savings Goals</h3>
-    <div class="flex">
+    <div class="grid grid-flow-col grid-cols-2">
       <input type="text" asp-for="SavingsGoal" value="@Model.GetSavingsGoal(User.Identity!.Name)"
-        class="py-2 px-4 bg-transparent border border-stone-700">
-
-      <button type="submit" class="py-2 px-4 bg-primary">Update Goals</button>
+        class="py-2 px-4 bg-transparent border border-stone-700 rounded-l-xl font-semibold">
+      <button type="submit" class="py-2 px-4 bg-stone-700 rounded-r-xl
+        motion-safe:transition-all hover:bg-stone-600">Update Goals</button>
     </div>
     <div class="error text-red-400"></div>
   </form>
   <canvas id="savings"></canvas>
+  <div id="savings_info" class="grid gap-4 grid-cols-2 text-center">
+    <div class="outline outline-1 outline-stone-600 rounded-md p-2">
+      <h4>
+        <span id="delta" class="font-bold text-2xl">0</span> &euro;
+      </h4>
+      <hr class="my-2 opacity-25">
+      <p class="opacity-75">Until savings goal</p>
+    </div>
+    <div class="outline outline-1 outline-stone-600 rounded-md p-2">
+      <h4>
+        <span id="avg_daily" class="font-bold text-2xl">0</span> &euro;
+      </h4>
+      <hr class="my-2 opacity-25">
+      <p class="opacity-75">Avg per day</p>
+    </div>
+  </div>
 </div>

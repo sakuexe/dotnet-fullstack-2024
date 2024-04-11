@@ -59,6 +59,8 @@ function createPieChart(data, colors, canvasType) {
       },
       // make the donut chart less thick
       cutout: '70%',
+      // make the chart responsive
+      responsive: true,
     },
   };
 
