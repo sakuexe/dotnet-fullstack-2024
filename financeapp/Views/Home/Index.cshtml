@@ -3,18 +3,17 @@
 
 <section class="grid px-5 gap-8 sm:px-10 lg:grid-rows-1 lg:grid-cols-3">
   <div class="flex flex-col gap-8 lg:col-span-2">
-
     <partial name="_PieCharts"></partial>
 
     <div class="grid gap-8 grow md:grid-cols-2">
       <partial name="_TopCategories" model="@Model"></partial>
       <partial name="_Savings" model="@Model.Savings"></partial>
     </div>
-
   </div>
 
-  <div class="w-full space-y-4">
-    <div class="space-y-2">
+  <div class="w-full">
+    <hr class="mt-12 mb-16 border-stone-600 lg:hidden">
+    <div class="space-y-2 mb-4">
       <button id="add_expense_btn" class="w-full bg-gradient-to-r from-primary to-purple-800 py-2 px-4 rounded-xl
         motion-safe:transition-all hover:brightness-125">Add a new expense</button>
       <button id="add_income_btn" class="w-full py-2 px-4 rounded-xl outline outline-1 outline-stone-700
