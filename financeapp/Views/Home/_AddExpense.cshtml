@@ -11,7 +11,7 @@
     <input type="text" asp-for="Description" placeholder="Description">
 
     <select onchange="this.nextElementSibling.value = this.value"
-      class="py-2 px-4 border border-stone-700 w-full bg-transparent rounded-md text-stone-300">
+      class="py-2 px-4 border border-stone-700 w-full bg-stone-800 rounded-md text-stone-300">
       <option value="0">Select a category</option>
       @foreach (var category in Model.GetCategories(User.Identity!.Name))
       {
@@ -24,7 +24,7 @@
     <input type="text" asp-for="Amount" name="Amount">
     <input type="checkbox" asp-for="IsExpense" name="IsExpense" hidden checked>
 
-    <hr class="my-2 w-full border-current opacity-25"/>
+    <hr class="my-2 w-full border-stone-700"/>
 
     <button type="submit" class="w-full py-2 px-4 rounded-md bg-gradient-to-r from-primary to-purple-800
       motion-safe:transition-all hover:brightness-125">Add a new expense</button>

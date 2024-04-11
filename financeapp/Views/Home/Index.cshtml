@@ -1,8 +1,8 @@
 ﻿@using financeapp.Models.ViewModels;
 @model DashboardViewModel
 
-<section class="grid px-5 gap-8 sm:px-10 lg:grid-cols-3">
-  <div class=" space-y-8 lg:col-span-2">
+<section class="grid px-5 gap-8 sm:px-10 lg:grid-rows-1 lg:grid-cols-3">
+  <div class="flex flex-col gap-8 lg:col-span-2">
 
     <div class="grid grid-cols-2 grid-flow-col gap-4">
       <div class="flex flex-col relative">
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-4 grow">
       <partial name="_TopCategories" model="@Model"></partial>
       <partial name="_Savings" model="@Model.Savings"></partial>
     </div>

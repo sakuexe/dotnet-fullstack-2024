@@ -1,31 +1,50 @@
 @using financeapp.Models
 @model List<Finance>
 
-  <div id="all_finances" 
-    class="grid gap-4 text-primary overflow-y-auto overscroll-y-contain bg-stone-800 
-    outline outline-2 outline-stone-700 rounded-xl h-full max-h-screen">
+  @{
+  // used to visually group the finances by date
+  DateTime? currentDate = null;
+  }
+
+  <div id="all_finances" class="grid text-primary overflow-y-auto overscroll-y-contain bg-stone-800 
+    outline outline-2 outline-stone-700 rounded-xl max-h-[70vh]">
     @foreach (var item in Model)
     {
+    @if (currentDate != item.CreatedAt.Date)
+    {
+    currentDate = item.CreatedAt.Date;
+    <h3 class="text-stone-100 px-4 py-2 bg-stone-700">@currentDate.Value.ToString("dd.MM.yyyy")</h3>
+    }
     <div class="text-stone-100">
-      <div class="header flex text-stone-100 outline outline-stone-700">
-        <div class="p-4 grid place-items-center">
-          <span class="text-violet-400 font-bold text-sm">@item.Icon</span>
+      <div class="header gap-2 py-1 px-4 flex text-stone-100 border-y-2 border-stone-600">
+        <div class="grid place-items-center">
+          <span class="text-violet-400 font-bold text-lg">@item.Icon</span>
         </div>
-        <div class="flex items-center justify-between w-full px-4 outline outline-stone-700 capitalize">
+        <div class="flex items-center gap-2 justify-between w-full capitalize">
           <span>@item.Category</span>
-          <span>@(((decimal)item.AmountCents / 100).ToString("0.00")) &euro;</span>
+          <span>
+            @if (item.AmountCents > 0)
+            {
+            <span class="text-green-400">&#9650;</span>
+            }
+            else
+            {
+            <span class="text-red-400">&#9660;</span>
+            }
+            @(((decimal)item.AmountCents / 100).ToString("0.00")) &euro;
+          </span>
         </div>
         <form method="POST" class="grid place-items-center">
           <input type="hidden" name="Id" value="@item.Id">
-          <button type="button" class="aspect-square w-10 ">x</button>
+          <button type="button" class="aspect-square p-2 opacity-75">x</button>
         </form>
       </div>
       <div class="body px-4 py-2 flex justify-between">
         <div>
           <p>@item.Title</p>
-          <p>@item.Description</p>
+          <p class="italic opacity-75">@item.Description</p>
         </div>
-        <div class="opacity-75">@item.CreatedAt.ToString("dd.MM.yyyy")</div>
+        <div class="opacity-75">@item.CreatedAt.ToString("HH:mm")</div>
       </div>
     </div>
     }
