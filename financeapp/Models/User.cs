@@ -19,4 +19,5 @@ public class User
     // Navigation Property - used for easy access to related data
     public List<Finance>? Finances { get; set; }
     public decimal? SavingsGoal { get; set; }
+    public bool IsAdmin { get; set; } = false;
 }

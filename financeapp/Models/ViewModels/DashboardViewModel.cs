@@ -53,10 +53,10 @@ public class DashboardViewModel
         // get the context for the database
         Context = _context;
         Savings = new UserSavingsViewModel(_context);
-        // get colors from a json file in the wwwroot/colors.json
-        var colorsJson = File.ReadAllText("wwwroot/colors.json");
-        Colors = JsonSerializer.Deserialize<List<string>>(colorsJson) 
-            ?? throw new Exception("No colors.json found in wwwroot");
+        // get colors for the expenses from a json file
+        var colorsJson = File.ReadAllText("wwwroot/expensecolors.json");
+        Colors = JsonSerializer.Deserialize<List<string>>(colorsJson) ??
+           throw new Exception("expensecolors.json could not be desearialized.");
         var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
         if (user == null)
         {

@@ -38,7 +38,7 @@
 </head>
 
 <body class="bg-stone-900 text-stone-100">
-  <header>
+  <header class="max-w-7xl w-full mx-auto">
     <nav class="flex gap-4 items-center py-4 px-5 sm:px-10">
       <a class="font-bold uppercase" asp-area="" asp-controller="Home" asp-action="Index">financeapp</a>
       <ul class="flex gap-4 justify-between w-full">
@@ -46,9 +46,12 @@
           <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+          @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+          {
+          <li>
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
           </li>
+          }
         </div>
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {

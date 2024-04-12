@@ -22,11 +22,10 @@ public class LoginViewModel
     {
         try
         {
-            using (context)
-            {
-                var user = context.Users.SingleOrDefault(u => u.Username == Username && u.Password == Password);
-                return user != null;
-            }
+            // do not use using statement here, since we need to use the same context
+            // later as well
+            var user = context.Users.SingleOrDefault(u => u.Username == Username && u.Password == Password);
+            return user != null;
         }
         catch (Exception e)
         {

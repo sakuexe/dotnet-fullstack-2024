@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using financeapp.Data;
 
@@ -10,9 +11,11 @@ using financeapp.Data;
 namespace financeapp.Migrations
 {
     [DbContext(typeof(FinancesContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20240412104203_IsAdminProperty")]
+    partial class IsAdminProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -67,9 +70,6 @@ namespace financeapp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -80,6 +80,9 @@ namespace financeapp.Migrations
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

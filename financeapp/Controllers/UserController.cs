@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using financeapp.Data;
 using financeapp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace financeapp.Controllers
 {
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly FinancesContext _context;

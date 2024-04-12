@@ -42,15 +42,19 @@ public class LoginController : Controller
             return View(login);
         }
 
-        AuthenticateUser(login.Username);
+        if(!AuthenticateUser(login.Username))
+        {
+            ModelState.AddModelError("validation", "Failed to authenticate user, try again. If the problem persists, contact the administrator.");
+            return View(login);
+        }
 
         return RedirectToAction("Index", "Home");
     }
 
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
         // remove the cookie
-        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Home");
     }
 
@@ -83,17 +87,29 @@ public class LoginController : Controller
             return View(newAccount);
         }
 
-        AuthenticateUser(newAccount.Username, newAccount.Email);
+        if(!AuthenticateUser(newAccount.Username, newAccount.Email))
+        {
+            ModelState.AddModelError("validation", "Failed to authenticate user");
+            return View(newAccount);
+        }
 
         return RedirectToAction("Index", "Home");
     }
 
-    private void AuthenticateUser(string username, string? email = null, int expiresMinutes = 30)
+    private bool AuthenticateUser(string username, string? email = null, int expiresMinutes = 30)
     {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null)
+            return false;
+
         var claims = new List<Claim> {
-            new Claim(ClaimTypes.Name, username),
-            new Claim(ClaimTypes.Email, email ?? string.Empty),
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 		};
+
+        if (user.IsAdmin)
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
 
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -110,6 +126,7 @@ public class LoginController : Controller
             new ClaimsPrincipal(claimsIdentity),
             authProperties
         );
+        return true;
     }
 
 }

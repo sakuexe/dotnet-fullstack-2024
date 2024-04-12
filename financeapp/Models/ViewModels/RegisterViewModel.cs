@@ -32,7 +32,7 @@ public class RegisterViewModel
     {
         try
         {
-            using var transaction = context.Database.BeginTransaction();
+            var transaction = context.Database.BeginTransaction();
             context.Users.Add(new User
             {
                 Username = Username,

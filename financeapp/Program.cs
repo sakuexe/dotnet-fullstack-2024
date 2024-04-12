@@ -27,7 +27,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("NoAdminAccess", policy =>
     {
         policy.RequireAssertion(context =>
-            !(context.User.Identity.IsAuthenticated && context.User.IsInRole("Admin")));
+            !(context.User.Identity!.IsAuthenticated && context.User.IsInRole("Admin")));
     });
 });
 

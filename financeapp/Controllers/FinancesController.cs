@@ -35,17 +35,16 @@ public class FinancesController : Controller
     }
 
     [HttpPost]
-    public IActionResult PieChartData()
+    public async Task<IActionResult> PieChartData()
     {
         var username = User.Identity?.Name;
-        using var context = _context;
-        var expenses = context.Finances.Where(f => f.User.Username == username).ToList();
-        if (expenses.Count < 1)
+        var finances = await _context.Finances.Where(f => f.User.Username == username).ToListAsync();
+        if (finances.Count < 1)
         {
             return BadRequest("No expenses found");
         }
         // get the categories and the total amount spent on each category
-        var categories = expenses
+        var categories = finances
             .GroupBy(f => f.Category)
             .Select(g => new { Category = g.Key, Amount = g.Sum(f => f.AmountCents) })
             .OrderBy(c => c.Amount)

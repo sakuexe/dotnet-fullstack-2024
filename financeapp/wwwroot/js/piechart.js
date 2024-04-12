@@ -16,21 +16,21 @@ const pieChartOptions = {
 };
 
 export async function updatePieChart() {
-  console.log("updating piechart");
   // get the colors for the pie chart
   // they are stored in a json file, so that I can use the same
   // colors in the pie chart and the top categories
-  const colors = await fetch('/colors.json').then(res => res.json());
   const allPieChartData = await fetchPieChart('/finances/piechartdata');
-  createPieChart(allPieChartData, colors, pieChartOptions.total);
 
   const totalExpensesData = allPieChartData.filter(d => d.Amount < 0);
-  const expenseColors = colors.slice(0, totalExpensesData.length);
+  const expenseColors = await fetch('/expensecolors.json').then(res => res.json());
   createPieChart(totalExpensesData, expenseColors, pieChartOptions.expenses);
 
   const totalIncomeData = allPieChartData.filter(d => d.Amount > 0);
-  const incomeColors = colors.slice(expenseColors.length, totalIncomeData.length + expenseColors.length);
+  const incomeColors = await fetch('/incomecolors.json').then(res => res.json());
   createPieChart(totalIncomeData, incomeColors, pieChartOptions.incomes);
+
+  const colors = expenseColors.concat(incomeColors);
+  createPieChart(allPieChartData, colors, pieChartOptions.total);
 }
 
 document.addEventListener('DOMContentLoaded', async () => updatePieChart());
