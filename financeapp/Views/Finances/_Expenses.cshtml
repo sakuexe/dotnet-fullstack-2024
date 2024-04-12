@@ -6,8 +6,8 @@
   DateTime? currentDate = null;
   }
 
-  <div id="all_finances" class="grid text-primary overflow-y-auto overscroll-y-contain bg-stone-800 
-    outline outline-2 outline-stone-700 rounded-xl lg:max-h-[70vh]">
+  <div id="all_finances" class="flex flex-col text-primary overflow-y-auto overscroll-y-contain bg-stone-800 
+    outline outline-2 outline-stone-700 rounded-xl lg:h-[70vh]">
     @foreach (var item in Model)
     {
     @if (currentDate != item.CreatedAt.Date)

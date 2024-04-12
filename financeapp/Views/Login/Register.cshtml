@@ -1,44 +1,57 @@
 @using financeapp.Models.ViewModels
 @model RegisterViewModel
 
-<h2>Make a new user account</h2>
-<form asp-controller="Login" asp-action="Register" method="post" class="[&_span]:text-red-500">
-  <div class="flex flex-col gap-2">
-    <label asp-for="Username" class="font-bold">Username</label>
-    <input asp-for="Username" placeholder="coolguy123" class="border-[1px] rounded-md py-2 px-4" />
-    <span asp-validation-for="Username" class="px-4"></span>
-  </div>
+<section class="max-w-lg mx-auto space-y-2">
+  <h1 class="font-bold text-2xl">Make a new account</h1>
+  <form asp-controller="Login" asp-action="Register" method="post" class="outline outline-2 outline-stone-700 bg-stone-800 px-4 py-6 rounded-xl
+    space-y-4 [&_input]:bg-transparent [&_input]:border-stone-700">
+    <div class="flex flex-col">
+      <label asp-for="Username" class="font-bold">Username</label>
+      <input asp-for="Username" placeholder="coolguy123" class="border-2 rounded-md py-2 px-4" />
+      <span asp-validation-for="Username"
+        class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+    </div>
 
-  <div class="flex flex-col gap-2">
-    <label asp-for="Email" class="font-bold">Email</label>
-    <input asp-for="Email" placeholder="coolguy123" class="border-[1px] rounded-md py-2 px-4" />
-    <span asp-validation-for="Email" class="px-4"></span>
-  </div>
+    <div class="flex flex-col">
+      <label asp-for="Email" class="font-bold">Email</label>
+      <input asp-for="Email" placeholder="cool@guy.fi" class="border-[1px] rounded-md py-2 px-4" />
+      <span asp-validation-for="Email"
+        class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+    </div>
 
-  <div class="flex flex-col gap-2">
-    <label asp-for="Password" class="font-bold">Password</label>
-    <input asp-for="Password" placeholder="********" class="border-[1px] rounded-md py-2 px-4" />
-    <button type="button" class="show-password w-max">Show Password</button>
-    <span asp-validation-for="Password" class="px-4"></span>
-  </div>
+    <div class="flex flex-col">
+      <label asp-for="Password" class="font-bold">Password</label>
+      <div class="flex">
+        <input asp-for="Password" placeholder="********" class="border-2 rounded-l-md py-2 px-4 grow" />
+        <button type="button" class="show-password w-max bg-stone-700 rounded-r-md px-2">Show 👀</button>
+      </div>
+      <span asp-validation-for="Password"
+        class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+    </div>
 
-  <div class="flex flex-col gap-2">
-    <label asp-for="ConfirmPassword" class="font-bold">Confirm Password</label>
-    <input asp-for="ConfirmPassword" placeholder="********" class="border-[1px] rounded-md py-2 px-4" />
-    <button type="button" class="show-password w-max">Show Password</button>
-    <span asp-validation-for="ConfirmPassword" class="px-4"></span>
-  </div>
+    <div class="flex flex-col">
+      <label asp-for="ConfirmPassword" class="font-bold">Confirm Password</label>
+      <div class="flex">
+        <input asp-for="ConfirmPassword" placeholder="********" class="border-2 rounded-l-md py-2 px-4 grow" />
+        <button type="button" class="show-password w-max bg-stone-700 rounded-r-md px-2">Show 👀</button>
+      </div>
+      <span asp-validation-for="ConfirmPassword"
+        class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+    </div>
 
-  <span>@Html.ValidationMessage("validation")</span>
-  <hr>
+    <hr class="border-stone-600">
 
-  <div class="grid grid-rows-2 gap-2">
-    <button type="submit" class="py-2 px-4 bg-gradient-to-tr from-violet-600 to-purple-600 rounded-sm
-        transition-all hover:brightness-125">Register</button>
-    <button type="reset" class="py-2 px-4 border-violet-600 border rounded-sm
-        transition-all hover:bg-violet-600">Clear</button>
-  </div>
-</form>
+    <div class="grid grid-rows-2 gap-2">
+      <button type="submit" class="py-2 px-4 bg-gradient-to-r from-primary to-purple-600 rounded-md
+        motion-safe:transition-all hover:brightness-125">Login</button>
+      <button type="reset" class="py-2 px-4 border-stone-600 border rounded-md
+        motion-safe:transition-all hover:bg-stone-600">Clear</button>
+    </div>
+  </form>
+
+  <p>Already have an account?</p>
+  <a asp-controller="Login" asp-action="Register" class="text-primary-500">Login to an existing account</a>
+</section>
 
 @section Scripts {
 <script defer>
@@ -47,6 +60,8 @@
   function showPassword(field) {
     // toggle between text and password types
     field.type = field.type === 'password' ? 'text' : 'password';
+    const showBtn = field.nextElementSibling;
+    showBtn.textContent = field.type === 'password' ? 'Show 👀' : 'Hide 🕶️';
   }
   showPasswordButtons.forEach((button, index) => {
     const currentField = button.previousElementSibling;

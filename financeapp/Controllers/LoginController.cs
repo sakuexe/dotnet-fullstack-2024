@@ -33,14 +33,12 @@ public class LoginController : Controller
     {
         if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("validation", "Invalid username or password");
             return View(login);
         }
 
         if (!login.ValidateLogin(_context))
         {
-            Console.WriteLine("User not found with given username and password");
-            ModelState.AddModelError("validation", "User not found with given username and password");
+            ModelState.AddModelError("Username", "User not found with given username and password");
             return View(login);
         }
 

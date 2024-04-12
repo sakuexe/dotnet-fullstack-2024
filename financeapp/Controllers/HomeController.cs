@@ -27,6 +27,10 @@ public class HomeController : Controller
             return View("NotLoggedIn");
         }
         var dashboard = new DashboardViewModel(_context, User.Identity!.Name!);
+        if (dashboard.Finances.Count == 0)
+        {
+            return View("NoFinances", dashboard);
+        }
         return View(dashboard);
     }
 
