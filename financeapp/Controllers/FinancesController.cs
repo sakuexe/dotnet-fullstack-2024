@@ -166,16 +166,15 @@ public class FinancesController : Controller
                 Total = balance
             };
 
-            if (savingsDelta.totalByDays == null)
-                savingsDelta.totalByDays = new List<DayTotal>();
+            if (savingsDelta.totalByDays != null)
+                savingsDelta.totalByDays.Add(dayTotal);
             else
+                savingsDelta.totalByDays = new List<DayTotal>();
                 savingsDelta.totalByDays.Add(dayTotal);
         }
 
-        var user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
-        if (user == null)
-            return BadRequest("User not found");
-        savingsDelta.savingsGoal = user.SavingsGoal ?? 0;
+        var savingsGoal = _context.Users.Where(u => u.Username == username).FirstOrDefault()?.SavingsGoal ?? 0;
+        savingsDelta.savingsGoal = savingsGoal;
 
         var JSON = JsonSerializer.Serialize(savingsDelta);
         return Content(JSON, "application/json");
