@@ -1,44 +1,46 @@
 @model financeapp.Models.User
 
 @{
-    ViewData["Title"] = "Edit";
+ViewData["Title"] = "Edit";
 }
+<form asp-action="Edit" class="max-w-lg mx-auto outline outline-2 outline-stone-700
+  px-4 py-6 rounded-xl space-y-4 [&_input]:bg-transparent [&_input]:border-stone-700">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <input type="hidden" asp-for="Id" />
+  <div class="flex flex-col">
+    <label asp-for="Username"></label>
+    <input asp-for="Username" class="border-2 rounded-md py-2 px-4" />
+    <span asp-validation-for="Username"
+      class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+  </div>
+  <div class="flex flex-col">
+    <label asp-for="Password"></label>
+    <input asp-for="Password" class="border-2 rounded-md py-2 px-4" value="@Model.Password" />
+    <span asp-validation-for="Password"
+      class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+  </div>
+  <div class="flex flex-col">
+    <label asp-for="Email"></label>
+    <input asp-for="Email" class="border-2 rounded-md py-2 px-4" />
+    <span asp-validation-for="Email" 
+      class="px-4 py-1 mt-2 bg-gradient-to-r from-primary to-purple-600 rounded-md"></span>
+  </div>
+  <div class="space-x-4">
+    <input asp-for="IsAdmin" class="accent-primary" />
+    <label asp-for="IsAdmin"></label>
+    <span asp-validation-for="IsAdmin"></span>
+  </div>
 
-<h1>Edit</h1>
+  <hr class="border-stone-700">
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+  <div class="grid grid-rows-2 gap-2">
+    <button type="submit" class="py-2 px-4 bg-gradient-to-r from-primary to-purple-600 rounded-md
+      motion-safe:transition-all hover:brightness-125">Save</button>
+    <a asp-action="Index" class=" text-center py-2 px-4 border-stone-600 border rounded-md
+      motion-safe:transition-all hover:bg-stone-600">Back to List</a>
+  </div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

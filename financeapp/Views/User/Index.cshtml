@@ -4,44 +4,49 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="w-max mx-auto p-4 outline outline-2 outline-stone-600 rounded-xl">
+  <div class="flex gap-2 opacity-75 italic">
+      <p>
+          @Html.DisplayNameFor(model => model.Username)
+      </p>
+      <span class="opacity-75">|</span>
+      <p>
+          @Html.DisplayNameFor(model => model.Email)
+      </p>
+      <span class="opacity-75">|</span>
+      <p>
+          @Html.DisplayNameFor(model => model.Password)
+      </p>
+      <p class="ml-auto">
+          <a asp-action="Create" class="text-primary-400 not-italic">Create New User</a>
+      </p>
+  </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    <div class="flex gap-8 justify-between py-2">
+      <div class="flex gap-1">
+        <p>
+            @(item.IsAdmin ? "👑" : "")
+        </p>
+        <p>
+            @Html.DisplayFor(modelItem => item.Username)
+        </p>
+        <span class="opacity-75">|</span>
+        <p>
+            @Html.DisplayFor(modelItem => item.Email)
+        </p>
+        <span class="opacity-75">|</span>
+        <p>
+            @Html.DisplayFor(modelItem => item.Password)
+        </p>
+      </div>
+      <div class="flex gap-1">
+          <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+          <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+      </div>
+    </div>
+    @if (item != Model.Last()) {
+      <hr class="border-stone-500">
+    }
 }
-    </tbody>
-</table>
+</div>
