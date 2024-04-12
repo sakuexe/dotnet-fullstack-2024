@@ -17,7 +17,7 @@ public class DashboardViewModel
         public string Icon { get; set; }
     }
 
-    public List<CategoryTotal> GetTopCategories(int limit = 5)
+    public List<CategoryTotal> GetTopCategories(int limit = 4)
     {
         var categories = Finances
             .GroupBy(f => f.Category)

@@ -57,7 +57,7 @@ export async function updateUsersSavings() {
 }
 
 export async function getTotalSavings() {
-  const url = '/finances/getsavings';
+  const url = '/Savings';
   try {
     const response = await fetch(url, {
       method: 'POST',
