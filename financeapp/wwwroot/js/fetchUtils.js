@@ -32,11 +32,11 @@ export async function fetchPieChart(url) {
 export async function updateUsersSavings() {
   const form = document.querySelector("form#update_savings");
   const errorElement = form.querySelector('.error');
-  const url = '/finances/updatesavings';
+  const url = '/savings/updatesavings';
   const data = new FormData(form);
   // make sure that the given value is a float with 2 decimal places
   data.set('SavingsGoal', parseFloat(data.get('SavingsGoal')).toFixed(2));
-
+  let responsedata;
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -52,6 +52,7 @@ export async function updateUsersSavings() {
       errorElement.textContent += `${errors[error].ErrorMessage}\n`;
     }
   } catch (error) {
+    console.log(responsedata);
     console.error(error);
   }
 }
